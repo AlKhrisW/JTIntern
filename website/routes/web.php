@@ -6,13 +6,23 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
 
+// Landing Page
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('welcome', [
+        'title' => 'JTIntern - Sistem Rekomendasi Tempat Magang',
+    ]);
+})->name('home');
+
+// Tentang Kami
+Route::get('/tentang', function () {
+    return view('tentang', [
+        'title' => 'Tentang Kami - JTIntern',
+    ]);
+})->name('tentang');
+
+// Login route (placeholder — ganti dengan controller saat auth sudah dibuat)
+Route::get('/login', function () {
+    return redirect('/');
+})->name('login');
