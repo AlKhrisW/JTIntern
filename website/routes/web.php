@@ -35,6 +35,7 @@ Route::get('/login', function () {
 
 // sementara TANPA middleware dan auth controller, nanti ditambahkan setelah auth selesai dibuat
 Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
     //buat coba layout sidebar
     Route::get('/dashboard_CobaLayout', [AdminController::class, 'dashboard_CobaLayout'])->name('dashboard_CobaLayout');
     Route::get('/perusahaan_CobaLayout', [AdminController::class, 'perusahaan_CobaLayout'])->name('perusahaan_CobaLayout');

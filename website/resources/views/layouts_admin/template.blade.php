@@ -28,6 +28,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
         
         {{-- Custom CSS --}}
+        <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
         @stack('css')
     </head>
     <body>
@@ -36,9 +37,9 @@
 
         {{-- Sidebar --}}
         @include('layouts_admin.sidebar')
-
+        
         {{-- Main Content --}}
-        <main class="main-wrapper">
+        <main>
             {{-- Breadcrumb --}}
             @yield('breadcrumb')
 
@@ -49,9 +50,9 @@
         {{-- Footer --}}
         @include('layouts_admin.footer')
 
-        // =============================================
-        //  JavaScript
-        // =============================================
+        {{-- =============================================
+        JavaScript
+        ============================================= --}}
 
         {{-- jQuery --}}
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -81,6 +82,7 @@
         </script>
 
         {{-- Custom Javascript --}}
+        <script src="{{ asset('js/sidebar.js') }}"></script>
         @stack('js')
     </body>
 </html>

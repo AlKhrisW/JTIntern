@@ -7,29 +7,32 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function dashboard_CobaLayout()
-    {
-        return view('admin.dashboard_CobaLayout');
-    }
-    public function perusahaan_CobaLayout()
-    {
-        return view('admin.perusahaan_CobaLayout');
-    }
-    public function lowongan_CobaLayout()
-    {
-        return view('admin.lowongan_CobaLayout');
-    }
-    public function profil_CobaLayout()
-    {
-        return view('admin.profil_CobaLayout');
-    }
+    // public function dashboard_CobaLayout()
+    // {
+    //     return view('admin.dashboard_CobaLayout');
+    // }
+    // public function perusahaan_CobaLayout()
+    // {
+    //     return view('admin.perusahaan_CobaLayout');
+    // }
+    // public function lowongan_CobaLayout()
+    // {
+    //     return view('admin.lowongan_CobaLayout');
+    // }
+    // public function profil_CobaLayout()
+    // {
+    //     return view('admin.profil_CobaLayout');
+    // }
 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view('aldo.index', [
+            'activeMenu' => 'dashboard',
+            'title' => 'JTIntern - Sistem Rekomendasi Tempat Magang',
+        ]);
     }
 
     /**
