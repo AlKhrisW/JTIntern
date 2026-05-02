@@ -21,9 +21,4 @@ class WelcomeController extends Controller
             'title' => 'Tentang Kami - JTIntern',
         ]);
     }
-
-    public function masuk()
-    {
-        return view('admin.dashboard_CobaLayout');
-    }
 }

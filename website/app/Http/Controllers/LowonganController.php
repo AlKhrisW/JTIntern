@@ -12,7 +12,10 @@ class LowonganController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin_lowongan.index', [
+            'activeMenu' => 'lowongan',
+            'title' => 'JTIntern - Sistem Rekomendasi Tempat Magang',
+        ]);
     }
 
     /**
