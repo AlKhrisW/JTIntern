@@ -11,17 +11,17 @@
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-center flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link mx-lg-2 active" aria-current="page" href="#">Beranda</a>
+                        <a class="nav-link mx-lg-2 {{ ($activeMenu == 'home')? 'active' : '' }}" aria-current="page" href="{{ route('home') }}">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-lg-2" href="#">Rekomendasi</a>
+                        <a class="nav-link mx-lg-2 {{ ($activeMenu == 'rekomendasi')? 'active' : '' }}" href="{{ route('rekomendasi') }}">Rekomendasi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-lg-2" href="#">Tentang kami</a>
+                        <a class="nav-link mx-lg-2 {{ ($activeMenu == 'tentang')? 'active' : '' }}" href="{{ route('tentang') }}">Tentang kami</a>
                     </li>
                 </ul>
                 <br>
-                <a class="btn btn-sm-primary login-button" href="">Masuk sebagai Admin</a>
+                <a class="btn btn-sm-primary login-button" href="{{ route('masuk') }}">Masuk sebagai Admin</a>
             </div>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"

@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\LowonganController;
 use App\Http\Controllers\RekomendasiController;
+use App\Http\Controllers\WelcomeController;
 
 
 /*
@@ -15,18 +16,17 @@ use App\Http\Controllers\RekomendasiController;
 */
 
 // Landing Page
-Route::get('/', function () {
-    return view('welcome', [
-        'title' => 'JTIntern - Sistem Rekomendasi Tempat Magang',
-    ]);
-})->name('home');
+Route::get('/', [WelcomeController::class, 'index'])->name('home');
+Route::get('/tentang', [WelcomeController::class, 'tentang'])->name('tentang');
+Route::get('/masuk', [WelcomeController::class, 'masuk'])->name('masuk');
 
-// Tentang Kami
-Route::get('/tentang', function () {
-    return view('tentang', [
-        'title' => 'Tentang Kami - JTIntern',
-    ]);
-})->name('tentang');
+Route::group(['prefix' => 'rekomendasi'], function () {
+    Route::get('/', [RekomendasiController::class, 'index'])->name('rekomendasi');
+    Route::post('/store', [RekomendasiController::class, 'store'])->name('store');
+    Route::get('/hasil', [RekomendasiController::class, 'hasil'])->name('hasil');
+    Route::get('/detail/{id}', [RekomendasiController::class, 'detail'])->name('detail');
+});
+
 
 // Login route (placeholder — ganti dengan controller saat auth sudah dibuat)
 Route::get('/login', function () {

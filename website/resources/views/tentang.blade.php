@@ -1,47 +1,14 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tentang Kami - JTIntern</title>
+@extends('layouts_guest.template')
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+@push('css')
     <!-- Landing CSS (shared) -->
     <link rel="stylesheet" href="{{ asset('css/landing.css') }}">
 
     <!-- Tentang CSS (page-specific) -->
     <link rel="stylesheet" href="{{ asset('css/tentang.css') }}">
-</head>
-<body>
+@endpush
 
-    <!-- ===== NAVBAR ===== -->
-    <nav class="navbar">
-        <div class="navbar-brand">
-            <img src="{{ asset('images/logoJTIntern.png') }}" alt="JTIntern Logo" class="navbar-logo">
-        </div>
-
-        <ul class="navbar-nav">
-            <li><a href="{{ route('home') }}">Beranda</a></li>
-            <li><a href="{{ route('home') }}#rekomendasi">Rekomendasi</a></li>
-            <li><a href="{{ route('tentang') }}" class="active">Tentang Kami</a></li>
-        </ul>
-
-        @if (Route::has('login'))
-            @auth
-                <a href="{{ url('/home') }}" class="btn-admin">Dashboard</a>
-            @else
-                <a href="{{ route('login') }}" class="btn-admin">Masuk sebagai Admin</a>
-            @endauth
-        @endif
-    </nav>
-
+@section('content')
     <!-- ===== SECTION 1: MENGENAL JTINTERN ===== -->
     <section class="tentang-intro section">
         <div class="container">
@@ -70,7 +37,7 @@
                 <!-- Right: Image -->
                 <div class="intro-img-wrap">
                     <img src="https://i.pinimg.com/1200x/17/4e/32/174e32c7690dc7259a873d5b2f4b3292.jpg"
-                         alt="Tim JTIntern berdiskusi">
+                        alt="Tim JTIntern berdiskusi">
                 </div>
             </div>
 
@@ -151,7 +118,7 @@
                 <div class="misi-mosaic">
                     <div class="mosaic-top">
                         <img src="https://i.pinimg.com/1200x/b2/bc/92/b2bc92a31054fa6117dd8e9a2885e71a.jpg"
-                             alt="Profesional" class="mosaic-img-main">
+                            alt="Profesional" class="mosaic-img-main">
                         <div class="mosaic-icon-box mosaic-icon-top">
                             <i class="fas fa-handshake"></i>
                         </div>
@@ -161,7 +128,7 @@
                             <i class="fas fa-graduation-cap"></i>
                         </div>
                         <img src="https://i.pinimg.com/1200x/66/35/b8/6635b80a9421a25601c6f820bc07524c.jpg"
-                             alt="Tim diskusi" class="mosaic-img-small">
+                            alt="Tim diskusi" class="mosaic-img-small">
                     </div>
                 </div>
             </div>
@@ -182,7 +149,7 @@
                 <div class="tim-card">
                     <div class="tim-avatar">
                         <img src="https://i.pinimg.com/736x/b8/42/58/b842583b2176aace3eab9547d28d1239.jpg" alt="Aldo"
-                             onerror="this.style.display='none'">
+                            onerror="this.style.display='none'">
                     </div>
                     <div class="tim-name">Aldo</div>
                     <div class="tim-role">PENGEMBANG</div>
@@ -192,7 +159,7 @@
                 <div class="tim-card">
                     <div class="tim-avatar">
                         <img src="https://i.pinimg.com/736x/be/cd/ee/becdee9c1639bcc0bbd97f61baa67a08.jpg" alt="Aqila"
-                             onerror="this.style.display='none'">
+                            onerror="this.style.display='none'">
                     </div>
                     <div class="tim-name">Aqila</div>
                     <div class="tim-role">PENGEMBANG</div>
@@ -202,7 +169,7 @@
                 <div class="tim-card">
                     <div class="tim-avatar">
                         <img src="https://i.pinimg.com/736x/1f/2f/da/1f2fda9613986902f83d21e86cac5771.jpg" alt="Anastasya"
-                             onerror="this.style.display='none'">
+                            onerror="this.style.display='none'">
                     </div>
                     <div class="tim-name">Anastasya</div>
                     <div class="tim-role">PENGEMBANG</div>
@@ -212,7 +179,7 @@
                 <div class="tim-card">
                     <div class="tim-avatar">
                         <img src="https://i.pinimg.com/736x/22/60/e0/2260e0c9328c0b57fc409980df8148f2.jpg" alt="Meisy"
-                             onerror="this.style.display='none'">
+                            onerror="this.style.display='none'">
                     </div>
                     <div class="tim-name">Meisy</div>
                     <div class="tim-role">PENGEMBANG</div>
@@ -222,7 +189,7 @@
                 <div class="tim-card">
                     <div class="tim-avatar">
                         <img src="https://i.pinimg.com/736x/77/b3/e7/77b3e798936e420947797124fe2a5c87.jpg" alt="Qodri"
-                             onerror="this.style.display='none'">
+                            onerror="this.style.display='none'">
                     </div>
                     <div class="tim-name">Qodri</div>
                     <div class="tim-role">PENGEMBANG</div>
@@ -257,6 +224,4 @@
             <p class="footer-platform">Platform Rekomendasi Magang</p>
         </div>
     </footer>
-
-</body>
-</html>
+@endsection

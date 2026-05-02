@@ -12,7 +12,10 @@ class RekomendasiController extends Controller
      */
     public function index()
     {
-        //
+        return view('rekomendasi.index', [
+            'activeMenu' => 'rekomendasi',
+            'title' => 'Rekomendasi - JTIntern',
+        ]);
     }
 
     /**
