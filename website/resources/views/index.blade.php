@@ -1,49 +1,16 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>JTIntern - Sistem Rekomendasi Tempat Magang</title>
+@extends('layouts_guest.template')
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <!-- Landing CSS -->
+@push('css')
     <link rel="stylesheet" href="{{ asset('css/landing.css') }}">
-</head>
-<body>
+@endpush
 
-    <!-- ===== NAVBAR ===== -->
-    <nav class="navbar">
-        <div class="navbar-brand">
-            <img src="{{ asset('images/logoJTIntern.png') }}" alt="JTIntern Logo" class="navbar-logo">
-        </div>
-
-        <ul class="navbar-nav">
-            <li><a href="#" class="active">Beranda</a></li>
-            <li><a href="#rekomendasi">Rekomendasi</a></li>
-            <li><a href="{{ route('tentang') }}">Tentang Kami</a></li>
-        </ul>
-
-        @if (Route::has('login'))
-            @auth
-                <a href="{{ url('/home') }}" class="btn-admin">Dashboard</a>
-            @else
-                <a href="{{ route('login') }}" class="btn-admin">Masuk sebagai Admin</a>
-            @endauth
-        @endif
-    </nav>
-
+@section('content')
+    
     <!-- ===== HERO SECTION ===== -->
     <section class="hero" id="beranda">
         <div class="hero-bg">
             <img src="{{ asset('images/background.jpg') }}" alt="Background Foto">
-                 alt="Tim profesional di kantor">
+                alt="Tim profesional di kantor">
         </div>
 
         <div class="hero-container">
@@ -61,11 +28,11 @@
                     <strong>teknologi pencocokan cerdas kami.</strong>
                 </p>
                 <div class="hero-actions">
-                    <a href="#" class="btn-primary">   {{-- Diubah: tidak mengarah ke #rekomendasi --}}
+                    <a href="#" class="my-btn-primary">   {{-- Diubah: tidak mengarah ke #rekomendasi --}}
                         <i class="fas fa-search"></i>
                         Cari Rekomendasi Magang
                     </a>
-                    <a href="#panduan" class="btn-secondary">
+                    <a href="#panduan" class="my-btn-secondary">
                         Lihat Panduan
                     </a>
                 </div>
@@ -190,7 +157,7 @@
                 <!-- Feature Center: Image -->
                 <div class="feature-img-wrap">
                     <img src="{{ asset('images/keunggulan.jpg') }}" alt="Keunggulan Foto">
-                         alt="Tim berdiskusi bersama">
+                        alt="Tim berdiskusi bersama">
                 </div>
 
                 <!-- Feature Right -->
@@ -231,8 +198,8 @@
                     <div class="testimonial-author">
                         <div class="author-avatar">
                             <img src="https://randomuser.me/api/portraits/women/44.jpg"
-                                 alt="Siti Aminah"
-                                 onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-user\'></i>'">
+                                alt="Siti Aminah"
+                                onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-user\'></i>'">
                         </div>
                         <div>
                             <div class="author-name">Siti Aminah</div>
@@ -252,8 +219,8 @@
                     <div class="testimonial-author">
                         <div class="author-avatar">
                             <img src="https://randomuser.me/api/portraits/men/32.jpg"
-                                 alt="Budi Santoso"
-                                 onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-user\'></i>'">
+                                alt="Budi Santoso"
+                                onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-user\'></i>'">
                         </div>
                         <div>
                             <div class="author-name">Budi Santoso</div>
@@ -264,36 +231,4 @@
             </div>
         </div>
     </section>
-
-    <!-- ===== FOOTER ===== -->
-    <footer class="footer">
-        <div class="footer-inner">
-            <!-- Logo -->
-            <div class="footer-logo">
-                <img src="{{ asset('images/logoJTIntern.png') }}" alt="JTIntern Logo">
-            </div>
-
-            <!-- Nav Links -->
-            <nav class="footer-nav">
-                <a href="#">Kebijakan Privasi</a>
-                <a href="#">Syarat &amp; Ketentuan</a>
-                <a href="#">Bantuan</a>
-            </nav>
-
-            <!-- Icons -->
-            <div class="footer-icons">
-                <a href="#" aria-label="Website"><i class="fas fa-globe"></i></a>
-                <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p class="footer-copy">
-                &copy; 2026 JTI-Politeknik Negeri Malang. All Rights Reserved.
-            </p>
-            <p class="footer-platform">Platform Rekomendasi Magang</p>
-        </div>
-    </footer>
-
-</body>
-</html>
+@endsection

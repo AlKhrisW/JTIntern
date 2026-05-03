@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts_admin.template')
 
 @section('content')
     <h1>Admin Coba Layout</h1>

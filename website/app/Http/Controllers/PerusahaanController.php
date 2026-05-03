@@ -12,7 +12,11 @@ class PerusahaanController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin_perusahaan.index', [
+            'activeMenu' => 'perusahaan',
+            'breadcrumb' => 'Perusahaan',
+            'title' => 'JTIntern - Sistem Rekomendasi Tempat Magang',
+        ]);
     }
 
     /**

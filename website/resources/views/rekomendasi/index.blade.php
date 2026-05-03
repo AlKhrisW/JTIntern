@@ -1,0 +1,1 @@
+@extends('layouts_guest.template')
