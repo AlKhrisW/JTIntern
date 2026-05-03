@@ -17,7 +17,7 @@
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.navbar {
+/* .navbar {
     position: fixed;
     top: 0;
     left: 0;
@@ -82,7 +82,7 @@
 
 .navbar-nav a:hover {
     color: var(--green-primary);
-}
+} */
 
 .btn-admin {
     background: var(--green-primary);
@@ -103,14 +103,14 @@
     box-shadow: var(--shadow-sm);
 }
 
-@media (max-width: 640px) {
+/* @media (max-width: 640px) {
     .navbar {
         padding: 0 1rem;
     }
     .navbar-nav {
         display: none;
     }
-}
+} */
 
 /* ===== SECTION BASE (mirror landing.css) ===== */
 .section {

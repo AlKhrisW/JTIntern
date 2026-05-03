@@ -18,7 +18,7 @@
 }
 
 /* ===== RESET & BASE ===== */
-*, *::before, *::after {
+/* *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -45,10 +45,10 @@ img {
     max-width: 100%;
     height: auto;
     display: block;
-}
+} */
 
 /* ===== NAVBAR ===== */
-.navbar {
+/* .navbar {
     position: fixed;
     top: 0;
     left: 0;
@@ -130,7 +130,7 @@ img {
     border-color: var(--green-dark);
     transform: translateY(-1px);
     box-shadow: var(--shadow-sm);
-}
+} */
 
 /* ===== HERO SECTION ===== */
 .hero {
@@ -239,7 +239,7 @@ img {
     flex-wrap: wrap;
 }
 
-.btn-primary {
+.my-btn-primary {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -254,14 +254,14 @@ img {
     cursor: pointer;
 }
 
-.btn-primary:hover {
+.my-btn-primary:hover {
     background: var(--green-bg);
     border-color: var(--green-bg);
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(0,0,0,0.15);
 }
 
-.btn-secondary {
+.my-btn-secondary {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -276,7 +276,7 @@ img {
     cursor: pointer;
 }
 
-.btn-secondary:hover {
+.my-btn-secondary:hover {
     background: var(--green-dark);
     border-color: var(--green-dark);
     transform: translateY(-2px);
@@ -709,7 +709,7 @@ img {
 }
 
 /* ===== FOOTER ===== */
-.footer {
+/* .footer {
     background: #E7F5D2;
     color: var(--text-body);
     padding: 1.1rem 2rem;
@@ -818,7 +818,7 @@ img {
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 0.5rem;
-}
+} */
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
@@ -854,7 +854,7 @@ img {
         grid-template-columns: 1fr;
     }
 
-    .footer-inner {
+    /* .footer-inner {
         flex-direction: column;
         align-items: flex-start;
         gap: 1.2rem;
@@ -863,10 +863,10 @@ img {
     .footer-bottom {
         flex-direction: column;
         gap: 0.5rem;
-    }
+    } */
 }
 
-@media (max-width: 640px) {
+/* @media (max-width: 640px) {
     .navbar {
         padding: 0 1rem;
     }
@@ -878,4 +878,4 @@ img {
     .section {
         padding: 3.5rem 1rem;
     }
-}
+} */
