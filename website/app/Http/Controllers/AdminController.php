@@ -13,8 +13,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin_dashboard.index', [
-            'activeMenu' => 'dashboard',
+        return view('admin_profil.index', [
+            'activeMenu' => 'profil',
+            'breadcrumb' => 'Profil Admin',
             'title' => 'JTIntern - Sistem Rekomendasi Tempat Magang',
         ]);
     }

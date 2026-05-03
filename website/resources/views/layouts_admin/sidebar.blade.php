@@ -1,5 +1,5 @@
 <aside class="d-flex flex-column">
-    <div class="mb-3 header">
+    <div class="header">
         <button id="toggle">
             <i class="bi bi-columns-gap"></i>
         </button>
@@ -43,7 +43,7 @@
     </ul>
     <ul>
         <li class="nav-item">
-            <a href="#" class="nav-link {{ ($activeMenu == 'profil')? 'active' : '' }} ">
+            <a href="{{ route('admin.profil.index') }}" class="nav-link {{ ($activeMenu == 'profil')? 'active' : '' }} ">
                 <span class="icon">
                     <i class="bi bi-people"></i>
                 </span>
@@ -53,7 +53,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <span class="icon">
                     <i class="bi bi-box-arrow-right"></i>
                 </span>

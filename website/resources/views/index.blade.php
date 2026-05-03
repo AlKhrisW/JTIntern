@@ -231,34 +231,4 @@
             </div>
         </div>
     </section>
-
-    <!-- ===== FOOTER ===== -->
-    <footer class="footer">
-        <div class="footer-inner">
-            <!-- Logo -->
-            <div class="footer-logo">
-                <img src="{{ asset('images/logoJTIntern.png') }}" alt="JTIntern Logo">
-            </div>
-
-            <!-- Nav Links -->
-            <nav class="footer-nav">
-                <a href="#">Kebijakan Privasi</a>
-                <a href="#">Syarat &amp; Ketentuan</a>
-                <a href="#">Bantuan</a>
-            </nav>
-
-            <!-- Icons -->
-            <div class="footer-icons">
-                <a href="#" aria-label="Website"><i class="fas fa-globe"></i></a>
-                <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p class="footer-copy">
-                &copy; 2026 JTI-Politeknik Negeri Malang. All Rights Reserved.
-            </p>
-            <p class="footer-platform">Platform Rekomendasi Magang</p>
-        </div>
-    </footer>
 @endsection

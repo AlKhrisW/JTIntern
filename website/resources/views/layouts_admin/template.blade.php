@@ -28,7 +28,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
         
         {{-- Custom CSS --}}
-        <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/layout_admin.css') }}">
         @stack('css')
     </head>
     <body>
@@ -39,9 +39,9 @@
         @include('layouts_admin.sidebar')
         
         {{-- Main Content --}}
-        <main>
+        <main class="p-3">
             {{-- Breadcrumb --}}
-            @yield('breadcrumb')
+            @include('layouts_admin.breadcrumb')
 
             {{-- Page Content --}}
             @yield('content')

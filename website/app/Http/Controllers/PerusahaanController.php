@@ -14,6 +14,7 @@ class PerusahaanController extends Controller
     {
         return view('admin_perusahaan.index', [
             'activeMenu' => 'perusahaan',
+            'breadcrumb' => 'Perusahaan',
             'title' => 'JTIntern - Sistem Rekomendasi Tempat Magang',
         ]);
     }

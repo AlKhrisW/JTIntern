@@ -14,6 +14,7 @@ class LowonganController extends Controller
     {
         return view('admin_lowongan.index', [
             'activeMenu' => 'lowongan',
+            'breadcrumb' => 'Lowongan',
             'title' => 'JTIntern - Sistem Rekomendasi Tempat Magang',
         ]);
     }
