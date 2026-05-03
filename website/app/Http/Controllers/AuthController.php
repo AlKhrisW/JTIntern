@@ -12,7 +12,11 @@ class AuthController extends Controller
      */
     public function index()
     {
+<<<<<<< HEAD
+        //
+=======
         // 
+>>>>>>> be523814036b922b5854c154a805f933f2dd49d1
     }
 
     /**
