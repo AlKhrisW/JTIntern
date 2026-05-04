@@ -1,0 +1,192 @@
+<div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="modalTambahLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content modal-perusahaan">
+
+            <div class="modal-header border-0 pb-0">
+                <div class="modal-title-wrap">
+                    <div class="modal-icon-badge bg-success-soft">
+                        <i class="bi bi-building-add text-success"></i>
+                    </div>
+                    <div>
+                        <h5 class="modal-title fw-bold" id="modalTambahLabel">Tambah Perusahaan</h5>
+                        <p class="text-muted small mb-0">Isi data perusahaan atau instansi dengan lengkap</p>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form id="formTambah"
+                  action="{{ route('admin.perusahaan.store_ajax') }}"
+                  method="POST"
+                  enctype="multipart/form-data">
+                @csrf
+
+                <div class="modal-body pt-3">
+                    <div class="row g-3">
+
+                        {{-- Nama Perusahaan --}}
+                        <div class="col-12">
+                            <label class="form-label fw-semibold">Nama Perusahaan <span class="text-danger">*</span></label>
+                            <input type="text" name="nama_perusahaan" class="form-control form-control-modal"
+                                   placeholder="Contoh: PT. Maju Bersama Indonesia">
+                            <div class="invalid-feedback" id="err_nama_perusahaan"></div>
+                        </div>
+
+                        {{-- Jenis Perusahaan --}}
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Jenis Perusahaan <span class="text-danger">*</span></label>
+                            <select name="jenis_perusahaan" class="form-select form-control-modal">
+                                <option value="" disabled selected>-- Pilih Jenis --</option>
+                                <option value="swasta">Swasta</option>
+                                <option value="swasta nasional">Swasta Nasional</option>
+                                <option value="BUMN">BUMN</option>
+                                <option value="instansi pendidikan">Instansi Pendidikan</option>
+                            </select>
+                            <div class="invalid-feedback" id="err_jenis_perusahaan"></div>
+                        </div>
+
+                        {{-- Lokasi --}}
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Lokasi <span class="text-danger">*</span></label>
+                            <input type="text" name="lokasi" class="form-control form-control-modal"
+                                   placeholder="Contoh: Malang, Jawa Timur">
+                            <div class="invalid-feedback" id="err_lokasi"></div>
+                        </div>
+
+                        {{-- Profil Perusahaan --}}
+                        <div class="col-12">
+                            <label class="form-label fw-semibold">Profil Perusahaan <span class="text-danger">*</span></label>
+                            <textarea name="profil_perusahaan" rows="3" class="form-control form-control-modal"
+                                      placeholder="Deskripsi singkat tentang perusahaan..."></textarea>
+                            <div class="invalid-feedback" id="err_profil_perusahaan"></div>
+                        </div>
+
+                        {{-- Web Career --}}
+                        <div class="col-md-8">
+                            <label class="form-label fw-semibold">Website / Career Page</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class="bi bi-link-45deg text-muted"></i>
+                                </span>
+                                <input type="url" name="web_career" class="form-control form-control-modal border-start-0"
+                                       placeholder="https://careers.perusahaan.com">
+                            </div>
+                            <div class="invalid-feedback d-block" id="err_web_career"></div>
+                        </div>
+
+                        {{-- Logo Upload --}}
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">Logo Perusahaan</label>
+                            {{-- Ganti div → label with for="logoInput", sama persis seperti modal Edit --}}
+                            <label for="logoInput" class="logo-upload-area" id="logoUploadArea">
+                                <input type="file" name="logo" id="logoInput" accept="image/*" class="d-none">
+                                <div class="logo-preview" id="logoPreview">
+                                    <i class="bi bi-cloud-arrow-up fs-4 text-muted"></i>
+                                    <span class="small text-muted mt-1">Klik untuk upload</span>
+                                    <span class="x-small text-muted">JPG, PNG, SVG (max 2MB)</span>
+                                </div>
+                                <img id="logoImg" src="" alt="Preview" class="logo-preview-img d-none">
+                            </label>
+                            <div class="invalid-feedback d-block" id="err_logo"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-modal-cancel" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-modal-submit">
+                        <i class="bi bi-check-lg me-1"></i> Simpan
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<style>
+.modal-perusahaan { border-radius: 16px; border: none; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+.modal-header { padding: 1.5rem 1.5rem 1rem; }
+.modal-title-wrap { display: flex; align-items: center; gap: 0.85rem; }
+.modal-icon-badge {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+}
+.bg-success-soft { background: #e8f5e9; }
+.form-control-modal {
+    border: 1.5px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 0.55rem 0.9rem;
+    font-size: 0.9rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-control-modal:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 3px rgba(76,175,80,0.12);
+}
+.form-control-modal.is-invalid { border-color: #e53935; }
+.input-group .input-group-text { border-radius: 10px 0 0 10px; border: 1.5px solid #e8e8e8; border-right: none; }
+.input-group .form-control-modal { border-radius: 0 10px 10px 0; }
+
+label.logo-upload-area {
+    display: block;
+    border: 2px dashed #d0d0d0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    overflow: hidden;
+    height: 90px;
+    margin-bottom: 0;
+}
+label.logo-upload-area:hover { border-color: #4CAF50; background: #f9fffe; }
+.logo-preview {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    height: 100%;
+}
+.logo-preview-img { width: 100%; height: 90px; object-fit: contain; }
+.x-small { font-size: 0.7rem; }
+
+.btn-modal-cancel {
+    background: #f5f5f5; color: #555; border: none;
+    padding: 0.5rem 1.3rem; border-radius: 8px; font-weight: 500;
+}
+.btn-modal-cancel:hover { background: #e0e0e0; }
+.btn-modal-submit {
+    background: #4CAF50; color: #fff; border: none;
+    padding: 0.5rem 1.5rem; border-radius: 8px; font-weight: 600;
+}
+.btn-modal-submit:hover { background: #388e3c; color: #fff; }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var input = document.getElementById('logoInput');
+    if (input) {
+        input.addEventListener('change', function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var img     = document.getElementById('logoImg');
+                    var preview = document.getElementById('logoPreview');
+                    img.src = e.target.result;
+                    img.classList.remove('d-none');
+                    preview.classList.add('d-none');
+                };
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    }
+
+    // Clear validation errors on input
+    document.querySelectorAll('#formTambah .form-control-modal, #formTambah select').forEach(function (el) {
+        el.addEventListener('input', function () {
+            el.classList.remove('is-invalid');
+            var errEl = document.getElementById('err_' + el.name);
+            if (errEl) errEl.textContent = '';
+        });
+    });
+});
+</script>

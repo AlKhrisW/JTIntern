@@ -39,11 +39,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::prefix('perusahaan')->name('perusahaan.')->group(function () {
         Route::get('/', [PerusahaanController::class, 'index'])->name('index');
         Route::post('/list', [PerusahaanController::class, 'list'])->name('list');
+        Route::get('/show_ajax/{id}', [PerusahaanController::class, 'show_ajax'])->name('show_ajax');
         Route::get('/create_ajax', [PerusahaanController::class, 'create_ajax'])->name('create_ajax');
         Route::post('/store_ajax', [PerusahaanController::class, 'store_ajax'])->name('store_ajax');
         Route::get('/edit_ajax/{id}', [PerusahaanController::class, 'edit_ajax'])->name('edit_ajax');
         Route::put('/update_ajax/{id}', [PerusahaanController::class, 'update_ajax'])->name('update_ajax');
-        Route::delete('/delete_ajax/{id}', [PerusahaanController::class, 'delete_ajax'])->name('delete_ajax');
+        Route::get('/delete_ajax/{id}', [PerusahaanController::class, 'delete_ajax'])->name('delete_ajax');
+        Route::post('/destroy_ajax/{id}', [PerusahaanController::class, 'destroy_ajax'])->name('destroy_ajax');
     });
 
     Route::prefix('lowongan')->name('lowongan.')->group(function () {
