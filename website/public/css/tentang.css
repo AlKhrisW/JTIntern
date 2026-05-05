@@ -17,7 +17,11 @@
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+<<<<<<< HEAD
 .navbar {
+=======
+/* .navbar {
+>>>>>>> 83d3ece24f68a286e186fe112e97e5005699804f
     position: fixed;
     top: 0;
     left: 0;
@@ -82,7 +86,11 @@
 
 .navbar-nav a:hover {
     color: var(--green-primary);
+<<<<<<< HEAD
 }
+=======
+} */
+>>>>>>> 83d3ece24f68a286e186fe112e97e5005699804f
 
 .btn-admin {
     background: var(--green-primary);
@@ -103,14 +111,22 @@
     box-shadow: var(--shadow-sm);
 }
 
+<<<<<<< HEAD
 @media (max-width: 640px) {
+=======
+/* @media (max-width: 640px) {
+>>>>>>> 83d3ece24f68a286e186fe112e97e5005699804f
     .navbar {
         padding: 0 1rem;
     }
     .navbar-nav {
         display: none;
     }
+<<<<<<< HEAD
 }
+=======
+} */
+>>>>>>> 83d3ece24f68a286e186fe112e97e5005699804f
 
 /* ===== SECTION BASE (mirror landing.css) ===== */
 .section {
