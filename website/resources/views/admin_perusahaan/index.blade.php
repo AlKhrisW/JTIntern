@@ -84,19 +84,16 @@
                         </td>
                         <td class="text-end">
                             <div class="d-flex justify-content-end gap-2">
-                                {{-- Tombol Detail --}}
                                 <button class="btn-icon btn-show"
                                     data-id="{{ $p->perusahaan_id }}"
                                     title="Detail">
                                     <i class="bi bi-eye"></i>
                                 </button>
-                                {{-- Tombol Edit --}}
                                 <button class="btn-icon btn-edit"
                                     data-id="{{ $p->perusahaan_id }}"
                                     title="Edit">
                                     <i class="bi bi-pencil"></i>
                                 </button>
-                                {{-- Tombol Hapus --}}
                                 <button class="btn-icon btn-delete"
                                     data-id="{{ $p->perusahaan_id }}"
                                     data-nama="{{ $p->nama_perusahaan }}"
@@ -339,41 +336,123 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // --- Validasi client-side khusus form tambah ---
+    function validateFormTambah(form) {
+        let valid = true;
+
+        // Bersihkan semua error dulu
+        form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+        form.querySelectorAll('[id^="err_"]').forEach(el => el.textContent = '');
+
+        function showErr(name, msg) {
+            const el    = form.querySelector(`[name="${name}"]`);
+            const errEl = form.querySelector(`#err_${name}`);
+            if (el)    el.classList.add('is-invalid');
+            if (errEl) errEl.textContent = msg;
+            valid = false;
+        }
+
+        const nama = form.querySelector('[name="nama_perusahaan"]');
+        if (!nama?.value.trim())
+            showErr('nama_perusahaan', 'Nama perusahaan wajib diisi.');
+
+        const jenis = form.querySelector('[name="jenis_perusahaan"]');
+        if (!jenis?.value)
+            showErr('jenis_perusahaan', 'Jenis perusahaan wajib dipilih.');
+
+        const lokasi = form.querySelector('[name="lokasi"]');
+        if (!lokasi?.value.trim())
+            showErr('lokasi', 'Lokasi wajib diisi.');
+
+        const profil = form.querySelector('[name="profil_perusahaan"]');
+        if (!profil?.value.trim())
+            showErr('profil_perusahaan', 'Profil perusahaan wajib diisi.');
+
+        // web_career opsional — kalau diisi, harus URL valid
+        const web = form.querySelector('[name="web_career"]');
+        if (web?.value.trim()) {
+            try { new URL(web.value.trim()); }
+            catch (_) { showErr('web_career', 'Format URL tidak valid. Contoh: https://...'); }
+        }
+
+        // logo opsional — kalau diisi, cek tipe & ukuran
+        const logoInput = form.querySelector('[name="logo"]');
+        if (logoInput?.files?.[0]) {
+            const file    = logoInput.files[0];
+            const allowed = ['image/jpeg', 'image/png', 'image/svg+xml', 'image/webp'];
+            if (!allowed.includes(file.type)) {
+                showErr('logo', 'File harus berupa gambar (JPG, PNG, SVG, WebP).');
+            } else if (file.size > 2 * 1024 * 1024) {
+                showErr('logo', 'Ukuran logo maksimal 2MB.');
+            }
+        }
+
+        return valid;
+    }
+
     // --- Handle submit modal (create, edit, delete) ---
     document.getElementById('modalContainer').addEventListener('submit', function (e) {
         e.preventDefault();
-        const form     = e.target;
-        const formData = new FormData(form);
+        const form = e.target;
+
+        // Khusus form tambah: validasi client-side dulu
+        if (form.id === 'formTambah') {
+            if (!validateFormTambah(form)) {
+                // Ada error → scroll ke field pertama, modal tetap terbuka, STOP
+                const firstInvalid = form.querySelector('.is-invalid');
+                if (firstInvalid) {
+                    firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstInvalid.focus();
+                }
+                return;
+            }
+        }
+
+        // Semua lolos → kirim AJAX
+        const submitBtn = form.querySelector('[type="submit"]');
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Menyimpan...';
+        }
 
         fetch(form.action, {
-            method: 'POST',
-            body: formData,
+            method:  'POST',
+            body:    new FormData(form),
             headers: { 'X-Requested-With': 'XMLHttpRequest' }
         })
         .then(res => res.json())
         .then(data => {
-            const modalEl = document.querySelector('#modalContainer .modal');
-            if (modalEl) bootstrap.Modal.getInstance(modalEl)?.hide();
-
             if (data.status) {
+                // Sukses → BARU tutup modal, lalu reload
+                const modalEl = document.querySelector('#modalContainer .modal');
+                if (modalEl) bootstrap.Modal.getInstance(modalEl)?.hide();
                 showAlert('success', data.message ?? 'Berhasil.');
                 setTimeout(() => location.reload(), 1000);
             } else {
-                // Tampilkan error validasi per field jika ada
+                // Gagal → modal TETAP terbuka, tampilkan error per field
                 if (data.msgField) {
                     Object.entries(data.msgField).forEach(([field, messages]) => {
-                        const input = document.querySelector(`[name="${field}"]`);
-                        const errEl = document.getElementById('err_' + field) 
-                                   ?? document.getElementById('err_edit_' + field);
+                        const input = form.querySelector(`[name="${field}"]`);
+                        const errEl = form.querySelector(`#err_${field}`)
+                                   ?? form.querySelector(`#err_edit_${field}`);
                         if (input)  input.classList.add('is-invalid');
                         if (errEl)  errEl.textContent = messages[0];
                     });
+                    const firstInvalid = form.querySelector('.is-invalid');
+                    if (firstInvalid) firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
                 showAlert('danger', data.message ?? 'Terjadi kesalahan.');
             }
         })
-        .catch(() => showAlert('danger', 'Terjadi kesalahan pada server.'));
+        .catch(() => showAlert('danger', 'Terjadi kesalahan pada server.'))
+        .finally(() => {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="bi bi-check-lg me-1"></i> Simpan';
+            }
+        });
     });
+
 });
 </script>
 @endsection
