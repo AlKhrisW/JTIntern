@@ -84,7 +84,9 @@
                     <div class="step-icon-wrap">
                         <span class="step-number">01</span>
                         <div class="step-icon">
-                            <i class="fas fa-user-plus"></i>
+                            <img src="/images/16.png" 
+                                alt="Isi Data Diri" 
+                                class="step-icon-image rounded-circle">
                         </div>
                     </div>
                     <h3 class="step-title">Isi Data Diri</h3>
@@ -99,7 +101,9 @@
                     <div class="step-icon-wrap">
                         <span class="step-number">02</span>
                         <div class="step-icon">
-                            <i class="fas fa-brain"></i>
+                            <img src="/images/17.png" 
+                                alt="Sistem Mencocokkan" 
+                                class="step-icon-image rounded-circle">
                         </div>
                     </div>
                     <h3 class="step-title">Sistem Mencocokkan</h3>
@@ -114,7 +118,9 @@
                     <div class="step-icon-wrap">
                         <span class="step-number">03</span>
                         <div class="step-icon">
-                            <i class="fas fa-clipboard-check"></i>
+                            <img src="/images/18.png" 
+                                alt="Lihat Rekomendasi" 
+                                class="step-icon-image rounded-circle">
                         </div>
                     </div>
                     <h3 class="step-title">Lihat Rekomendasi</h3>
@@ -140,7 +146,9 @@
                 <!-- Feature Left -->
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
+                        <img src="/images/19.jpg" 
+                                alt="Rekomendasi Personal" 
+                                class="feature-icon-image">
                     </div>
                     <h3 class="feature-title">Rekomendasi Personal</h3>
                     <p class="feature-desc">
@@ -163,7 +171,9 @@
                 <!-- Feature Right -->
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-download"></i>
+                        <img src="/images/20.jpg" 
+                                alt="Mitra Terpercaya" 
+                                class="feature-icon-image">
                     </div>
                     <h3 class="feature-title">Mitra Terpercaya</h3>
                     <p class="feature-desc">
