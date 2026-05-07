@@ -14,11 +14,25 @@ class PerusahaanController extends Controller
     {
         $query = PerusahaanModel::orderBy('created_at', 'desc');
 
+        // FILTER JENIS
         if ($request->filled('jenis')) {
             $query->where('jenis_perusahaan', $request->jenis);
         }
 
-        $perusahaans     = $query->paginate(10)->withQueryString();
+        // SEARCH GLOBAL
+        if ($request->filled('search')) {
+            $keyword = $request->search;
+
+            $query->where(function ($q) use ($keyword) {
+                $q->where('nama_perusahaan', 'like', '%' . $keyword . '%')
+                ->orWhere('jenis_perusahaan', 'like', '%' . $keyword . '%')
+                ->orWhere('lokasi', 'like', '%' . $keyword . '%')
+                ->orWhere('profil_perusahaan', 'like', '%' . $keyword . '%');
+            });
+        }
+
+        $perusahaans = $query->paginate(10)->withQueryString();
+
         $totalPerusahaan = PerusahaanModel::where('jenis_perusahaan', '!=', 'instansi pendidikan')->count();
         $totalInstansi   = PerusahaanModel::where('jenis_perusahaan', 'instansi pendidikan')->count();
 
@@ -65,14 +79,6 @@ class PerusahaanController extends Controller
             'lokasi'            => 'required|string|max:255',
             'web_career'        => 'nullable|url|max:255',
             'logo'              => 'nullable|image|mimes:jpg,jpeg,png,svg,webp|max:2048',
-        ], [
-            'nama_perusahaan.required'   => 'Nama perusahaan wajib diisi.',
-            'jenis_perusahaan.required'  => 'Jenis perusahaan wajib diisi.',
-            'profil_perusahaan.required' => 'Profil perusahaan wajib diisi.',
-            'lokasi.required'            => 'Lokasi wajib diisi.',
-            'web_career.url'             => 'Format URL tidak valid.',
-            'logo.image'                 => 'File harus berupa gambar.',
-            'logo.max'                   => 'Ukuran logo maksimal 2MB.',
         ]);
 
         if ($validator->fails()) {
@@ -131,6 +137,7 @@ class PerusahaanController extends Controller
         }
 
         $logoPath = $perusahaan->logo;
+
         if ($request->hasFile('logo')) {
             if ($logoPath) {
                 Storage::disk('public')->delete($logoPath);

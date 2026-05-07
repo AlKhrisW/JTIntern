@@ -87,6 +87,8 @@
 
         {{-- Custom Javascript --}}
         <script src="{{ asset('js/sidebar.js') }}"></script>
+
+        <script src="[cdn.jsdelivr.net](https://cdn.jsdelivr.net/npm/sweetalert2@11)"></script>
         @stack('js')
     </body>
 </html>
