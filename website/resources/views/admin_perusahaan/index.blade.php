@@ -249,6 +249,7 @@
 .btn-delete       { color: #e53935; background: #ffebee; }
 .btn-delete:hover { background: #ffcdd2; color: #b71c1c; }
 
+/* ===== Pagination ===== */
 .pagination-custom .pagination { margin: 0; gap: 4px; }
 .pagination-custom .page-link {
     border-radius: 8px !important;
@@ -268,6 +269,14 @@
     background: #e8f5e9;
     border-color: #a5d6a7;
     color: #2e7d32;
+}
+
+/* ===== Sembunyikan teks "Showing X to Y of Z results" bawaan Bootstrap pagination ===== */
+.pagination-custom p,
+.pagination-custom [role="status"],
+nav[aria-label="Pagination Navigation"] p,
+nav[aria-label="Pagination Navigation"] [role="status"] {
+    display: none !important;
 }
 </style>
 
