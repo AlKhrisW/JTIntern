@@ -26,20 +26,23 @@
 
         {{-- SweetAlert2 CSS --}}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-        
+
         {{-- Custom CSS --}}
         <link rel="stylesheet" href="{{ asset('css/layout_admin.css') }}">
         @stack('css')
     </head>
-    <body>
+
+    {{-- ✅ FIX: body flex column min-vh-100 agar footer selalu di bawah --}}
+    <body class="d-flex flex-column min-vh-100">
+
         {{-- Header --}}
         @include('layouts_admin.header')
 
         {{-- Sidebar --}}
         @include('layouts_admin.sidebar')
-        
-        {{-- Main Content --}}
-        <main class="p-3">
+
+        {{-- ✅ FIX: flex-grow-1 agar main mengisi sisa ruang, dorong footer ke bawah --}}
+        <main class="p-3 flex-grow-1">
             {{-- Breadcrumb --}}
             @include('layouts_admin.breadcrumb')
 
@@ -53,10 +56,6 @@
         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf
         </form>
-
-        {{-- =============================================
-        JavaScript
-        ============================================= --}}
 
         {{-- jQuery --}}
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -76,7 +75,7 @@
         {{-- SweetAlert2 --}}
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        {{-- csrf token --}}
+        {{-- CSRF Token untuk AJAX --}}
         <script>
             $.ajaxSetup({
                 headers: {
@@ -88,7 +87,6 @@
         {{-- Custom Javascript --}}
         <script src="{{ asset('js/sidebar.js') }}"></script>
 
-        <script src="[cdn.jsdelivr.net](https://cdn.jsdelivr.net/npm/sweetalert2@11)"></script>
         @stack('js')
     </body>
 </html>
