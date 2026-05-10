@@ -14,75 +14,8 @@
     --shadow-md: 0 8px 32px rgba(58, 125, 30, 0.15);
     --shadow-lg: 0 20px 60px rgba(58, 125, 30, 0.2);
     --border-radius: 12px;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-/* .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background: rgba(255, 255, 255, 0.97);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(58, 125, 30, 0.08);
-    padding: 0 2rem;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 2px 20px rgba(58, 125, 30, 0.06);
-    transition: var(--transition);
-}
-
-.navbar-brand {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.navbar-logo {
-    height: 42px;
-    width: auto;
-}
-
-.navbar-nav {
-    display: flex;
-    align-items: center;
-    gap: 2.5rem;
-    list-style: none;
-}
-
-.navbar-nav a {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--text-body);
-    transition: var(--transition);
-    position: relative;
-    padding-bottom: 2px;
-    text-decoration: none;
-}
-
-.navbar-nav a.active {
-    color: var(--green-primary);
-    font-weight: 600;
-}
-
-.navbar-nav a.active::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--green-primary);
-    border-radius: 2px;
-}
-
-.navbar-nav a:hover {
-    color: var(--green-primary);
-} */
 
 .btn-admin {
     background: var(--green-primary);
@@ -103,16 +36,7 @@
     box-shadow: var(--shadow-sm);
 }
 
-/* @media (max-width: 640px) {
-    .navbar {
-        padding: 0 1rem;
-    }
-    .navbar-nav {
-        display: none;
-    }
-} */
-
-/* ===== SECTION BASE (mirror landing.css) ===== */
+/* ===== SECTION BASE ===== */
 .section {
     padding: 5rem 2rem;
 }
@@ -137,7 +61,7 @@
     max-width: 560px;
 }
 
-/* ===== FOOTER (mirror landing.css) ===== */
+/* ===== FOOTER ===== */
 .footer {
     background: #E7F5D2;
     color: var(--text-body);
@@ -250,7 +174,7 @@
 
 /* ===== PAGE: TENTANG INTRO ===== */
 .tentang-intro {
-    padding-top: 7rem; /* offset fixed navbar */
+    padding-top: 7rem;
     padding-bottom: 5rem;
     padding-left: 2rem;
     padding-right: 2rem;
@@ -313,6 +237,7 @@
     line-height: 1.5;
 }
 
+/* ===== INTRO IMAGE — slow smooth float ===== */
 .intro-img-wrap {
     border-radius: 16px;
     overflow: hidden;
@@ -325,11 +250,30 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    animation: img-subtle-float 14s ease-in-out infinite alternate;
+    will-change: transform;
+}
+
+@keyframes img-subtle-float {
+    0%   { transform: scale(1) translateY(0px); }
+    50%  { transform: scale(1.025) translateY(-5px); }
+    100% { transform: scale(1.05) translateY(-10px); }
 }
 
 .intro-img-wrap:hover img {
-    transform: scale(1.04);
+    animation-play-state: paused;
+}
+
+/* Gradient overlay */
+.intro-img-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(transparent, rgba(58,125,30,0.12));
+    pointer-events: none;
 }
 
 /* ===== STATS ROW ===== */
@@ -345,6 +289,11 @@
     text-align: center;
     padding: 1rem 0.5rem;
     position: relative;
+    transition: var(--transition);
+}
+
+.stat-item:hover {
+    transform: translateY(-4px);
 }
 
 .stat-item:not(:last-child)::after {
@@ -405,21 +354,110 @@
     align-items: flex-start;
 }
 
+/* ===== MISI ICON — foto bulat dengan ring animasi ===== */
 .misi-icon {
-    width: 42px;
-    height: 42px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
     flex-shrink: 0;
     margin-top: 2px;
+    position: relative;
     transition: var(--transition);
 }
 
-.misi-item:hover .misi-icon {
-    transform: scale(1.1);
+/* Versi foto */
+.misi-icon--photo {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: visible;          /* supaya ring tidak terpotong */
+    box-shadow: 0 4px 16px rgba(58, 125, 30, 0.22);
+}
+
+/* Gambar di dalam bulatan */
+.misi-icon-img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: contain;
+    display: block;
+    border: 3px solid rgba(126, 200, 50, 0.5);
+    box-shadow: 0 3px 12px rgba(58, 125, 30, 0.18);
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.4s ease;
+    position: relative;
+    z-index: 1;
+}
+
+/* Spinning dashed ring — lambat & halus */
+.misi-icon--photo::before {
+    content: '';
+    position: absolute;
+    inset: -7px;
+    border-radius: 50%;
+    border: 2px dashed rgba(58, 125, 30, 0.35);
+    animation: spin-ring 18s linear infinite;
+    will-change: transform;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Glow ring saat hover */
+.misi-icon--photo::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transition: border-color 0.5s ease, box-shadow 0.5s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes spin-ring {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* Item 1 — ring hijau */
+.misi-item:nth-child(1) .misi-icon--photo::before {
+    border-color: rgba(58, 125, 30, 0.4);
+    animation-duration: 18s;
+    animation-direction: normal;
+}
+
+/* Item 2 — ring kuning, berlawanan */
+.misi-item:nth-child(2) .misi-icon--photo::before {
+    border-color: rgba(200, 168, 0, 0.4);
+    animation-duration: 22s;
+    animation-direction: reverse;
+}
+
+/* Item 3 — ring hijau muda */
+.misi-item:nth-child(3) .misi-icon--photo::before {
+    border-color: rgba(93, 176, 42, 0.4);
+    animation-duration: 20s;
+}
+
+/* Hover — foto zoom + ring cepat + glow */
+.misi-item:hover .misi-icon-img {
+    transform: scale(1.12);
+    box-shadow: 0 6px 22px rgba(58, 125, 30, 0.35);
+    border-color: var(--green-accent);
+}
+
+.misi-item:hover .misi-icon--photo::before {
+    animation-duration: 4s !important;
+    border-width: 2.5px;
+    opacity: 1;
+}
+
+.misi-item:hover .misi-icon--photo::after {
+    border-color: rgba(126, 200, 50, 0.5);
+    box-shadow: 0 0 0 4px rgba(126, 200, 50, 0.1);
 }
 
 .misi-item-title {
@@ -435,7 +473,8 @@
     line-height: 1.65;
 }
 
-/* ===== MOSAIC IMAGE LAYOUT ===== */
+/* ===== MOSAIC IMAGE LAYOUT — slow, smooth float ===== */
+/* Hapus icon-box, hanya 2 gambar full-width */
 .misi-mosaic {
     display: flex;
     flex-direction: column;
@@ -451,46 +490,94 @@
 }
 
 .mosaic-img-main {
-    flex: 1;
+    width: 100%;
     height: 200px;
     object-fit: cover;
-    border-radius: 14px;
-    box-shadow: var(--shadow-sm);
+    border-radius: 16px;
+    box-shadow: var(--shadow-md);
+    animation: mosaic-float-up 13s ease-in-out infinite alternate;
+    will-change: transform;
+    transition: box-shadow 0.5s ease;
 }
 
 .mosaic-img-small {
-    flex: 1;
+    width: 100%;
     height: 160px;
     object-fit: cover;
-    border-radius: 14px;
-    box-shadow: var(--shadow-sm);
+    border-radius: 16px;
+    box-shadow: var(--shadow-md);
+    animation: mosaic-float-down 16s ease-in-out infinite alternate;
+    will-change: transform;
+    transition: box-shadow 0.5s ease;
 }
 
-.mosaic-icon-box {
-    width: 100px;
-    height: auto;
-    min-height: 100px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    flex-shrink: 0;
+/* Slow, elegant float keyframes */
+@keyframes mosaic-float-up {
+    0%   { transform: translateY(0px) scale(1); }
+    50%  { transform: translateY(-6px) scale(1.008); }
+    100% { transform: translateY(-12px) scale(1.015); }
 }
 
-.mosaic-icon-top {
-    background: #e8f5e0;
-    color: var(--green-primary);
-    align-self: center;
-    height: 120px;
+@keyframes mosaic-float-down {
+    0%   { transform: translateY(0px) scale(1); }
+    50%  { transform: translateY(6px) scale(1.008); }
+    100% { transform: translateY(12px) scale(1.015); }
 }
 
-.mosaic-icon-bottom {
-    background: #f0f9e6;
-    color: var(--green-light);
-    align-self: center;
-    height: 100px;
+.mosaic-img-main:hover,
+.mosaic-img-small:hover {
+    animation-play-state: paused;
+    box-shadow: var(--shadow-lg);
 }
+
+/* ===== KEYFRAMES GLOBAL ===== */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounceIcon {
+    0%, 100% { transform: scale(1); }
+    40%       { transform: scale(1.28); }
+    70%       { transform: scale(0.92); }
+}
+
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-32px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(32px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ===== SCROLL-REVEAL ===== */
+[data-reveal] {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-reveal="left"] {
+    transform: translateX(-32px);
+}
+
+[data-reveal="right"] {
+    transform: translateX(32px);
+}
+
+[data-reveal].revealed {
+    opacity: 1;
+    transform: translate(0);
+}
+
+[data-reveal-delay="1"] { transition-delay: 0.12s; }
+[data-reveal-delay="2"] { transition-delay: 0.28s; }
+[data-reveal-delay="3"] { transition-delay: 0.44s; }
+[data-reveal-delay="4"] { transition-delay: 0.60s; }
+[data-reveal-delay="5"] { transition-delay: 0.76s; }
 
 /* ===== SECTION 3: TIM ===== */
 .tim-section {
@@ -514,7 +601,7 @@
 }
 
 .tim-card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-8px);
 }
 
 .tim-avatar {
@@ -522,10 +609,23 @@
     height: 110px;
     border-radius: 50%;
     overflow: hidden;
-    border: 4px solid var(--green-accent);
+    border: 3px solid var(--green-accent);
     box-shadow: 0 4px 20px rgba(58, 125, 30, 0.2);
     background: var(--green-bg);
     transition: var(--transition);
+    position: relative;
+}
+
+/* Spinning ring on avatar — lebih lambat */
+.tim-avatar::before {
+    content: '';
+    position: absolute;
+    inset: -7px;
+    border-radius: 50%;
+    border: 2px dashed rgba(126, 200, 50, 0.35);
+    animation: spin-ring 16s linear infinite;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .tim-card:hover .tim-avatar {
@@ -533,11 +633,21 @@
     box-shadow: 0 8px 28px rgba(58, 125, 30, 0.3);
 }
 
+.tim-card:hover .tim-avatar::before {
+    animation-duration: 3s;
+    border-color: rgba(58, 125, 30, 0.65);
+}
+
 .tim-avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tim-card:hover .tim-avatar img {
+    transform: scale(1.1);
 }
 
 .tim-name {
@@ -576,7 +686,7 @@
     }
 
     .misi-mosaic {
-        display: none; /* hide on mobile to keep it clean */
+        display: none;
     }
 
     .intro-img-wrap {

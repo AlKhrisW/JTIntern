@@ -31,6 +31,11 @@ Route::group(['prefix' => 'rekomendasi'], function () {
 // Login route 
 Route::get('/masuk', [AuthController::class, 'index'])->name('login');
 Route::post('/masuk', [AuthController::class, 'store'])->name('login.store');
+Route::get('/lupa-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
+Route::post('/lupa-password', [AuthController::class, 'sendResetLink'])->name('password.email');
+Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+Route::post('/keluar', [AuthController::class, 'logout'])->name('logout');
 
 // sementara TANPA middleware dan auth controller, nanti ditambahkan setelah auth selesai dibuat
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -58,10 +63,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('/delete_ajax/{id}', [LowonganController::class, 'delete_ajax'])->name('delete_ajax');
     });
 
+    // Profil Admin
     Route::prefix('profil')->name('profil.')->group(function () {
-        Route::get('/', [AdminController::class, 'index'])->name('index');
-        Route::post('/update', [AdminController::class, 'profil_update'])->name('update');
-        Route::post('/change_password', [AdminController::class, 'profil_changePassword'])->name('change_password');
+        Route::get('/',                [AdminController::class, 'index'])->name('index');
+        Route::post('/update',         [AdminController::class, 'profil_update'])->name('update');
+        Route::post('/change_password',[AdminController::class, 'profil_changePassword'])->name('change_password');
         Route::post('/update_picture', [AdminController::class, 'profil_updatePicture'])->name('update_picture');
     });
 });
