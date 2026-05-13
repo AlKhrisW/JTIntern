@@ -63,10 +63,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('/delete_ajax/{id}', [LowonganController::class, 'delete_ajax'])->name('delete_ajax');
     });
 
+    // Profil Admin
     Route::prefix('profil')->name('profil.')->group(function () {
-        Route::get('/', [AdminController::class, 'index'])->name('index');
-        Route::post('/update', [AdminController::class, 'profil_update'])->name('update');
-        Route::post('/change_password', [AdminController::class, 'profil_changePassword'])->name('change_password');
+        Route::get('/',                [AdminController::class, 'index'])->name('index');
+        Route::post('/update',         [AdminController::class, 'profil_update'])->name('update');
+        Route::post('/change_password',[AdminController::class, 'profil_changePassword'])->name('change_password');
         Route::post('/update_picture', [AdminController::class, 'profil_updatePicture'])->name('update_picture');
     });
 });

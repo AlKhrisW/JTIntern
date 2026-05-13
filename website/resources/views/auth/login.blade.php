@@ -67,6 +67,13 @@
                 </button>
             </form>
 
+            <div class="login-back-wrap">
+                <a href="{{ route('home') }}" class="login-back">
+                    <i class="bi bi-arrow-left-short"></i>
+                    Kembali ke Beranda
+                </a>
+            </div>
+
             <p class="login-copy">&copy; 2026 JTINTERN</p>
         </section>
 
