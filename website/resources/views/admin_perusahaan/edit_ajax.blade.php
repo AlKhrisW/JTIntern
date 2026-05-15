@@ -39,9 +39,9 @@
                             <label class="form-label fw-semibold">Jenis Perusahaan <span class="text-danger">*</span></label>
                             <select name="jenis_perusahaan" class="form-select form-control-modal">
                                 <option value="" disabled>-- Pilih Jenis --</option>
-                                <option value="swasta"              {{ $perusahaan->jenis_perusahaan == 'swasta'             ? 'selected' : '' }}>Swasta</option>
-                                <option value="swasta nasional"     {{ $perusahaan->jenis_perusahaan == 'swasta nasional'    ? 'selected' : '' }}>Swasta Nasional</option>
-                                <option value="BUMN"                {{ $perusahaan->jenis_perusahaan == 'BUMN'               ? 'selected' : '' }}>BUMN</option>
+                                <option value="swasta"              {{ $perusahaan->jenis_perusahaan == 'swasta'              ? 'selected' : '' }}>Swasta</option>
+                                <option value="swasta nasional"     {{ $perusahaan->jenis_perusahaan == 'swasta nasional'     ? 'selected' : '' }}>Swasta Nasional</option>
+                                <option value="BUMN"                {{ $perusahaan->jenis_perusahaan == 'BUMN'                ? 'selected' : '' }}>BUMN</option>
                                 <option value="instansi pendidikan" {{ $perusahaan->jenis_perusahaan == 'instansi pendidikan' ? 'selected' : '' }}>Instansi Pendidikan</option>
                             </select>
                             <div class="invalid-feedback" id="err_edit_jenis_perusahaan"></div>
@@ -81,25 +81,21 @@
                         {{-- Logo Upload --}}
                         <div class="col-md-4">
                             <label class="form-label fw-semibold">Logo Perusahaan</label>
-                            <label for="logoEditInput" class="logo-upload-area">
-                                @if($perusahaan->logo)
-                                    <img id="logoEditImg"
-                                         src="{{ asset('storage/' . $perusahaan->logo) }}"
-                                         alt="Logo" class="logo-preview-img">
-                                    <div class="logo-preview d-none" id="logoEditPlaceholder">
-                                        <i class="bi bi-cloud-arrow-up fs-4 text-muted"></i>
-                                        <span class="small text-muted mt-1">Klik untuk ganti</span>
-                                    </div>
-                                @else
-                                    <img id="logoEditImg" src="" alt="Logo" class="logo-preview-img d-none">
-                                    <div class="logo-preview" id="logoEditPlaceholder">
-                                        <i class="bi bi-cloud-arrow-up fs-4 text-muted"></i>
-                                        <span class="small text-muted mt-1">Klik untuk upload</span>
-                                        <span class="x-small text-muted">JPG, PNG, SVG (max 2MB)</span>
-                                    </div>
-                                @endif
-                                <input type="file" name="logo" id="logoEditInput" accept="image/*" class="d-none">
-                            </label>
+
+                            <input type="file" name="logo" id="logoEditInput" accept="image/*" class="d-none">
+
+                            <div class="input-group">
+                                <label for="logoEditInput"
+                                       class="form-control form-control-modal logo-path-display text-truncate mb-0"
+                                       id="logoEditDisplay"
+                                       title="{{ $perusahaan->logo ?? '' }}">
+                                    <span class="logo-text {{ $perusahaan->logo ? '' : 'text-muted' }}">
+                                        {{ $perusahaan->logo ?? 'Pilih file gambar...' }}
+                                    </span>
+                                </label>
+                                <label for="logoEditInput" class="btn btn-browse mb-0">Browse</label>
+                            </div>
+
                             <div class="invalid-feedback d-block" id="err_edit_logo"></div>
                         </div>
 
@@ -141,21 +137,37 @@
 .input-group .input-group-text { border-radius: 10px 0 0 10px; border: 1.5px solid #e8e8e8; border-right: none; }
 .input-group .form-control-modal { border-radius: 0 10px 10px 0; }
 
-label.logo-upload-area {
-    display: block;
-    border: 2px dashed #d0d0d0; border-radius: 10px;
-    cursor: pointer; transition: border-color 0.2s, background 0.2s;
-    overflow: hidden; height: 90px;
-    margin-bottom: 0;
+.logo-path-display {
+    border-radius: 10px 0 0 10px !important;
+    border-right: none !important;
+    background: #fff;
+    color: #555;
+    cursor: pointer;
+    user-select: none;
+    min-width: 0;
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    min-height: calc(1.5em + 1.1rem + 3px);
 }
-label.logo-upload-area:hover { border-color: #1976d2; background: #f0f7ff; }
+.logo-text { font-size: 0.88rem; }
 
-.logo-preview {
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center; height: 100%;
+.btn-browse {
+    background: #f0f0f0;
+    border: 1.5px solid #e8e8e8;
+    border-left: none;
+    border-radius: 0 10px 10px 0 !important;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #444;
+    padding: 0 0.85rem;
+    white-space: nowrap;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background 0.15s;
 }
-.logo-preview-img { width: 100%; height: 90px; object-fit: contain; }
-.x-small { font-size: 0.7rem; }
+.btn-browse:hover { background: #e0e0e0; color: #222; }
 
 .btn-modal-cancel {
     background: #f5f5f5; color: #555; border: none;
@@ -169,24 +181,3 @@ label.logo-upload-area:hover { border-color: #1976d2; background: #f0f7ff; }
 .btn-primary-modal { background: #1976d2 !important; }
 .btn-primary-modal:hover { background: #1565c0 !important; color: #fff; }
 </style>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const input = document.getElementById('logoEditInput');
-    if (input) {
-        input.addEventListener('change', function () {
-            if (this.files && this.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const img         = document.getElementById('logoEditImg');
-                    const placeholder = document.getElementById('logoEditPlaceholder');
-                    img.src = e.target.result;
-                    img.classList.remove('d-none');
-                    if (placeholder) placeholder.classList.add('d-none');
-                };
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
-    }
-});
-</script>
