@@ -54,13 +54,22 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 
     Route::prefix('lowongan')->name('lowongan.')->group(function () {
+        // Route::get('/', [LowonganController::class, 'index'])->name('index');
+        // Route::post('/list', [LowonganController::class, 'list'])->name('list');
+        // Route::get('/create_ajax', [LowonganController::class, 'create_ajax'])->name('create_ajax');
+        // Route::post('/store_ajax', [LowonganController::class, 'store_ajax'])->name('store_ajax');
+        // Route::get('/edit_ajax/{id}', [LowonganController::class, 'edit_ajax'])->name('edit_ajax');
+        // Route::put('/update_ajax/{id}', [LowonganController::class, 'update_ajax'])->name('update_ajax');
+        // Route::delete('/delete_ajax/{id}', [LowonganController::class, 'delete_ajax'])->name('delete_ajax');
         Route::get('/', [LowonganController::class, 'index'])->name('index');
         Route::post('/list', [LowonganController::class, 'list'])->name('list');
+        Route::get('/show_ajax/{id}', [LowonganController::class, 'show_ajax'])->name('show_ajax');
         Route::get('/create_ajax', [LowonganController::class, 'create_ajax'])->name('create_ajax');
         Route::post('/store_ajax', [LowonganController::class, 'store_ajax'])->name('store_ajax');
         Route::get('/edit_ajax/{id}', [LowonganController::class, 'edit_ajax'])->name('edit_ajax');
         Route::put('/update_ajax/{id}', [LowonganController::class, 'update_ajax'])->name('update_ajax');
-        Route::delete('/delete_ajax/{id}', [LowonganController::class, 'delete_ajax'])->name('delete_ajax');
+        Route::get('/delete_ajax/{id}', [LowonganController::class, 'delete_ajax'])->name('delete_ajax');
+        Route::post('/destroy_ajax/{id}', [LowonganController::class, 'destroy_ajax'])->name('destroy_ajax');
     });
 
     // Profil Admin
