@@ -33,7 +33,7 @@
         @stack('css')
     </head>
 
-    {{-- ✅ FIX: body flex column min-vh-100 agar footer selalu di bawah --}}
+    {{-- body flex column min-vh-100 agar footer selalu di bawah --}}
     <body class="d-flex flex-column min-vh-100">
 
         {{-- Header --}}
@@ -42,7 +42,7 @@
         {{-- Sidebar --}}
         @include('layouts_admin.sidebar')
 
-        {{-- ✅ FIX: flex-grow-1 agar main mengisi sisa ruang, dorong footer ke bawah --}}
+        {{-- flex-grow-1 agar main mengisi sisa ruang, dorong footer ke bawah --}}
         <main class="p-3 flex-grow-1">
             {{-- Breadcrumb --}}
             @include('layouts_admin.breadcrumb')
@@ -89,5 +89,24 @@
         <script src="{{ asset('js/sidebar.js') }}"></script>
 
         @stack('js')
+
+        {{-- Logo file input listener --}}
+        <script>
+        document.addEventListener('change', function (e) {
+            if (e.target && e.target.id === 'logoEditInput') {
+                var file    = e.target.files && e.target.files[0];
+                var display = document.getElementById('logoEditDisplay');
+                if (file && display) {
+                    var span = display.querySelector('.logo-text');
+                    if (span) {
+                        span.textContent = file.name;
+                        span.classList.remove('text-muted');
+                    }
+                    display.title = file.name;
+                }
+            }
+        });
+        </script>
+
     </body>
 </html>
