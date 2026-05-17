@@ -12,28 +12,16 @@ class LowonganController extends Controller
 {
     public function index(Request $request)
     {
-        $query = LowonganModel::with('perusahaan')
-            ->orderBy('created_at', 'desc');
+        $query = LowonganModel::with('perusahaan')->orderBy('created_at', 'desc');
 
-        // FILTER
+        // FILTER BERDASARKAN PERUSAHAAN
         if ($request->filled('perusahaan')) {
             $query->where('perusahaan_id', $request->perusahaan);
         }
-
-        // SEARCH GLOBAL
-        if ($request->filled('search')) {
-            $keyword = $request->search;
-
-            $query->where(function ($q) use ($keyword) {
-                $q->where('judul_lowongan', 'like', '%' . $keyword . '%')
-                    ->orWhere('posisi', 'like', '%' . $keyword . '%')
-                    ->orWhere('lokasi', 'like', '%' . $keyword . '%')
-                    ->orWhere('tipe_pekerjaan', 'like', '%' . $keyword . '%');
-            });
-        }
-
-        $lowongans = $query->paginate(10)->withQueryString();
         $perusahaans = PerusahaanModel::orderBy('nama_perusahaan')->get();
+
+        // UNTUK PAGE
+        $lowongans = $query->paginate(10)->withQueryString();
 
         $totalLowongan = LowonganModel::count();
 
@@ -50,8 +38,12 @@ class LowonganController extends Controller
     {
         $query = LowonganModel::with('perusahaan')->select('*');
 
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
+        if ($request->filled('perusahaan')) {
+            $query->where('perusahaan_id', $request->perusahaan);
+        }
+
+        if ($request->filled('periode')) {
+            $query->where('periode', $request->periode);
         }
 
         return DataTables::of($query)
@@ -68,7 +60,7 @@ class LowonganController extends Controller
 
     public function create_ajax()
     {
-        $perusahaans = PerusahaanModel::all();
+        $perusahaans = PerusahaanModel::orderBy('nama_perusahaan')->get();
 
         return view('admin_lowongan.create_ajax', compact('perusahaans'));
     }
@@ -76,15 +68,14 @@ class LowonganController extends Controller
     public function store_ajax(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'perusahaan_id'      => 'required',
-            'judul_lowongan'     => 'required|string|max:255',
-            'deskripsi_lowongan' => 'required|string',
-            'posisi'             => 'required|string|max:255',
-            'tipe_pekerjaan'     => 'required|string|max:255',
-            'lokasi'             => 'required|string|max:255',
-            'salary'             => 'nullable|string|max:255',
-            'deadline'           => 'required|date',
-            'status'             => 'required|string|max:50',
+            'perusahaan_id' => 'required|exists:perusahaan,perusahaan_id',
+            'posisi'        => 'required|string|max:255',
+            'deskripsi'     => 'required|string',
+            'tools'         => 'required|string',
+            'skill'         => 'required|string',
+            'ipk_min'       => 'required|numeric|min:0|max:4',
+            'periode'       => 'required|integer|min:1',
+            'insentif'      => 'required|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -96,15 +87,14 @@ class LowonganController extends Controller
         }
 
         LowonganModel::create([
-            'perusahaan_id'      => $request->perusahaan_id,
-            'judul_lowongan'     => $request->judul_lowongan,
-            'deskripsi_lowongan' => $request->deskripsi_lowongan,
-            'posisi'             => $request->posisi,
-            'tipe_pekerjaan'     => $request->tipe_pekerjaan,
-            'lokasi'             => $request->lokasi,
-            'salary'             => $request->salary,
-            'deadline'           => $request->deadline,
-            'status'             => $request->status,
+            'perusahaan_id' => $request->perusahaan_id,
+            'posisi'        => $request->posisi,
+            'deskripsi'     => $request->deskripsi,
+            'tools'         => $request->tools,
+            'skill'         => $request->skill,
+            'ipk_min'       => $request->ipk_min,
+            'periode'       => $request->periode,
+            'insentif'      => $request->insentif,
         ]);
 
         return response()->json([
@@ -126,15 +116,14 @@ class LowonganController extends Controller
         $lowongan = LowonganModel::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
-            'perusahaan_id'      => 'required',
-            'judul_lowongan'     => 'required|string|max:255',
-            'deskripsi_lowongan' => 'required|string',
-            'posisi'             => 'required|string|max:255',
-            'tipe_pekerjaan'     => 'required|string|max:255',
-            'lokasi'             => 'required|string|max:255',
-            'salary'             => 'nullable|string|max:255',
-            'deadline'           => 'required|date',
-            'status'             => 'required|string|max:50',
+            'perusahaan_id' => 'required|exists:perusahaan,perusahaan_id',
+            'posisi'        => 'required|string|max:255',
+            'deskripsi'     => 'required|string',
+            'tools'         => 'required|string',
+            'skill'         => 'required|string',
+            'ipk_min'       => 'required|numeric|min:0|max:4',
+            'periode'       => 'required|integer|min:1',
+            'insentif'      => 'required|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -146,15 +135,14 @@ class LowonganController extends Controller
         }
 
         $lowongan->update([
-            'perusahaan_id'      => $request->perusahaan_id,
-            'judul_lowongan'     => $request->judul_lowongan,
-            'deskripsi_lowongan' => $request->deskripsi_lowongan,
-            'posisi'             => $request->posisi,
-            'tipe_pekerjaan'     => $request->tipe_pekerjaan,
-            'lokasi'             => $request->lokasi,
-            'salary'             => $request->salary,
-            'deadline'           => $request->deadline,
-            'status'             => $request->status,
+            'perusahaan_id' => $request->perusahaan_id,
+            'posisi'        => $request->posisi,
+            'deskripsi'     => $request->deskripsi,
+            'tools'         => $request->tools,
+            'skill'         => $request->skill,
+            'ipk_min'       => $request->ipk_min,
+            'periode'       => $request->periode,
+            'insentif'      => $request->insentif,
         ]);
 
         return response()->json([
@@ -186,7 +174,7 @@ class LowonganController extends Controller
             return response()->json([
                 'status'  => false,
                 'message' => 'Gagal menghapus: ' . $e->getMessage(),
-            ]);
+            ], 500);
         }
     }
 }
