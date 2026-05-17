@@ -50,6 +50,7 @@
 
                         {{-- Posisi Lowongan --}}
                         <div class="col-5">
+                            <i class="bi bi-person-square me-1"></i>
                             <label class="form-label fw-semibold">Posisi Lowongan <span class="text-danger">*</span></label>
                             <input type="text" name="posisi_lowongan" class="form-control form-control-modal"
                                 value="{{ $lowongan->posisi }}"
@@ -59,6 +60,7 @@
 
                         {{-- Periode --}}
                         <div class="col-3">
+                            <i class="bi bi-calendar3 me-1"></i>
                             <label class="form-label fw-semibold">Periode (bulan) <span class="text-danger">*</span></label>
                             <input type="number" name="periode" class="form-control form-control-modal"
                                 value="{{ $lowongan->periode }}"
@@ -68,15 +70,17 @@
 
                         {{-- Min IPK --}}
                         <div class="col-2">
+                            <i class="bi bi-mortarboard me-1"></i>
                             <label class="form-label fw-semibold">Min IPK <span class="text-danger">*</span></label>
                             <input type="text" name="ipk_min" class="form-control form-control-modal"
-                                value="{{ $lowongan->ipk_min }}"
+                                value="{{ number_format($lowongan->ipk_min, 2, '.', '') }}"
                                 placeholder="Contoh: 3.00">
                             <div class="invalid-feedback" id="err_edit_ipk_min"></div>
                         </div>
 
                         {{-- Insentif --}}
                         <div class="col-2">
+                            <i class="bi bi-cash-stack me-1"></i>
                             <label class="form-label fw-semibold">Insentif <span class="text-danger">*</span></label>
                             <select name="insentif" class="form-select form-control-modal">
                                 <option value="" disabled>-- Pilih Jenis --</option>
@@ -89,6 +93,7 @@
 
                         {{-- Skill --}}
                         <div class="col-6">
+                            <i class="bi bi-code-square me-1"></i>
                             <label class="form-label fw-semibold">Skills <span class="text-danger">*</span></label>
                             <input type="text" name="skill" class="form-control form-control-modal"
                                 value="{{ $lowongan->skill }}"
@@ -98,6 +103,7 @@
 
                         {{-- Tools --}}
                         <div class="col-6">
+                            <i class="bi bi-laptop me-1"></i>
                             <label class="form-label fw-semibold">Tools <span class="text-danger">*</span></label>
                             <input type="text" name="tools" class="form-control form-control-modal"
                                 value="{{ $lowongan->tools }}"
@@ -107,6 +113,7 @@
 
                         {{-- Deskripsi --}}
                         <div class="col-12">
+                            <i class="bi bi-text-left me-1"></i>
                             <label class="form-label fw-semibold">Deskripsi <span class="text-danger">*</span></label>
                             <textarea name="deskripsi" rows="3" class="form-control form-control-modal"
                                 placeholder="Deskripsi singkat tentang lowongan">{{ $lowongan->deskripsi }}</textarea>

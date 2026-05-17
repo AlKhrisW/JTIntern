@@ -25,6 +25,7 @@
                     <div class="row g-3">
 
                         <div class="col-md-6">
+                            <i class="bi bi-building"></i>
                             <label class="form-label fw-semibold">
                                 Nama Perusahaan <span class="text-danger">*</span>
                             </label>
@@ -46,6 +47,7 @@
 
                         {{-- Posisi Lowongan --}}
                         <div class="col-6">
+                            <i class="bi bi-person-square me-1"></i>
                             <label class="form-label fw-semibold">Posisi <span class="text-danger">*</span></label>
                             <input type="text" name="posisi" class="form-control form-control-modal"
                                 placeholder="Contoh: Frontend Developer Intern">
@@ -54,6 +56,7 @@
 
                         {{-- Periode --}}
                         <div class="col-4">
+                            <i class="bi bi-calendar3 me-1"></i>
                             <label class="form-label fw-semibold">Periode (bulan) <span class="text-danger">*</span></label>
                             <input type="number" name="periode" class="form-control form-control-modal"
                                 placeholder="Contoh: 6">
@@ -62,6 +65,7 @@
 
                         {{-- Min IPK --}}
                         <div class="col-4">
+                            <i class="bi bi-mortarboard me-1"></i>
                             <label class="form-label fw-semibold">Min IPK <span class="text-danger">*</span></label>
                             <input type="text" name="ipk_min" class="form-control form-control-modal"
                                 placeholder="Contoh: 3.00">
@@ -70,6 +74,7 @@
 
                         {{-- Insentif --}}
                         <div class="col-4">
+                            <i class="bi bi-cash-stack me-1"></i>
                             <label class="form-label fw-semibold">Insentif <span class="text-danger">*</span></label>
                             <select name="insentif" class="form-select form-control-modal">
                                 <option value="" disabled selected>-- Pilih Jenis --</option>
@@ -82,6 +87,7 @@
 
                         {{-- Skills --}}
                         <div class="col-6">
+                            <i class="bi bi-code-square me-1"></i>
                             <label class="form-label fw-semibold">Skills <span class="text-danger">*</span></label>
                             <textarea name="skills" rows="3" class="form-control form-control-modal"
                                 placeholder="Keterangan skill yang dibutuhkan (contoh: HTML, CSS, JavaScript)"></textarea>
@@ -90,14 +96,16 @@
 
                         {{-- Tools --}}
                         <div class="col-6">
+                            <i class="bi bi-laptop me-1"></i>
                             <label class="form-label fw-semibold">Tools <span class="text-danger">*</span></label>
                             <textarea name="tools" rows="3" class="form-control form-control-modal"
                                 placeholder="Keterangan tools/perangkat yang dibutuhkan (contoh: Visual Studio Code)"></textarea>
                             <div class="invalid-feedback" id="err_tools"></div>
                         </div>
 
-                        {{-- Tools --}}
+                        {{-- Deskripsi --}}
                         <div class="col-12">
+                            <i class="bi bi-text-left me-1"></i>
                             <label class="form-label fw-semibold">Deskripsi <span class="text-danger">*</span></label>
                             <textarea name="deskripsi" rows="3" class="form-control form-control-modal"
                                 placeholder="Deskripsi singkat tentang lowongan"></textarea>
