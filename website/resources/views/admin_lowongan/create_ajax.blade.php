@@ -15,30 +15,28 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form id="formTambah"
-                action="{{ route('admin.lowongan.store_ajax') }}"
-                method="POST"
-                enctype="multipart/form-data">
+            <form id="formTambah" action="{{ route('admin.lowongan.store_ajax') }}" method="POST">
                 @csrf
 
                 <div class="modal-body pt-3">
                     <div class="row g-3">
 
                         <div class="col-md-6">
+                            <i class="bi bi-building"></i>
                             <label class="form-label fw-semibold">
                                 Nama Perusahaan <span class="text-danger">*</span>
                             </label>
-                            <select name="perusahaan_id"
+                            <select name="perusahaan_id" required
                                 class="form-select form-control-modal select2-perusahaan">
 
                                 <option value="" selected disabled>
                                     -- Pilih Perusahaan --
                                 </option>
 
-                                @foreach($perusahaans as $perusahaan)
-                                <option value="{{ $perusahaan->perusahaan_id }}">
-                                    {{ $perusahaan->nama_perusahaan }}
-                                </option>
+                                @foreach ($perusahaans as $perusahaan)
+                                    <option value="{{ $perusahaan->perusahaan_id }}">
+                                        {{ $perusahaan->nama_perusahaan }}
+                                    </option>
                                 @endforeach
                             </select>
                             <div class="invalid-feedback" id="err_perusahaan_id"></div>
@@ -46,6 +44,7 @@
 
                         {{-- Posisi Lowongan --}}
                         <div class="col-6">
+                            <i class="bi bi-person-square me-1"></i>
                             <label class="form-label fw-semibold">Posisi <span class="text-danger">*</span></label>
                             <input type="text" name="posisi" class="form-control form-control-modal"
                                 placeholder="Contoh: Frontend Developer Intern">
@@ -54,22 +53,26 @@
 
                         {{-- Periode --}}
                         <div class="col-4">
-                            <label class="form-label fw-semibold">Periode (bulan) <span class="text-danger">*</span></label>
-                            <input type="number" name="periode" class="form-control form-control-modal"
+                            <i class="bi bi-calendar3 me-1"></i>
+                            <label class="form-label fw-semibold">Periode (bulan) <span
+                                    class="text-danger">*</span></label>
+                            <input type="number" min="1" name="periode" class="form-control form-control-modal"
                                 placeholder="Contoh: 6">
                             <div class="invalid-feedback" id="err_periode"></div>
                         </div>
 
                         {{-- Min IPK --}}
                         <div class="col-4">
+                            <i class="bi bi-mortarboard me-1"></i>
                             <label class="form-label fw-semibold">Min IPK <span class="text-danger">*</span></label>
-                            <input type="text" name="ipk_min" class="form-control form-control-modal"
-                                placeholder="Contoh: 3.00">
+                            <input type="number" step="0.01" min="0" max="4" inputmode="decimal"
+                                name="ipk_min" class="form-control form-control-modal" placeholder="Contoh: 3.00">
                             <div class="invalid-feedback" id="err_ipk_min"></div>
                         </div>
 
                         {{-- Insentif --}}
                         <div class="col-4">
+                            <i class="bi bi-cash-stack me-1"></i>
                             <label class="form-label fw-semibold">Insentif <span class="text-danger">*</span></label>
                             <select name="insentif" class="form-select form-control-modal">
                                 <option value="" disabled selected>-- Pilih Jenis --</option>
@@ -82,26 +85,29 @@
 
                         {{-- Skills --}}
                         <div class="col-6">
+                            <i class="bi bi-code-square me-1"></i>
                             <label class="form-label fw-semibold">Skills <span class="text-danger">*</span></label>
-                            <textarea name="skills" rows="3" class="form-control form-control-modal"
-                                placeholder="Keterangan skill yang dibutuhkan (contoh: HTML, CSS, JavaScript)"></textarea>
+                            <textarea name="skill" maxlength="1000" rows="3" class="form-control form-control-modal"
+                                placeholder="Keterangan skill yang dibutuhkan"></textarea>
                             <div class="invalid-feedback" id="err_skill"></div>
                         </div>
 
                         {{-- Tools --}}
                         <div class="col-6">
+                            <i class="bi bi-laptop me-1"></i>
                             <label class="form-label fw-semibold">Tools <span class="text-danger">*</span></label>
                             <textarea name="tools" rows="3" class="form-control form-control-modal"
                                 placeholder="Keterangan tools/perangkat yang dibutuhkan (contoh: Visual Studio Code)"></textarea>
                             <div class="invalid-feedback" id="err_tools"></div>
                         </div>
 
-                        {{-- Tools --}}
+                        {{-- Deskripsi --}}
                         <div class="col-12">
+                            <i class="bi bi-text-left me-1"></i>
                             <label class="form-label fw-semibold">Deskripsi <span class="text-danger">*</span></label>
                             <textarea name="deskripsi" rows="3" class="form-control form-control-modal"
                                 placeholder="Deskripsi singkat tentang lowongan"></textarea>
-                            <div class="invalid-feedback" id="err_tools"></div>
+                            <div class="invalid-feedback" id="err_deskripsi"></div>
                         </div>
 
                     </div>
@@ -177,36 +183,6 @@
         border-radius: 0 10px 10px 0;
     }
 
-    label.logo-upload-area {
-        display: block;
-        border: 2px dashed #d0d0d0;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: border-color 0.2s, background 0.2s;
-        overflow: hidden;
-        height: 90px;
-        margin-bottom: 0;
-    }
-
-    label.logo-upload-area:hover {
-        border-color: #4CAF50;
-        background: #f9fffe;
-    }
-
-    .logo-preview {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-    }
-
-    .logo-preview-img {
-        width: 100%;
-        height: 90px;
-        object-fit: contain;
-    }
-
     .x-small {
         font-size: 0.7rem;
     }
@@ -267,6 +243,11 @@
         border-radius: 8px !important;
         padding: 6px 10px !important;
     }
+
+    .select2-container--default.select2-container--focus .select2-selection--single,
+    .select2-container--default .select2-selection--single.is-invalid {
+        border-color: #e53935 !important;
+    }
 </style>
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -284,24 +265,6 @@
 
     document.addEventListener('DOMContentLoaded', function() {
 
-        // ── Logo preview ──────────────────────────────────────────────
-        var input = document.getElementById('logoInput');
-        if (input) {
-            input.addEventListener('change', function() {
-                if (this.files && this.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        var img = document.getElementById('logoImg');
-                        var preview = document.getElementById('logoPreview');
-                        img.src = e.target.result;
-                        img.classList.remove('d-none');
-                        preview.classList.add('d-none');
-                    };
-                    reader.readAsDataURL(this.files[0]);
-                }
-            });
-        }
-
         // ── Helper: tampilkan / hapus error ──────────────────────────
         function showError(name, message) {
             var el = document.querySelector('#formTambah [name="' + name + '"]');
@@ -317,7 +280,8 @@
         }
 
         function clearAllErrors() {
-            document.querySelectorAll('#formTambah .form-control-modal, #formTambah select').forEach(function(el) {
+            document.querySelectorAll('#formTambah .form-control-modal, #formTambah select').forEach(function(
+                el) {
                 el.classList.remove('is-invalid');
             });
             document.querySelectorAll('#formTambah [id^="err_"]').forEach(function(el) {
@@ -337,54 +301,57 @@
 
         // ── Validasi client-side ──────────────────────────────────────
         function validateForm() {
-            var valid = true;
+
+            let valid = true;
+
             clearAllErrors();
 
-            var nama = document.querySelector('#formTambah [name="nama_perusahaan"]');
-            if (!nama.value.trim()) {
-                showError('nama_perusahaan', 'Nama perusahaan wajib diisi.');
+            const perusahaan = document.querySelector('[name="perusahaan_id"]');
+            if (!perusahaan.value) {
+                showError('perusahaan_id', 'Perusahaan wajib dipilih.');
                 valid = false;
             }
 
-            var jenis = document.querySelector('#formTambah [name="jenis_perusahaan"]');
-            if (!jenis.value) {
-                showError('jenis_perusahaan', 'Jenis perusahaan wajib dipilih.');
+            const posisi = document.querySelector('[name="posisi"]');
+            if (!posisi.value.trim()) {
+                showError('posisi', 'Posisi wajib diisi.');
                 valid = false;
             }
 
-            var lokasi = document.querySelector('#formTambah [name="lokasi"]');
-            if (!lokasi.value.trim()) {
-                showError('lokasi', 'Lokasi wajib diisi.');
+            const periode = document.querySelector('[name="periode"]');
+            if (!periode.value || periode.value <= 0) {
+                showError('periode', 'Periode wajib diisi.');
                 valid = false;
             }
 
-            var profil = document.querySelector('#formTambah [name="profil_perusahaan"]');
-            if (!profil.value.trim()) {
-                showError('profil_perusahaan', 'Profil perusahaan wajib diisi.');
+            const ipk = document.querySelector('[name="ipk_min"]');
+            if (!ipk.value || ipk.value < 0 || ipk.value > 4) {
+                showError('ipk_min', 'IPK minimal harus antara 0 - 4.');
                 valid = false;
             }
 
-            var webCareer = document.querySelector('#formTambah [name="web_career"]');
-            if (webCareer.value.trim()) {
-                try {
-                    new URL(webCareer.value.trim());
-                } catch (_) {
-                    showError('web_career', 'Format URL tidak valid. Contoh: https://...');
-                    valid = false;
-                }
+            const insentif = document.querySelector('[name="insentif"]');
+            if (!insentif.value) {
+                showError('insentif', 'Insentif wajib dipilih.');
+                valid = false;
             }
 
-            var logoFile = document.getElementById('logoInput');
-            if (logoFile.files && logoFile.files[0]) {
-                var file = logoFile.files[0];
-                var allowed = ['image/jpeg', 'image/png', 'image/svg+xml', 'image/webp'];
-                if (!allowed.includes(file.type)) {
-                    showError('logo', 'File harus berupa gambar (JPG, PNG, SVG, WebP).');
-                    valid = false;
-                } else if (file.size > 2 * 1024 * 1024) {
-                    showError('logo', 'Ukuran logo maksimal 2MB.');
-                    valid = false;
-                }
+            const skill = document.querySelector('[name="skill"]');
+            if (!skill.value.trim()) {
+                showError('skill', 'Skill wajib diisi.');
+                valid = false;
+            }
+
+            const tools = document.querySelector('[name="tools"]');
+            if (!tools.value.trim()) {
+                showError('tools', 'Tools wajib diisi.');
+                valid = false;
+            }
+
+            const deskripsi = document.querySelector('[name="deskripsi"]');
+            if (!deskripsi.value.trim()) {
+                showError('deskripsi', 'Deskripsi wajib diisi.');
+                valid = false;
             }
 
             return valid;
@@ -412,7 +379,8 @@
                 // Lolos validasi → kirim AJAX
                 var submitBtn = form.querySelector('[type="submit"]');
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Menyimpan...';
+                submitBtn.innerHTML =
+                    '<span class="spinner-border spinner-border-sm me-1"></span> Menyimpan...';
 
                 fetch(form.action, {
                         method: 'POST',
@@ -426,12 +394,14 @@
                     })
                     .then(function(data) {
                         if (data.status) {
-                            var modal = bootstrap.Modal.getInstance(document.getElementById('modalTambah'));
+                            var modal = bootstrap.Modal.getInstance(document.getElementById(
+                                'modalTambah'));
                             if (modal) modal.hide();
 
                             // Reload DataTable kalau ada, atau reload halaman
-                            if (window.$ && $.fn.dataTable && $.fn.dataTable.isDataTable('#tabelPerusahaan')) {
-                                $('#tabelPerusahaan').DataTable().ajax.reload(null, false);
+                            if (window.$ && $.fn.dataTable && $.fn.dataTable.isDataTable(
+                                    '#tabelLowongan')) {
+                                $('#tabelLowongan').DataTable().ajax.reload(null, false);
                             } else {
                                 location.reload();
                             }
@@ -467,8 +437,8 @@
             modalEl.addEventListener('hidden.bs.modal', function() {
                 form.reset();
                 clearAllErrors();
-                document.getElementById('logoImg').classList.add('d-none');
-                document.getElementById('logoPreview').classList.remove('d-none');
+
+                $('.select2-perusahaan').val(null).trigger('change');
             });
         }
     });

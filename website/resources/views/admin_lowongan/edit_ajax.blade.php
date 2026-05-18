@@ -1,12 +1,6 @@
 <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content modal-lowongan">
-
-            <!-- <div class="modal-header">
-                <h5 class="fw-bold">Edit Lowongan</h5>
-
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div> -->
             <div class="modal-header border-0 pb-0">
                 <div class="modal-title-wrap">
                     <div class="modal-icon-badge bg-primary-soft">
@@ -21,10 +15,11 @@
             </div>
 
             <form id="formEdit" action="{{ route('admin.lowongan.update_ajax', $lowongan->lowongan_id) }}"
-                method="POST" enctype="multipart/form-data">
+                method="POST">
 
                 @csrf
                 <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="perusahaan_id" value="{{ $lowongan->perusahaan_id }}">
 
                 <div class="modal-body pt-3">
                     <div class="row g-3">
@@ -32,14 +27,13 @@
                         {{-- Nama Perusahaan --}}
                         <div class="edit-company-card col-12">
                             <div class="d-flex align-items-center gap-3">
-                                @if($lowongan->perusahaan->logo)
-                                <img src="{{ asset('storage/' . $lowongan->perusahaan->logo) }}"
-                                    alt="{{ $lowongan->perusahaan->nama_perusahaan }}"
-                                    class="edit-logo-img">
+                                @if ($lowongan->perusahaan->logo)
+                                    <img src="{{ asset('storage/' . $lowongan->perusahaan->logo) }}"
+                                        alt="{{ $lowongan->perusahaan->nama_perusahaan }}" class="edit-logo-img">
                                 @else
-                                <div class="edit-logo-placeholder">
-                                    {{ strtoupper(substr($lowongan->perusahaan->nama_perusahaan, 0, 2)) }}
-                                </div>
+                                    <div class="edit-logo-placeholder">
+                                        {{ strtoupper(substr($lowongan->perusahaan->nama_perusahaan, 0, 2)) }}
+                                    </div>
                                 @endif
                                 <div class="text-start">
                                     <div class="fw-semibold">{{ $lowongan->posisi }}</div>
@@ -50,66 +44,75 @@
 
                         {{-- Posisi Lowongan --}}
                         <div class="col-5">
-                            <label class="form-label fw-semibold">Posisi Lowongan <span class="text-danger">*</span></label>
-                            <input type="text" name="posisi_lowongan" class="form-control form-control-modal"
-                                value="{{ $lowongan->posisi }}"
-                                placeholder="Contoh: Fullstack Developer">
-                            <div class="invalid-feedback" id="err_edit_posisi_lowongan"></div>
+                            <i class="bi bi-person-square me-1"></i>
+                            <label class="form-label fw-semibold">Posisi Lowongan <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" name="posisi" class="form-control form-control-modal"
+                                value="{{ $lowongan->posisi }}" placeholder="Contoh: Fullstack Developer" required>
+                            <div class="invalid-feedback" id="err_edit_posisi"></div>
                         </div>
 
                         {{-- Periode --}}
                         <div class="col-3">
-                            <label class="form-label fw-semibold">Periode (bulan) <span class="text-danger">*</span></label>
-                            <input type="number" name="periode" class="form-control form-control-modal"
-                                value="{{ $lowongan->periode }}"
-                                placeholder="Contoh: 6">
+                            <i class="bi bi-calendar3 me-1"></i>
+                            <label class="form-label fw-semibold">Periode (bulan) <span
+                                    class="text-danger">*</span></label>
+                            <input type="number" min="1" name="periode" class="form-control form-control-modal"
+                                value="{{ $lowongan->periode }}" placeholder="Contoh: 6" required>
                             <div class="invalid-feedback" id="err_edit_periode"></div>
                         </div>
 
                         {{-- Min IPK --}}
                         <div class="col-2">
+                            <i class="bi bi-mortarboard me-1"></i>
                             <label class="form-label fw-semibold">Min IPK <span class="text-danger">*</span></label>
-                            <input type="text" name="ipk_min" class="form-control form-control-modal"
-                                value="{{ $lowongan->ipk_min }}"
-                                placeholder="Contoh: 3.00">
+                            <input type="number" step="0.01" min="0" max="4" name="ipk_min"
+                                class="form-control form-control-modal"
+                                value="{{ number_format($lowongan->ipk_min, 2, '.', '') }}" placeholder="Contoh: 3.00"
+                                required>
                             <div class="invalid-feedback" id="err_edit_ipk_min"></div>
                         </div>
 
                         {{-- Insentif --}}
                         <div class="col-2">
+                            <i class="bi bi-cash-stack me-1"></i>
                             <label class="form-label fw-semibold">Insentif <span class="text-danger">*</span></label>
-                            <select name="insentif" class="form-select form-control-modal">
+                            <select name="insentif" class="form-select form-control-modal" required>
                                 <option value="" disabled>-- Pilih Jenis --</option>
-                                <option value="paid" {{ $lowongan->insentif == 'paid' ? 'selected' : '' }}>Paid</option>
-                                <option value="unpaid" {{ $lowongan->insentif == 'unpaid' ? 'selected' : '' }}>Unpaid</option>
-                                <option value="flexible" {{ $lowongan->insentif == 'flexible' ? 'selected' : '' }}>Flexible</option>
+                                <option value="paid" {{ $lowongan->insentif == 'paid' ? 'selected' : '' }}>Paid
+                                </option>
+                                <option value="unpaid" {{ $lowongan->insentif == 'unpaid' ? 'selected' : '' }}>Unpaid
+                                </option>
+                                <option value="flexible" {{ $lowongan->insentif == 'flexible' ? 'selected' : '' }}>
+                                    Flexible</option>
                             </select>
                             <div class="invalid-feedback" id="err_edit_insentif"></div>
                         </div>
 
                         {{-- Skill --}}
                         <div class="col-6">
+                            <i class="bi bi-code-square me-1"></i>
                             <label class="form-label fw-semibold">Skills <span class="text-danger">*</span></label>
-                            <input type="text" name="skill" class="form-control form-control-modal"
-                                value="{{ $lowongan->skill }}"
-                                placeholder="Contoh: Pemrograman dasar">
+                            <textarea name="skill" rows="3" class="form-control form-control-modal"
+                                placeholder="Contoh: HTML, CSS, JavaScript" required>{{ $lowongan->skill }}</textarea>
                             <div class="invalid-feedback" id="err_edit_skill"></div>
                         </div>
 
                         {{-- Tools --}}
                         <div class="col-6">
+                            <i class="bi bi-laptop me-1"></i>
                             <label class="form-label fw-semibold">Tools <span class="text-danger">*</span></label>
-                            <input type="text" name="tools" class="form-control form-control-modal"
-                                value="{{ $lowongan->tools }}"
-                                placeholder="Contoh: MySQL">
+                            <textarea name="tools" rows="3" class="form-control form-control-modal"
+                                placeholder="Contoh: VS Code, Figma, MySQL" required>{{ $lowongan->tools }}</textarea>
                             <div class="invalid-feedback" id="err_edit_tools"></div>
                         </div>
 
                         {{-- Deskripsi --}}
                         <div class="col-12">
+                            <i class="bi bi-text-left me-1"></i>
                             <label class="form-label fw-semibold">Deskripsi <span class="text-danger">*</span></label>
                             <textarea name="deskripsi" rows="3" class="form-control form-control-modal"
-                                placeholder="Deskripsi singkat tentang lowongan">{{ $lowongan->deskripsi }}</textarea>
+                                placeholder="Deskripsi singkat tentang lowongan" required>{{ $lowongan->deskripsi }}</textarea>
                             <div class="invalid-feedback" id="err_edit_deskripsi"></div>
                         </div>
                     </div>
@@ -162,27 +165,6 @@
         text-align: left;
     }
 
-    .edit-logo-img {
-        width: 44px;
-        height: 44px;
-        object-fit: contain;
-        border-radius: 10px;
-        border: 1px solid #eee;
-    }
-
-    .edit-logo-placeholder {
-        width: 44px;
-        height: 44px;
-        border-radius: 10px;
-        background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        font-size: 0.88rem;
-        color: #2e7d32;
-    }
-
     .bg-primary-soft {
         background: #e3f2fd;
     }
@@ -214,34 +196,12 @@
         border-radius: 0 10px 10px 0;
     }
 
-    label.logo-upload-area {
-        display: block;
-        border: 2px dashed #d0d0d0;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: border-color 0.2s, background 0.2s;
-        overflow: hidden;
-        height: 90px;
-        margin-bottom: 0;
-    }
-
-    label.logo-upload-area:hover {
-        border-color: #1976d2;
-        background: #f0f7ff;
-    }
-
-    .logo-preview {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-    }
-
-    .logo-preview-img {
-        width: 100%;
-        height: 90px;
+    .edit-logo-img {
+        width: 44px;
+        height: 44px;
         object-fit: contain;
+        border-radius: 10px;
+        border: 1px solid #eee;
     }
 
     .x-small {
@@ -282,20 +242,149 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const input = document.getElementById('logoEditInput');
-        if (input) {
-            input.addEventListener('change', function() {
-                if (this.files && this.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const img = document.getElementById('logoEditImg');
-                        const placeholder = document.getElementById('logoEditPlaceholder');
-                        img.src = e.target.result;
-                        img.classList.remove('d-none');
-                        if (placeholder) placeholder.classList.add('d-none');
-                    };
-                    reader.readAsDataURL(this.files[0]);
+
+        function showError(name, message) {
+            const el = document.querySelector('#formEdit [name="' + name + '"]');
+            const errEl = document.getElementById('err_edit_' + name);
+
+            if (el) el.classList.add('is-invalid');
+            if (errEl) errEl.textContent = message;
+        }
+
+        function clearError(el) {
+            el.classList.remove('is-invalid');
+            const errEl = document.getElementById('err_edit_' + el.name);
+            if (errEl) errEl.textContent = '';
+        }
+
+        function clearAllErrors() {
+            document.querySelectorAll('#formEdit .form-control-modal, #formEdit select')
+                .forEach(function(el) {
+                    el.classList.remove('is-invalid');
+                });
+            document.querySelectorAll('#formEdit [id^="err_edit_"]')
+                .forEach(function(el) {
+                    el.textContent = '';
+                });
+        }
+
+        document.querySelectorAll('#formEdit .form-control-modal, #formEdit select')
+            .forEach(function(el) {
+                el.addEventListener('input', function() {
+                    clearError(el);
+                });
+                el.addEventListener('change', function() {
+                    clearError(el);
+                });
+            });
+
+        function validateForm() {
+            let valid = true;
+            clearAllErrors();
+
+            const posisi = document.querySelector('[name="posisi"]');
+            if (!posisi.value.trim()) {
+                showError('posisi', 'Posisi wajib diisi.');
+                valid = false;
+            }
+
+            const periode = document.querySelector('[name="periode"]');
+            if (!periode.value || periode.value <= 0) {
+                showError('periode', 'Periode wajib diisi.');
+                valid = false;
+            }
+
+            const ipk = document.querySelector('[name="ipk_min"]');
+            if (!ipk.value || ipk.value < 0 || ipk.value > 4) {
+                showError('ipk_min', 'IPK harus antara 0 - 4.');
+                valid = false;
+            }
+
+            const insentif = document.querySelector('[name="insentif"]');
+            if (!insentif.value) {
+                showError('insentif', 'Insentif wajib dipilih.');
+                valid = false;
+            }
+
+            const skill = document.querySelector('[name="skill"]');
+            if (!skill.value.trim()) {
+                showError('skill', 'Skill wajib diisi.');
+                valid = false;
+            }
+
+            const tools = document.querySelector('[name="tools"]');
+            if (!tools.value.trim()) {
+                showError('tools', 'Tools wajib diisi.');
+                valid = false;
+            }
+
+            const deskripsi = document.querySelector('[name="deskripsi"]');
+            if (!deskripsi.value.trim()) {
+                showError('deskripsi', 'Deskripsi wajib diisi.');
+                valid = false;
+            }
+
+            return valid;
+        }
+
+        const form = document.getElementById('formEdit');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                if (!validateForm()) {
+                    const firstInvalid = form.querySelector('.is-invalid');
+                    if (firstInvalid) {
+                        firstInvalid.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                        firstInvalid.focus();
+                    }
+                    return;
                 }
+
+                const submitBtn = form.querySelector('[type="submit"]');
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML =
+                    '<span class="spinner-border spinner-border-sm me-1"></span> Menyimpan...';
+
+                fetch(form.action, {
+                        method: 'POST',
+                        body: new FormData(form),
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+
+                        if (data.status) {
+                            const modal = bootstrap.Modal.getInstance(
+                                document.getElementById('modalEdit')
+                            );
+
+                            if (modal) modal.hide();
+                            $('#tabelLowongan').DataTable().ajax.reload(null, false);
+                        } else {
+                            if (data.msgField) {
+                                Object.entries(data.msgField)
+                                    .forEach(([field, messages]) => {
+                                        showError(field, messages[0]);
+                                    });
+                            }
+                        }
+                    })
+                    .catch(() => {
+                        alert('Terjadi kesalahan server.');
+                    })
+                    .finally(() => {
+
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML =
+                            '<i class="bi bi-check-lg me-1"></i> Perbarui';
+                    });
             });
         }
     });

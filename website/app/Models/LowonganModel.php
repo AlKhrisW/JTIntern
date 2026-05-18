@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class LowonganModel extends Model
 {
@@ -18,14 +17,13 @@ class LowonganModel extends Model
     protected $fillable = [
         'lowongan_id',
         'perusahaan_id',
-        'judul_lowongan',
-        'deskripsi_lowongan',
         'posisi',
-        'tipe_pekerjaan',
-        'lokasi',
-        'salary',
-        'deadline',
-        'status',
+        'deskripsi',
+        'tools',
+        'skill',
+        'ipk_min',
+        'periode',
+        'insentif',
     ];
 
     /**
@@ -39,11 +37,17 @@ class LowonganModel extends Model
     protected static function boot()
     {
         parent::boot();
-
         static::creating(function ($model) {
-            if (empty($model->lowongan_id)) {
-                $model->lowongan_id = (string) Str::uuid();
+            $last = self::where('lowongan_id', 'like', 'LW%')
+                ->orderBy('lowongan_id', 'desc')
+                ->first();
+            if (!$last) {
+                $newId = 'LW001';
+            } else {
+                $lastNumber = (int) substr($last->lowongan_id, 2);
+                $newId = 'LW' . str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
             }
+            $model->lowongan_id = $newId;
         });
     }
 }

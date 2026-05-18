@@ -42,7 +42,7 @@
                             <div class="detail-label">
                                 <i class="bi bi-geo-alt me-1"></i> Lokasi
                             </div>
-                            <div class="detail-value">
+                            <div class="detail-value detail-text">
                                 @if($lowongan->perusahaan->lokasi)
                                 <div>{{ $lowongan->perusahaan->lokasi }}</div>
                                 @else
@@ -55,7 +55,7 @@
                     <div class="col-md-6">
                         <div class="detail-item">
                             <div class="detail-label">
-                                <i class="bi bi-geo-alt me-1"></i> Posisi
+                                <i class="bi bi-person-square me-1"></i> Posisi
                             </div>
                             <div class="detail-value">{{ $lowongan->posisi }}</div>
                         </div>
@@ -64,16 +64,7 @@
                     <div class="col-md-2">
                         <div class="detail-item">
                             <div class="detail-label">
-                                <i class="bi bi-geo-alt me-1"></i> Min IPK
-                            </div>
-                            <div class="detail-value">{{ $lowongan->ipk_min }}</div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2">
-                        <div class="detail-item">
-                            <div class="detail-label">
-                                <i class="bi bi-geo-alt me-1"></i> Periode
+                                <i class="bi bi-calendar3 me-1"></i> Periode
                             </div>
                             <div class="detail-value">{{ $lowongan->periode }} Bulan</div>
                         </div>
@@ -82,7 +73,16 @@
                     <div class="col-md-2">
                         <div class="detail-item">
                             <div class="detail-label">
-                                <i class="bi bi-geo-alt me-1"></i> Insentif
+                                <i class="bi bi-mortarboard me-1"></i> Min IPK
+                            </div>
+                            <div class="detail-value">{{ number_format($lowongan->ipk_min, 2, '.', '') }}</div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="detail-item">
+                            <div class="detail-label">
+                                <i class="bi bi-cash-stack me-1"></i> Insentif
                             </div>
                             <div class="detail-value">{{ $lowongan->insentif }}</div>
                         </div>
@@ -91,27 +91,27 @@
                     <div class="col-md-6">
                         <div class="detail-item">
                             <div class="detail-label">
-                                <i class="bi bi-geo-alt me-1"></i> Tools
+                                <i class="bi bi-code-square me-1"></i> Skills
                             </div>
-                            <div class="detail-value">{{ $lowongan->tools }}</div>
+                            <div class="detail-value detail-text">{{ $lowongan->skill }}</div>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="detail-item">
                             <div class="detail-label">
-                                <i class="bi bi-geo-alt me-1"></i> Skills
+                                <i class="bi bi-laptop me-1"></i> Tools
                             </div>
-                            <div class="detail-value">{{ $lowongan->skill }}</div>
+                            <div class="detail-value detail-text">{{ $lowongan->tools }}</div>
                         </div>
                     </div>
 
                     <div class="col-md-12">
                         <div class="detail-item">
                             <div class="detail-label">
-                                <i class="bi bi-geo-alt me-1"></i> Deskripsi
+                                <i class="bi bi-text-left me-1"></i> Deskripsi
                             </div>
-                            <div class="detail-value">{{ $lowongan->deskripsi }}</div>
+                            <div class="detail-value detail-text">{{ $lowongan->deskripsi }}</div>
                         </div>
                     </div>
                 </div>
@@ -219,7 +219,7 @@
         font-weight: 500;
     }
 
-    .detail-profil {
+    .detail-text {
         font-weight: 400;
         line-height: 1.65;
         color: #444;
