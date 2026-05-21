@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg fixed-top">
+<nav class="navbar navbar-expand-lg fixed-top shadow">
     <div class="container-fluid align-items-center">
         <a class="navbar-brand" href="#">
             <img src="{{ asset('images/JTIntern_resize.png') }}" alt="JTIntern Logo" class="navbar-logo">

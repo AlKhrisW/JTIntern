@@ -22,9 +22,9 @@ Route::get('/tentang', [WelcomeController::class, 'tentang'])->name('tentang');
 
 Route::group(['prefix' => 'rekomendasi'], function () {
     Route::get('/', [RekomendasiController::class, 'index'])->name('rekomendasi');
-    Route::post('/store', [RekomendasiController::class, 'store'])->name('store');
-    Route::get('/hasil', [RekomendasiController::class, 'hasil'])->name('hasil');
-    Route::get('/detail/{id}', [RekomendasiController::class, 'detail'])->name('detail');
+    Route::post('/store', [RekomendasiController::class, 'store'])->name('rekomendasi.store');
+    Route::get('/hasil', [RekomendasiController::class, 'hasil'])->name('rekomendasi.hasil');
+    Route::get('/detail/{id}', [RekomendasiController::class, 'detail'])->name('rekomendasi.detail');
 });
 
 
