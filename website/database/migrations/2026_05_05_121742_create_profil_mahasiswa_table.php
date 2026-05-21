@@ -12,13 +12,14 @@ return new class extends Migration
             $table->string('mahasiswa_id')->primary();
 
             $table->string('nama');
-            $table->float('ipk')->nullable();
+            $table->string('email')->unique();
+            $table->float('ipk', 3, 2);
+            $table->string('jenis_perusahaan');
 
-            $table->text('tools')->nullable();
-            $table->text('skill')->nullable();
+            $table->text('tools');
+            $table->text('skill');
+            $table->string('minat_bidang');
 
-            $table->string('minat_bidang')->nullable();
-            $table->string('preferensi_magang')->nullable();
 
             $table->timestamps(); // created_at & updated_at
         });
