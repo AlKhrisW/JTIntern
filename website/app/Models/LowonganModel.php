@@ -9,7 +9,7 @@ class LowonganModel extends Model
 {
     use HasFactory;
 
-    protected $table      = 'lowongan'; 
+    protected $table      = 'lowongan';
     protected $primaryKey = 'lowongan_id';
     public    $incrementing = false;
     protected $keyType    = 'string';
@@ -17,14 +17,37 @@ class LowonganModel extends Model
     protected $fillable = [
         'lowongan_id',
         'perusahaan_id',
-        // tambahkan kolom lainnya nanti
+        'posisi',
+        'deskripsi',
+        'tools',
+        'skill',
+        'ipk_min',
+        'periode',
+        'insentif',
     ];
 
     /**
-     * Relasi ke PerusahaanModel
+     * Relasi ke perusahaan
      */
     public function perusahaan()
     {
         return $this->belongsTo(PerusahaanModel::class, 'perusahaan_id', 'perusahaan_id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $last = self::where('lowongan_id', 'like', 'LW%')
+                ->orderBy('lowongan_id', 'desc')
+                ->first();
+            if (!$last) {
+                $newId = 'LW001';
+            } else {
+                $lastNumber = (int) substr($last->lowongan_id, 2);
+                $newId = 'LW' . str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
+            }
+            $model->lowongan_id = $newId;
+        });
     }
 }

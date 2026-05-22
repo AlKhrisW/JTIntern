@@ -4,7 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>{{ config('app.name', 'JTIntern') }}</title>
+        <meta name="description" content="JTIntern — Platform Rekomendasi Magang Politeknik Negeri Malang">
+        <title>{{ $title ?? config('app.name', 'JTIntern') }}</title>
 
         {{-- Google Fonts --}}
         <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -26,20 +27,23 @@
 
         {{-- SweetAlert2 CSS --}}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-        
+
         {{-- Custom CSS --}}
         <link rel="stylesheet" href="{{ asset('css/layout_admin.css') }}">
         @stack('css')
     </head>
-    <body>
+
+    {{-- body flex column min-vh-100 agar footer selalu di bawah --}}
+    <body class="d-flex flex-column min-vh-100">
+
         {{-- Header --}}
         @include('layouts_admin.header')
 
         {{-- Sidebar --}}
         @include('layouts_admin.sidebar')
-        
-        {{-- Main Content --}}
-        <main class="p-3">
+
+        {{-- flex-grow-1 agar main mengisi sisa ruang, dorong footer ke bawah --}}
+        <main class="p-3 flex-grow-1">
             {{-- Breadcrumb --}}
             @include('layouts_admin.breadcrumb')
 
@@ -50,9 +54,9 @@
         {{-- Footer --}}
         @include('layouts_admin.footer')
 
-        {{-- =============================================
-        JavaScript
-        ============================================= --}}
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
 
         {{-- jQuery --}}
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -72,7 +76,7 @@
         {{-- SweetAlert2 --}}
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        {{-- csrf token --}}
+        {{-- CSRF Token untuk AJAX --}}
         <script>
             $.ajaxSetup({
                 headers: {
@@ -83,6 +87,26 @@
 
         {{-- Custom Javascript --}}
         <script src="{{ asset('js/sidebar.js') }}"></script>
+
         @stack('js')
+
+        {{-- Logo file input listener --}}
+        <script>
+        document.addEventListener('change', function (e) {
+            if (e.target && e.target.id === 'logoEditInput') {
+                var file    = e.target.files && e.target.files[0];
+                var display = document.getElementById('logoEditDisplay');
+                if (file && display) {
+                    var span = display.querySelector('.logo-text');
+                    if (span) {
+                        span.textContent = file.name;
+                        span.classList.remove('text-muted');
+                    }
+                    display.title = file.name;
+                }
+            }
+        });
+        </script>
+
     </body>
 </html>

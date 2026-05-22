@@ -1,35 +1,27 @@
-<footer>
-    <div class="container-fluid py-3">
+<footer class="mt-auto">
+    <div class="container-fluid px-4 py-3">
         <!-- ROW 1 -->
-        <div class="d-flex align-items-center justify-content-between flex-wrap mb-2">
-            <!-- DIV 1: LOGO -->
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-2">
+
+            <!-- LOGO -->
             <div class="d-flex align-items-center">
                 <img src="{{ asset('images/logoJTIntern.png') }}" width="70" class="me-2">
             </div>
 
-            <!-- DIV 2,3,4: MENU -->
+            <!-- MENU -->
             <div class="d-flex align-items-center gap-4">
-                <a href="#" class="text-dark text-decoration-none">Kebijakan Privasi</a>
-                <a href="#" class="text-dark text-decoration-none">Syarat & Ketentuan</a>
-                <a href="#" class="text-dark text-decoration-none">Bantuan</a>
-            </div>
-
-            <!-- DIV 5 & 6: ICON -->
-            <div class="d-flex align-items-center gap-3">
-                <i class="bi bi-globe"></i>
-                <i class="bi bi-envelope"></i>
+                <a href="#" class="text-dark text-decoration-none small">Kebijakan Privasi</a>
+                <a href="#" class="text-dark text-decoration-none small">Syarat & Ketentuan</a>
+                <a href="#" class="text-dark text-decoration-none small">Bantuan</a>
             </div>
 
         </div>
 
         <!-- ROW 2 -->
-        <div class="d-flex justify-content-between align-items-center flex-wrap">
-            <!-- DIV 7 -->
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
             <small class="text-muted">
-                © {{ date('Y') }} Politeknik Negeri Malang. All rights reserved.
+                &copy; {{ date('Y') }} Politeknik Negeri Malang. All rights reserved.
             </small>
-
-            <!-- DIV 8 -->
             <small class="text-muted">
                 Platform Rekomendasi Magang
             </small>
