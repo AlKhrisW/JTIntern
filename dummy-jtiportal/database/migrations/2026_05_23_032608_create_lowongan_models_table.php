@@ -12,7 +12,27 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lowongan_models', function (Blueprint $table) {
-            $table->id();
+            $table->string('lowongan_id')->primary();
+
+            // foreign key ke perusahaan_models
+            $table->string('perusahaan_id');
+
+            $table->foreign('perusahaan_id')
+                ->references('perusahaan_id')
+                ->on('perusahaan_models')
+                ->onDelete('cascade');
+
+            $table->string('posisi');
+            $table->text('deskripsi');
+
+            $table->text('tools')->nullable();
+            $table->text('skill')->nullable();
+
+            $table->float('ipk_min')->nullable();
+
+            $table->integer('periode')->nullable();
+            $table->string('insentif')->nullable();
+
             $table->timestamps();
         });
     }
