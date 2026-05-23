@@ -10,7 +10,6 @@
     <section class="hero" id="beranda">
         <div class="hero-bg">
             <img src="{{ asset('images/background.jpg') }}" alt="Background Foto">
-                alt="Tim profesional di kantor">
         </div>
 
         <div class="hero-container">
@@ -28,7 +27,7 @@
                     <strong>teknologi pencocokan cerdas kami.</strong>
                 </p>
                 <div class="hero-actions">
-                    <a href="#" class="my-btn-primary">   {{-- Diubah: tidak mengarah ke #rekomendasi --}}
+                    <a href="#" class="my-btn-primary">
                         <i class="fas fa-search"></i>
                         Cari Rekomendasi Magang
                     </a>
@@ -67,26 +66,40 @@
                 </div>
             </div>
         </div>
+
+        <!-- ===== SCROLL INDICATOR (elegant line + chevron) ===== -->
+        <a href="#panduan" class="scroll-indicator" aria-label="Scroll ke bawah">
+            <span class="scroll-indicator-label">Gulir ke Bawah</span>
+            <div class="scroll-line-wrap">
+                <div class="scroll-line-track">
+                    <div class="scroll-line-dot"></div>
+                </div>
+            </div>
+            <div class="scroll-chevron">
+                <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 1L10 10L19 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </a>
     </section>
 
     <!-- ===== HOW IT WORKS ===== -->
     <section class="section how-section" id="panduan">
         <div class="container">
             <h2 class="section-title" style="text-align:center;">Bagaimana JTIntern Membantumu?</h2>
-            <p class="section-desc" style="text-align:center;">
+            <p class="section-desc" style="text-align:center; margin: 0 auto 4rem;">
                 Kami menyederhanakan proses pencarian tempat magang dengan tiga langkah mudah
                 untuk masa depan cemerlangmu.
             </p>
 
-            <div class="steps-grid">
+            <!-- Steps: horizontal flow layout, no card -->
+            <div class="steps-flow">
                 <!-- Step 1 -->
-                <div class="step-card">
+                <div class="step-item">
                     <div class="step-icon-wrap">
                         <span class="step-number">01</span>
                         <div class="step-icon">
-                            <img src="/images/16.png" 
-                                alt="Isi Data Diri" 
-                                class="step-icon-image rounded-circle">
+                            <img src="/images/16.png" alt="Isi Data Diri" class="step-icon-image rounded-circle">
                         </div>
                     </div>
                     <h3 class="step-title">Isi Data Diri</h3>
@@ -96,14 +109,21 @@
                     </p>
                 </div>
 
+                <!-- Connector Arrow 1 -->
+                <div class="step-connector">
+                    <div class="connector-line"></div>
+                    <svg class="connector-arrow" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="16" cy="16" r="15" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3"/>
+                        <path d="M12 16h8M17 13l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+
                 <!-- Step 2 -->
-                <div class="step-card">
+                <div class="step-item">
                     <div class="step-icon-wrap">
                         <span class="step-number">02</span>
                         <div class="step-icon">
-                            <img src="/images/17.png" 
-                                alt="Sistem Mencocokkan" 
-                                class="step-icon-image rounded-circle">
+                            <img src="/images/17.png" alt="Sistem Mencocokkan" class="step-icon-image rounded-circle">
                         </div>
                     </div>
                     <h3 class="step-title">Sistem Mencocokkan</h3>
@@ -113,20 +133,27 @@
                     </p>
                 </div>
 
+                <!-- Connector Arrow 2 -->
+                <div class="step-connector">
+                    <div class="connector-line"></div>
+                    <svg class="connector-arrow" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="16" cy="16" r="15" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3"/>
+                        <path d="M12 16h8M17 13l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+
                 <!-- Step 3 -->
-                <div class="step-card">
+                <div class="step-item">
                     <div class="step-icon-wrap">
                         <span class="step-number">03</span>
                         <div class="step-icon">
-                            <img src="/images/18.png" 
-                                alt="Lihat Rekomendasi" 
-                                class="step-icon-image rounded-circle">
+                            <img src="/images/18.png" alt="Lihat Rekomendasi" class="step-icon-image rounded-circle">
                         </div>
                     </div>
                     <h3 class="step-title">Lihat Rekomendasi</h3>
                     <p class="step-desc">
-                        Dapatkan daftar lowongan magang terbaik dan segera
-                        kirimkan lamaranmu langsung dari platform.
+                        Temukan peluang magang terbaik yang
+                        selaras dengan bidang studimu di JTI Polinema.
                     </p>
                 </div>
             </div>
@@ -142,45 +169,59 @@
                 Kariemu
             </h2>
 
-            <div class="features-grid">
-                <!-- Feature Left -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <img src="/images/19.jpg" 
-                                alt="Rekomendasi Personal" 
-                                class="feature-icon-image">
+            <div class="features-layout">
+                <!-- Left Feature Block -->
+                <div class="feature-block">
+                    <div class="feature-icon-small">
+                        <img src="/images/19.jpg" alt="Rekomendasi Personal" class="feature-icon-image">
                     </div>
-                    <h3 class="feature-title">Rekomendasi Personal</h3>
-                    <p class="feature-desc">
-                        Sistem kami menganalisis lebih dari 10 parameter
-                        untuk memastikan setiap rekomendasi selaras
-                        dengan bakat unikmu.
-                    </p>
-                    <div class="feature-tags">
-                        <span class="tag">Berdasarkan Minat</span>
-                        <span class="tag">Berdasarkan Skill</span>
+                    <div class="feature-block-content">
+                        <h3 class="feature-title">Rekomendasi Personal</h3>
+                        <p class="feature-desc">
+                            Sistem kami menganalisis lebih dari 10 parameter
+                            untuk memastikan setiap rekomendasi selaras
+                            dengan bakat unikmu.
+                        </p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i><span>Berdasarkan Minat</span></li>
+                            <li><i class="fas fa-check-circle"></i><span>Berdasarkan Skill</span></li>
+                            <li><i class="fas fa-check-circle"></i><span>Berdasarkan Tools yang Dikuasai</span></li>
+                            <li><i class="fas fa-check-circle"></i><span>Berdasarkan Preferensi Perusahaan</span></li>
+                        </ul>
                     </div>
                 </div>
 
-                <!-- Feature Center: Image -->
+                <!-- Divider -->
+                <div class="features-divider"></div>
+
+                <!-- Center: Image -->
                 <div class="feature-img-wrap">
                     <img src="{{ asset('images/keunggulan.jpg') }}" alt="Keunggulan Foto">
-                        alt="Tim berdiskusi bersama">
+                    <div class="feature-img-overlay"></div>
                 </div>
 
-                <!-- Feature Right -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <img src="/images/20.jpg" 
-                                alt="Mitra Terpercaya" 
-                                class="feature-icon-image">
+                <!-- Divider -->
+                <div class="features-divider"></div>
+
+                <!-- Right Feature Block -->
+                <div class="feature-block">
+                    <div class="feature-icon-small">
+                        <img src="/images/20.jpg" alt="Mitra Terpercaya" class="feature-icon-image">
                     </div>
-                    <h3 class="feature-title">Mitra Terpercaya</h3>
-                    <p class="feature-desc">
-                        Bekerjasama dengan perusahaan mulai dari
-                        startup hingga korporasi multinasional yang
-                        kredibel.
-                    </p>
+                    <div class="feature-block-content">
+                        <h3 class="feature-title">Mitra Terpercaya</h3>
+                        <p class="feature-desc">
+                            Bekerjasama dengan perusahaan mulai dari
+                            startup hingga korporasi multinasional yang
+                            kredibel.
+                        </p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i><span>Startup Teknologi</span></li>
+                            <li><i class="fas fa-check-circle"></i><span>Perusahaan Multinasional</span></li>
+                            <li><i class="fas fa-check-circle"></i><span>BUMN & Instansi Pemerintah</span></li>
+                            <li><i class="fas fa-check-circle"></i><span>Mitra Terverifikasi Polinema</span></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -195,46 +236,71 @@
                 Polinema?
             </h2>
 
-            <div class="testimonials-grid">
+            <div class="testimonials-masonry">
                 <!-- Testimonial 1 -->
-                <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
-                    <p class="testimonial-text">
-                        "Berkat sistem rekomendasi ini, saya berhasil magang
+                <div class="testi-item">
+                    <div class="testi-quote-mark">"</div>
+                    <p class="testi-text">
+                        Berkat sistem rekomendasi ini, saya berhasil magang
                         di Gojek sebagai UI Designer. Penilaian kecocokan
-                        skill-nya sangat akurat dengan apa yang dibutuhkan
-                        industri."
+                        skill-nya sangat akurat dengan apa yang dibutuhkan industri.
                     </p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg"
-                                alt="Siti Aminah"
-                                onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-user\'></i>'">
-                        </div>
-                        <div>
-                            <div class="author-name">Siti Aminah</div>
-                            <div class="author-info">TI POLINEMA '20</div>
+                    <div class="testi-footer">
+                        <div class="stars">★★★★★</div>
+                        <div class="testi-author">
+                            <span class="testi-name">Siti Aminah</span>
+                            <span class="testi-cohort">TI POLINEMA '20</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Testimonial 2 -->
-                <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
-                    <p class="testimonial-text">
-                        "Proses pendaftarannya sangat cepat. Saya tidak perlu
+                <div class="testi-item testi-item--accent">
+                    <div class="testi-quote-mark">"</div>
+                    <p class="testi-text">
+                        Proses pendaftarannya sangat cepat. Saya tidak perlu
                         lagi bingung memilih ratusan lowongan karena sistem
-                        sudah memfilter yang terbaik untuk profil saya."
+                        sudah memfilter yang terbaik untuk profil saya.
                     </p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg"
-                                alt="Budi Santoso"
-                                onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-user\'></i>'">
+                    <div class="testi-footer">
+                        <div class="stars">★★★★★</div>
+                        <div class="testi-author">
+                            <span class="testi-name">Budi Santoso</span>
+                            <span class="testi-cohort">TI POLINEMA '23</span>
                         </div>
-                        <div>
-                            <div class="author-name">Budi Santoso</div>
-                            <div class="author-info">TI POLINEMA '23</div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testi-item">
+                    <div class="testi-quote-mark">"</div>
+                    <p class="testi-text">
+                        Sangat membantu! Algoritma pencocokannya benar-benar memahami
+                        latar belakang akademik dan keahlian saya. Hasilnya saya diterima
+                        magang di Tokopedia divisi Data Engineering.
+                    </p>
+                    <div class="testi-footer">
+                        <div class="stars">★★★★★</div>
+                        <div class="testi-author">
+                            <span class="testi-name">Reza Firmansyah</span>
+                            <span class="testi-cohort">TI POLINEMA '22</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 4 -->
+                <div class="testi-item testi-item--accent">
+                    <div class="testi-quote-mark">"</div>
+                    <p class="testi-text">
+                        Fitur rekomendasi berdasarkan tools yang dikuasai sangat relevan.
+                        Saya yang fokus di Flutter langsung diarahkan ke perusahaan yang
+                        memang butuh mobile developer.
+                    </p>
+                    <div class="testi-footer">
+                        <div class="stars">★★★★★</div>
+                        <div class="testi-author">
+                            <span class="testi-name">Dewi Rahayu</span>
+                            <span class="testi-cohort">TI POLINEMA '21</span>
                         </div>
                     </div>
                 </div>
