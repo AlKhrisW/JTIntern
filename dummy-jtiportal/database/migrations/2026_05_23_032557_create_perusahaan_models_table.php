@@ -12,7 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('perusahaan_models', function (Blueprint $table) {
-            $table->id();
+            $table->string('perusahaan_id')->primary();
+            $table->string('nama_perusahaan');
+            $table->string('jenis_perusahaan');
+            $table->text('profil_perusahaan');
+            $table->string('lokasi');
+            $table->string('web_career')->nullable();
+            $table->string('logo')->nullable();
             $table->timestamps();
         });
     }
