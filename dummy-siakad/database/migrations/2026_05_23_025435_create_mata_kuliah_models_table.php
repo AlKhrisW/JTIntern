@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mata_kuliah_models', function (Blueprint $table) {
-            $table->id();
+            $table->string('id_matkul')->primary();
+            $table->string('nama_matkul');
+            $table->text('keahlian');
             $table->timestamps();
         });
     }
