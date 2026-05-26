@@ -12,8 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mahasiswa_models', function (Blueprint $table) {
-            $table->id();
+            $table->string('nim')->primary();
+            $table->string('nama_mahasiswa');
+            $table->string('email')->unique();
+            $table->string('prodi_id');
             $table->timestamps();
+ 
+            $table->foreign('prodi_id')
+                  ->references('prodi_id')
+                  ->on('program_studi_models')
+                  ->onDelete('cascade');
         });
     }
 
