@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('mata_kuliah_models', function (Blueprint $table) {
             $table->string('id_matkul')->primary();
+            $table->string('prodi_id');
             $table->string('nama_matkul');
             $table->text('keahlian');
             $table->timestamps();
+
+            $table->foreign('prodi_id')->references('prodi_id')->on('program_studi_models')->onDelete('cascade');
         });
     }
 
