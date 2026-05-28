@@ -1,6 +1,6 @@
 <div class="modal fade" id="modalShow" tabindex="-1" aria-labelledby="modalShowLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content modal-matkul">
+        <div class="modal-content modal-mahasiswa">
 
             <div class="modal-header border-0 pb-0">
                 <div class="modal-title-wrap">
@@ -8,7 +8,7 @@
                         <i class="bi bi-eye text-info"></i>
                     </div>
                     <div>
-                        <h5 class="modal-title fw-bold" id="modalShowLabel">Detail Mata Kuliah</h5>
+                        <h5 class="modal-title fw-bold" id="modalShowLabel">Detail Mahasiswa</h5>
                     </div>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -16,23 +16,27 @@
 
             <div class="modal-body pt-3">
                 <div class="show-header-card mb-4">
-                    <h5 class="fw-bold mb-1">{{ $mataKuliah->nama_matkul }}</h5>
-                    <span class="badge badge-prodi">{{ $mataKuliah->programStudi->nama_program_studi ?? '-' }}</span>
+                    <h5 class="fw-bold mb-1">{{ $mahasiswa->nama_mahasiswa }}</h5>
+                    <span class="badge badge-prodi">{{ $mahasiswa->programStudi->nama_prodi ?? '-' }}</span>
                 </div>
 
                 <div class="row g-3">
                     <div class="col-md-6">
                         <div class="detail-item">
-                            <div class="detail-label">ID Matkul</div>
-                            <div class="detail-value">{{ $mataKuliah->id_matkul }}</div>
+                            <div class="detail-label">NIM</div>
+                            <div class="detail-value">{{ $mahasiswa->nim }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="detail-item">
+                            <div class="detail-label">Email</div>
+                            <div class="detail-value">{{ $mahasiswa->email }}</div>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="detail-item">
-                            <div class="detail-label">Keahlian / Kompetensi</div>
-                            <div class="detail-value detail-keahlian">
-                                {{ $mataKuliah->keahlian }}
-                            </div>
+                            <div class="detail-label">Program Studi</div>
+                            <div class="detail-value">{{ $mahasiswa->programStudi->nama_prodi ?? '-' }}</div>
                         </div>
                     </div>
                 </div>
@@ -46,7 +50,7 @@
 </div>
 
 <style>
-    .modal-matkul {
+    .modal-mahasiswa {
         border-radius: 16px;
         border: none;
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
@@ -86,11 +90,6 @@
     .detail-value {
         font-size: 0.92rem;
         color: #1a1a1a;
-    }
-
-    .detail-keahlian {
-        white-space: pre-wrap;
-        line-height: 1.6;
     }
 
     .btn-modal-cancel {

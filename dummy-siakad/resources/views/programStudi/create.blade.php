@@ -14,7 +14,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
-            <form id="formTambah" action="{{ route('program_studi.store_ajax') }}" method="POST">
+            <form id="formTambah" action="{{ route('prodi.store') }}" method="POST">
                 @csrf
 
                 <div class="modal-body">

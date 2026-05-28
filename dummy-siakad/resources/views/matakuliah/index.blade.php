@@ -1,157 +1,11 @@
 @extends('layouts.template')
 
 @push('css')
-    <style>
-        .mata-kuliah-page {
-            padding: 0;
-        }
-
-        .page-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #1a1a2e;
-        }
-
-        .btn-tambah {
-            background: #4CAF50;
-            color: #fff;
-            border: none;
-            padding: 0.5rem 1.2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .btn-tambah:hover {
-            background: #388e3c;
-        }
-
-        .filter-select {
-            border: 1.5px solid #e0e0e0;
-            border-radius: 20px;
-            padding: 0.35rem 1.1rem;
-            font-size: 0.88rem;
-            min-width: 260px;
-        }
-
-        .stat-label {
-            font-size: 0.7rem;
-            color: #888;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .stat-value {
-            font-size: 1.6rem;
-            line-height: 1.1;
-        }
-
-        .table-card {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.07);
-            overflow: hidden;
-        }
-
-        .table thead th {
-            background: #fafafa;
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: #888;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            border-bottom: 1.5px solid #f0f0f0;
-            padding: 0.85rem 1rem;
-        }
-
-        .table tbody td {
-            padding: 1rem 1rem;
-            border-bottom: 1px solid #f5f5f5;
-        }
-
-        .table-hover tbody tr:hover {
-            background: #f9fffe;
-        }
-
-        .badge-prodi {
-            background: #e3f2fd;
-            color: #1565c0;
-            padding: 0.35rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.82rem;
-            font-weight: 500;
-        }
-
-        .btn-icon {
-            width: 34px;
-            height: 34px;
-            border: none;
-            border-radius: 8px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.15s;
-            background: transparent;
-        }
-
-        .btn-show {
-            color: #0288d1;
-            background: #e1f5fe;
-        }
-
-        .btn-show:hover {
-            background: #b3e5fc;
-            color: #01579b;
-        }
-
-        .btn-edit {
-            color: #546e7a;
-            background: #f0f4f8;
-        }
-
-        .btn-edit:hover {
-            background: #cfd8dc;
-            color: #263238;
-        }
-
-        .btn-delete {
-            color: #e53935;
-            background: #ffebee;
-        }
-
-        .btn-delete:hover {
-            background: #ffcdd2;
-            color: #b71c1c;
-        }
-
-        /* Pagination */
-        .pagination-custom .pagination {
-            margin: 0;
-            gap: 4px;
-        }
-
-        .pagination-custom .page-link {
-            border-radius: 8px !important;
-            border: 1.5px solid #e8e8e8;
-            color: #555;
-            font-size: 0.85rem;
-            padding: 0.3rem 0.65rem;
-            min-width: 34px;
-        }
-
-        .pagination-custom .page-item.active .page-link {
-            background: #4CAF50;
-            border-color: #4CAF50;
-            color: #fff;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/crud.css') }}">
 @endpush
 
 @section('content')
-    <div class="mata-kuliah-page">
+    <div class="page-container">
 
         {{-- Header --}}
         <div class="page-header d-flex align-items-center justify-content-between mb-4">
@@ -173,7 +27,7 @@
                     @foreach ($programStudis as $prodi)
                         <option value="{{ $prodi->prodi_id }}"
                             {{ request('prodi_id') == $prodi->prodi_id ? 'selected' : '' }}>
-                            {{ $prodi->nama_program_studi }}
+                            {{ $prodi->nama_prodi }}
                         </option>
                     @endforeach
                 </select>
@@ -204,7 +58,7 @@
                                 <td class="fw-semibold">{{ $mk->nama_matkul }}</td>
                                 <td>
                                     <span
-                                        class="badge badge-prodi">{{ $mk->programStudi->nama_program_studi ?? '-' }}</span>
+                                        class="badge badge-prodi">{{ $mk->programStudi->nama_prodi ?? '-' }}</span>
                                 </td>
                                 <td class="text-end">
                                     <div class="d-flex justify-content-end gap-2">
@@ -252,7 +106,7 @@
     <div id="modalContainer"></div>
 @endsection
 
-@push('script')
+@push('js')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
@@ -295,27 +149,27 @@
 
             // Tombol Tambah
             document.getElementById('btnTambah').addEventListener('click', function() {
-                loadModal('{{ route('admin.mata_kuliah.create_ajax') }}');
+                loadModal('{{ route('matkul.create') }}');
             });
 
             // Tombol Show
             document.querySelectorAll('.btn-show').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    loadModal('{{ url('admin/mata_kuliah/show_ajax') }}/' + this.dataset.id);
+                    loadModal('{{ url('mata-kuliah/show') }}/' + this.dataset.id);
                 });
             });
 
             // Tombol Edit
             document.querySelectorAll('.btn-edit').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    loadModal('{{ url('admin/mata_kuliah/edit_ajax') }}/' + this.dataset.id);
+                    loadModal('{{ url('mata-kuliah/edit') }}/' + this.dataset.id);
                 });
             });
 
             // Tombol Delete
             document.querySelectorAll('.btn-delete').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    loadModal('{{ url('admin/mata_kuliah/delete_ajax') }}/' + this.dataset.id);
+                    loadModal('{{ url('mata-kuliah/delete') }}/' + this.dataset.id);
                 });
             });
 

@@ -24,8 +24,7 @@
                     Tindakan ini tidak dapat dibatalkan.
                 </p>
 
-                <form id="formDelete" action="{{ route('admin.mahasiswa.destroy_ajax', $mahasiswa->nim) }}"
-                    method="POST">
+                <form id="formDelete" action="{{ route('mahasiswa.destroy', $mahasiswa->nim) }}" method="POST">
                     @csrf
 
                     <div class="d-flex gap-2 justify-content-center">

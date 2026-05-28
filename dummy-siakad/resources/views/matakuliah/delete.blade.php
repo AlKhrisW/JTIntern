@@ -24,7 +24,7 @@
                     Tindakan ini tidak dapat dibatalkan.
                 </p>
 
-                <form id="formDelete" action="{{ route('admin.mata_kuliah.destroy_ajax', $mataKuliah->id_matkul) }}"
+                <form id="formDelete" action="{{ route('matkul.destroy', $mataKuliah->id_matkul) }}"
                     method="POST">
                     @csrf
 

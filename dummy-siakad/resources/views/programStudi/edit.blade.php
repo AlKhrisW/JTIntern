@@ -15,7 +15,7 @@
             </div>
 
             <form id="formEdit"
-                action="{{ route('program_studi.update_ajax', $programStudi->prodi_id) }}" method="POST">
+                action="{{ route('prodi.update', $programStudi->prodi_id) }}" method="POST">
                 @csrf
                 <input type="hidden" name="_method" value="PUT">
 

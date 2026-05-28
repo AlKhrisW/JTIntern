@@ -24,7 +24,7 @@
                 </p>
 
                 <form id="formDelete"
-                    action="{{ route('program_studi.destroy_ajax', $programStudi->prodi_id) }}"
+                    action="{{ route('prodi.destroy', $programStudi->prodi_id) }}"
                     method="POST">
                     @csrf
 

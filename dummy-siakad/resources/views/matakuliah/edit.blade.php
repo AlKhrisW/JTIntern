@@ -14,13 +14,27 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form id="formEdit" action="{{ route('admin.mata_kuliah.update_ajax', $mataKuliah->id_matkul) }}"
+            <form id="formEdit" action="{{ route('matkul.update', $mataKuliah->id_matkul) }}"
                 method="POST">
                 @csrf
                 <input type="hidden" name="_method" value="PUT">
 
                 <div class="modal-body pt-3">
                     <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label fw-semibold">Program Studi <span
+                                    class="text-danger">*</span></label>
+                            <select name="prodi_id" class="form-select form-control-modal">
+                                <option value="" disabled>-- Pilih Program Studi --</option>
+                                @foreach ($programStudis as $prodi)
+                                    <option value="{{ $prodi->prodi_id }}"
+                                        {{ $mataKuliah->prodi_id == $prodi->prodi_id ? 'selected' : '' }}>
+                                        {{ $prodi->nama_prodi }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback" id="err_edit_prodi_id"></div>
+                        </div>
                         <div class="col-md-4">
                             <label class="form-label fw-semibold">ID Matkul</label>
                             <input type="text" name="id_matkul" class="form-control form-control-modal"
@@ -32,20 +46,6 @@
                             <input type="text" name="nama_matkul" class="form-control form-control-modal"
                                 value="{{ $mataKuliah->nama_matkul }}">
                             <div class="invalid-feedback" id="err_edit_nama_matkul"></div>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label fw-semibold">Program Studi <span
-                                    class="text-danger">*</span></label>
-                            <select name="prodi_id" class="form-select form-control-modal">
-                                <option value="" disabled>-- Pilih Program Studi --</option>
-                                @foreach ($programStudis as $prodi)
-                                    <option value="{{ $prodi->prodi_id }}"
-                                        {{ $mataKuliah->prodi_id == $prodi->prodi_id ? 'selected' : '' }}>
-                                        {{ $prodi->nama_program_studi }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <div class="invalid-feedback" id="err_edit_prodi_id"></div>
                         </div>
                         <div class="col-12">
                             <label class="form-label fw-semibold">Keahlian</label>

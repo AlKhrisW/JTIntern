@@ -23,47 +23,46 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::prefix('program-studi')->name('prodi.')->group(function () {
     Route::get('/', [ProgramStudiModelController::class, 'index'])->name('index');
     Route::post('/list', [ProgramStudiModelController::class, 'list'])->name('list');
-    Route::get('/show_ajax/{id}', [ProgramStudiModelController::class, 'show_ajax'])->name('show_ajax');
-    Route::get('/create_ajax', [ProgramStudiModelController::class, 'create_ajax'])->name('create_ajax');
-    Route::post('/store_ajax', [ProgramStudiModelController::class, 'store_ajax'])->name('store_ajax');
-    Route::get('/edit_ajax/{id}', [ProgramStudiModelController::class, 'edit_ajax'])->name('edit_ajax');
-    Route::put('/update_ajax/{id}', [ProgramStudiModelController::class, 'update_ajax'])->name('update_ajax');
-    Route::get('/delete_ajax/{id}', [ProgramStudiModelController::class, 'delete_ajax'])->name('delete_ajax');
-    Route::post('/destroy_ajax/{id}', [ProgramStudiModelController::class, 'destroy_ajax'])->name('destroy_ajax');
+    Route::get('/create', [ProgramStudiModelController::class, 'create'])->name('create');
+    Route::post('/store', [ProgramStudiModelController::class, 'store'])->name('store');
+    Route::get('/edit/{id}', [ProgramStudiModelController::class, 'edit'])->name('edit');
+    Route::put('/update/{id}', [ProgramStudiModelController::class, 'update'])->name('update');
+    Route::get('/delete/{id}', [ProgramStudiModelController::class, 'delete'])->name('delete');
+    Route::post('/destroy/{id}', [ProgramStudiModelController::class, 'destroy'])->name('destroy');
 });
 
 Route::prefix('mata-kuliah')->name('matkul.')->group(function () {
     Route::get('/', [MataKuliahModelController::class, 'index'])->name('index');
     Route::post('/list', [MataKuliahModelController::class, 'list'])->name('list');
-    Route::get('/show_ajax/{id}', [MataKuliahModelController::class, 'show_ajax'])->name('show_ajax');
-    Route::get('/create_ajax', [MataKuliahModelController::class, 'create_ajax'])->name('create_ajax');
-    Route::post('/store_ajax', [MataKuliahModelController::class, 'store_ajax'])->name('store_ajax');
-    Route::get('/edit_ajax/{id}', [MataKuliahModelController::class, 'edit_ajax'])->name('edit_ajax');
-    Route::put('/update_ajax/{id}', [MataKuliahModelController::class, 'update_ajax'])->name('update_ajax');
-    Route::get('/delete_ajax/{id}', [MataKuliahModelController::class, 'delete_ajax'])->name('delete_ajax');
-    Route::post('/destroy_ajax/{id}', [MataKuliahModelController::class, 'destroy_ajax'])->name('destroy_ajax');
+    Route::get('/show/{id}', [MataKuliahModelController::class, 'show'])->name('show');
+    Route::get('/create', [MataKuliahModelController::class, 'create'])->name('create');
+    Route::post('/store', [MataKuliahModelController::class, 'store'])->name('store');
+    Route::get('/edit/{id}', [MataKuliahModelController::class, 'edit'])->name('edit');
+    Route::put('/update/{id}', [MataKuliahModelController::class, 'update'])->name('update');
+    Route::get('/delete/{id}', [MataKuliahModelController::class, 'delete'])->name('delete');
+    Route::post('/destroy/{id}', [MataKuliahModelController::class, 'destroy'])->name('destroy');
 });
 
 Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
     Route::get('/', [MahasiswaModelController::class, 'index'])->name('index');
     Route::post('/list', [MahasiswaModelController::class, 'list'])->name('list');
-    Route::get('/show_ajax/{id}', [MahasiswaModelController::class, 'show_ajax'])->name('show_ajax');
-    Route::get('/create_ajax', [MahasiswaModelController::class, 'create_ajax'])->name('create_ajax');
-    Route::post('/store_ajax', [MahasiswaModelController::class, 'store_ajax'])->name('store_ajax');
-    Route::get('/edit_ajax/{id}', [MahasiswaModelController::class, 'edit_ajax'])->name('edit_ajax');
-    Route::put('/update_ajax/{id}', [MahasiswaModelController::class, 'update_ajax'])->name('update_ajax');
-    Route::get('/delete_ajax/{id}', [MahasiswaModelController::class, 'delete_ajax'])->name('delete_ajax');
-    Route::post('/destroy_ajax/{id}', [MahasiswaModelController::class, 'destroy_ajax'])->name('destroy_ajax');
+    Route::get('/show/{id}', [MahasiswaModelController::class, 'show'])->name('show');
+    Route::get('/create', [MahasiswaModelController::class, 'create'])->name('create');
+    Route::post('/store', [MahasiswaModelController::class, 'store'])->name('store');
+    Route::get('/edit/{id}', [MahasiswaModelController::class, 'edit'])->name('edit');
+    Route::put('/update/{id}', [MahasiswaModelController::class, 'update'])->name('update');
+    Route::get('/delete/{id}', [MahasiswaModelController::class, 'delete'])->name('delete');
+    Route::post('/destroy/{id}', [MahasiswaModelController::class, 'destroy'])->name('destroy');
 });
 
 Route::prefix('nilai-mahasiswa')->name('nilai.')->group(function () {
     Route::get('/', [NilaiModelController::class, 'index'])->name('index');
     Route::post('/list', [NilaiModelController::class, 'list'])->name('list');
-    Route::get('/show_ajax/{id}', [NilaiModelController::class, 'show_ajax'])->name('show_ajax');
-    Route::get('/create_ajax', [NilaiModelController::class, 'create_ajax'])->name('create_ajax');
-    Route::post('/store_ajax', [NilaiModelController::class, 'store_ajax'])->name('store_ajax');
-    Route::get('/edit_ajax/{id}', [NilaiModelController::class, 'edit_ajax'])->name('edit_ajax');
-    Route::put('/update_ajax/{id}', [NilaiModelController::class, 'update_ajax'])->name('update_ajax');
-    Route::get('/delete_ajax/{id}', [NilaiModelController::class, 'delete_ajax'])->name('delete_ajax');
-    Route::post('/destroy_ajax/{id}', [NilaiModelController::class, 'destroy_ajax'])->name('destroy_ajax');
+    Route::get('/show/{id}', [NilaiModelController::class, 'show'])->name('show');
+    Route::get('/create', [NilaiModelController::class, 'create'])->name('create');
+    Route::post('/store', [NilaiModelController::class, 'store'])->name('store');
+    Route::get('/edit/{id}', [NilaiModelController::class, 'edit'])->name('edit');
+    Route::put('/update/{id}', [NilaiModelController::class, 'update'])->name('update');
+    Route::get('/delete/{id}', [NilaiModelController::class, 'delete'])->name('delete');
+    Route::post('/destroy/{id}', [NilaiModelController::class, 'destroy'])->name('destroy');
 });

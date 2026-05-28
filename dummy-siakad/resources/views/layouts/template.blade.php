@@ -29,7 +29,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
         {{-- Custom CSS --}}
-        <link rel="stylesheet" href="{{ asset('css/layout_admin.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
         @stack('css')
     </head>
 

@@ -1,128 +1,11 @@
-@extends('layouts_template')
+@extends('layouts.template')
 
 @push('css')
-    <style>
-        .program-studi-page {
-            padding: 0;
-        }
-
-        .page-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #1a1a2e;
-        }
-
-        .btn-tambah {
-            background: #4CAF50;
-            color: #fff;
-            border: none;
-            padding: 0.5rem 1.2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: background 0.2s;
-        }
-
-        .btn-tambah:hover {
-            background: #388e3c;
-        }
-
-        .table-card {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.07);
-            overflow: hidden;
-        }
-
-        .table thead th {
-            background: #fafafa;
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: #888;
-            text-transform: uppercase;
-            border-bottom: 1.5px solid #f0f0f0;
-            padding: 0.85rem 1rem;
-        }
-
-        .table tbody td {
-            padding: 1rem;
-            border-bottom: 1px solid #f5f5f5;
-        }
-
-        .table-hover tbody tr:hover {
-            background: #f9fffe;
-        }
-
-        .btn-icon {
-            width: 34px;
-            height: 34px;
-            border: none;
-            border-radius: 8px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.15s;
-            background: transparent;
-        }
-
-        .btn-edit {
-            color: #546e7a;
-            background: #f0f4f8;
-        }
-
-        .btn-edit:hover {
-            background: #cfd8dc;
-            color: #263238;
-        }
-
-        .btn-delete {
-            color: #e53935;
-            background: #ffebee;
-        }
-
-        .btn-delete:hover {
-            background: #ffcdd2;
-            color: #b71c1c;
-        }
-
-        /* Pagination */
-        .pagination-custom .pagination {
-            margin: 0;
-            gap: 4px;
-        }
-
-        .pagination-custom .page-link {
-            border-radius: 8px !important;
-            border: 1.5px solid #e8e8e8;
-            color: #555;
-            font-size: 0.85rem;
-            padding: 0.3rem 0.65rem;
-            min-width: 34px;
-        }
-
-        .pagination-custom .page-item.active .page-link {
-            background: #4CAF50;
-            border-color: #4CAF50;
-            color: #fff;
-        }
-
-        .pagination-custom .page-link:hover {
-            background: #e8f5e9;
-            border-color: #a5d6a7;
-            color: #2e7d32;
-        }
-
-        .pagination-custom p,
-        .pagination-custom [role="status"] {
-            display: none !important;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/crud.css') }}">
 @endpush
 
 @section('content')
-    <div class="program-studi-page">
+    <div class="page-container">
 
         {{-- Header --}}
         <div class="page-header d-flex align-items-center justify-content-between mb-4">
@@ -197,7 +80,7 @@
     <div id="modalContainer"></div>
 @endsection
 
-@push('script')
+@push('js')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
@@ -229,20 +112,20 @@
 
             // Tambah
             document.getElementById('btnTambah').addEventListener('click', () => {
-                loadModal('{{ route('program_studi.create_ajax') }}');
+                loadModal('{{ route('prodi.create') }}');
             });
 
             // Edit
             document.querySelectorAll('.btn-edit').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    loadModal('{{ url('program_studi/edit_ajax') }}/' + this.dataset.id);
+                    loadModal('{{ url('/program-studi/edit') }}/' + this.dataset.id);
                 });
             });
 
             // Delete
             document.querySelectorAll('.btn-delete').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    loadModal('{{ url('program_studi/delete_ajax') }}/' + this.dataset.id);
+                    loadModal('{{ url('/program-studi/delete') }}/' + this.dataset.id);
                 });
             });
 
