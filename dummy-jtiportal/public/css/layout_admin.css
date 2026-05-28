@@ -1,0 +1,116 @@
+/* =========================
+   LAYOUT UTAMA
+========================= */
+header {
+    height: 55px;
+}
+
+main {
+    min-height: 75vh;
+    margin-top: 55px;
+}
+
+footer {
+    background-color: #E7F5D2;
+}
+
+header, main, footer {
+    margin-left: 60px;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+header.expand, main.expand, footer.expand {
+    margin-left: 210px;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+li {
+    list-style: none;
+}
+
+ul {
+    padding: 0;
+}
+
+aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 100%;
+    z-index: 1000;
+    background-color: #F8FAFC;
+    transition: all 0.3s ease-in-out;
+}
+
+aside.expand {
+    width: 210px;
+}
+
+aside .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 20px;
+    color: #475569;
+    white-space: nowrap;
+}
+
+aside .nav-link:hover, 
+aside .nav-link.active {
+    background-color: #D9EAD3;
+    border-left: 3px solid #3CA200;
+    color: #3CA200;
+    transition: all 0.3s ease-in-out;
+}
+
+aside .logo,
+aside .description {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+
+aside.expand .logo,
+aside.expand .description {
+    opacity: 1;
+    width: auto;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+.header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+#toggle {
+    padding: 15px 20px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+#toggle i {
+    color: #475569;
+}
+
+
+/* =========================
+   BREADCRUMB
+========================= */
+.breadcrumb a {
+    color: #475569;
+    text-decoration: none;
+}
+
+.breadcrumb .active {
+    color: #3CA200;
+}
