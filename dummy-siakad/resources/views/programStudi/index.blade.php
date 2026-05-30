@@ -2,6 +2,15 @@
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('css/crud.css') }}">
+    <style>
+        /* ===== Sembunyikan teks "Showing X to Y of Z results" bawaan Bootstrap pagination ===== */
+        .pagination-custom p,
+        .pagination-custom [role="status"],
+        nav[aria-label="Pagination Navigation"] p,
+        nav[aria-label="Pagination Navigation"] [role="status"] {
+            display: none !important;
+        }
+    </style>
 @endpush
 
 @section('content')
