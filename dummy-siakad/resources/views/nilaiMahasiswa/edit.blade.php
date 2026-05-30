@@ -1,120 +1,100 @@
 <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content modal-lowongan">
+        <div class="modal-content modal-nilai">
+
             <div class="modal-header border-0 pb-0">
                 <div class="modal-title-wrap">
                     <div class="modal-icon-badge bg-primary-soft">
                         <i class="bi bi-pencil-square text-primary"></i>
                     </div>
                     <div>
-                        <h5 class="modal-title fw-bold" id="modalEditLabel">Edit Lowongan</h5>
-                        <p class="text-muted small mb-0">Perbarui data lowongan</p>
+                        <h5 class="modal-title fw-bold" id="modalEditLabel">Edit Nilai Mahasiswa</h5>
                     </div>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form id="formEdit" action="{{ route('admin.lowongan.update_ajax', $lowongan->lowongan_id) }}"
-                method="POST">
-
+            <form id="formEdit" action="{{ route('nilai.update', $nilai->id_nilai) }}" method="POST">
                 @csrf
                 <input type="hidden" name="_method" value="PUT">
-                <input type="hidden" name="perusahaan_id" value="{{ $lowongan->perusahaan_id }}">
 
                 <div class="modal-body pt-3">
                     <div class="row g-3">
 
-                        {{-- Nama Perusahaan --}}
-                        <div class="edit-company-card col-12">
-                            <div class="d-flex align-items-center gap-3">
-                                @if ($lowongan->perusahaan->logo)
-                                    <img src="{{ asset('storage/' . $lowongan->perusahaan->logo) }}"
-                                        alt="{{ $lowongan->perusahaan->nama_perusahaan }}" class="edit-logo-img">
-                                @else
-                                    <div class="edit-logo-placeholder">
-                                        {{ strtoupper(substr($lowongan->perusahaan->nama_perusahaan, 0, 2)) }}
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold">ID Nilai</label>
+                            <input type="text" class="form-control form-control-modal"
+                                value="{{ $nilai->id_nilai }}" readonly>
+                        </div>
+
+                        <div class="col-md-8">
+                            <label class="form-label fw-semibold">Mahasiswa <span class="text-danger">*</span></label>
+                            <select name="id_mahasiswa" class="form-select form-control-modal">
+                                <option value="" disabled>-- Pilih Mahasiswa --</option>
+                                @foreach ($mahasiswas as $mhs)
+                                    <option value="{{ $mhs->nim }}"
+                                        {{ $nilai->id_mahasiswa == $mhs->nim ? 'selected' : '' }}>
+                                        {{ $mhs->nama_mahasiswa }} ({{ $mhs->nim }})
+                                    </option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback" id="err_edit_id_mahasiswa"></div>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label fw-semibold">Mata Kuliah <span class="text-danger">*</span></label>
+                            <select name="id_matkul" class="form-select form-control-modal">
+                                <option value="" disabled>-- Pilih Mata Kuliah --</option>
+                                @foreach ($mataKuliahs as $mk)
+                                    <option value="{{ $mk->id_matkul }}"
+                                        {{ $nilai->id_matkul == $mk->id_matkul ? 'selected' : '' }}>
+                                        {{ $mk->nama_matkul }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback" id="err_edit_id_matkul"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Nilai Angka <span class="text-danger">*</span></label>
+                            <input type="number" name="nilai_angka" id="editNilaiAngka"
+                                min="0" max="4" step="0.01"
+                                class="form-control form-control-modal"
+                                value="{{ number_format($nilai->nilai_angka, 2) }}">
+                            <div class="invalid-feedback" id="err_edit_nilai_angka"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Nilai Huruf <span class="text-danger">*</span></label>
+                            <select name="nilai_huruf" id="editNilaiHuruf" class="form-select form-control-modal">
+                                <option value="" disabled>-- Pilih Nilai Huruf --</option>
+                                @foreach (['A', 'B+', 'B', 'C+', 'C', 'D', 'E'] as $huruf)
+                                    <option value="{{ $huruf }}"
+                                        {{ $nilai->nilai_huruf == $huruf ? 'selected' : '' }}>
+                                        {{ $huruf }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback" id="err_edit_nilai_huruf"></div>
+                        </div>
+
+                        {{-- Preview --}}
+                        <div class="col-12">
+                            <div class="nilai-preview-card">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="preview-badge" id="editPreviewBadge">{{ $nilai->nilai_huruf }}</div>
+                                    <div>
+                                        <div class="preview-label">Nilai Angka</div>
+                                        <div class="preview-angka fw-bold" id="editPreviewAngka">{{ number_format($nilai->nilai_angka, 2) }}</div>
                                     </div>
-                                @endif
-                                <div class="text-start">
-                                    <div class="fw-semibold">{{ $lowongan->posisi }}</div>
-                                    <div class="text-muted small">{{ $lowongan->perusahaan->nama_perusahaan }}</div>
+                                    <div class="ms-auto text-end">
+                                        <div class="preview-label">Nilai Huruf</div>
+                                        <div class="preview-huruf fw-bold" id="editPreviewHuruf">{{ $nilai->nilai_huruf }}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        {{-- Posisi Lowongan --}}
-                        <div class="col-5">
-                            <i class="bi bi-person-square me-1"></i>
-                            <label class="form-label fw-semibold">Posisi Lowongan <span
-                                    class="text-danger">*</span></label>
-                            <input type="text" name="posisi" class="form-control form-control-modal"
-                                value="{{ $lowongan->posisi }}" placeholder="Contoh: Fullstack Developer" required>
-                            <div class="invalid-feedback" id="err_edit_posisi"></div>
-                        </div>
-
-                        {{-- Periode --}}
-                        <div class="col-3">
-                            <i class="bi bi-calendar3 me-1"></i>
-                            <label class="form-label fw-semibold">Periode (bulan) <span
-                                    class="text-danger">*</span></label>
-                            <input type="number" min="1" name="periode" class="form-control form-control-modal"
-                                value="{{ $lowongan->periode }}" placeholder="Contoh: 6" required>
-                            <div class="invalid-feedback" id="err_edit_periode"></div>
-                        </div>
-
-                        {{-- Min IPK --}}
-                        <div class="col-2">
-                            <i class="bi bi-mortarboard me-1"></i>
-                            <label class="form-label fw-semibold">Min IPK <span class="text-danger">*</span></label>
-                            <input type="number" step="0.01" min="0" max="4" name="ipk_min"
-                                class="form-control form-control-modal"
-                                value="{{ number_format($lowongan->ipk_min, 2, '.', '') }}" placeholder="Contoh: 3.00"
-                                required>
-                            <div class="invalid-feedback" id="err_edit_ipk_min"></div>
-                        </div>
-
-                        {{-- Insentif --}}
-                        <div class="col-2">
-                            <i class="bi bi-cash-stack me-1"></i>
-                            <label class="form-label fw-semibold">Insentif <span class="text-danger">*</span></label>
-                            <select name="insentif" class="form-select form-control-modal" required>
-                                <option value="" disabled>-- Pilih Jenis --</option>
-                                <option value="paid" {{ $lowongan->insentif == 'paid' ? 'selected' : '' }}>Paid
-                                </option>
-                                <option value="unpaid" {{ $lowongan->insentif == 'unpaid' ? 'selected' : '' }}>Unpaid
-                                </option>
-                                <option value="flexible" {{ $lowongan->insentif == 'flexible' ? 'selected' : '' }}>
-                                    Flexible</option>
-                            </select>
-                            <div class="invalid-feedback" id="err_edit_insentif"></div>
-                        </div>
-
-                        {{-- Skill --}}
-                        <div class="col-6">
-                            <i class="bi bi-code-square me-1"></i>
-                            <label class="form-label fw-semibold">Skills <span class="text-danger">*</span></label>
-                            <textarea name="skill" rows="3" class="form-control form-control-modal"
-                                placeholder="Contoh: HTML, CSS, JavaScript" required>{{ $lowongan->skill }}</textarea>
-                            <div class="invalid-feedback" id="err_edit_skill"></div>
-                        </div>
-
-                        {{-- Tools --}}
-                        <div class="col-6">
-                            <i class="bi bi-laptop me-1"></i>
-                            <label class="form-label fw-semibold">Tools <span class="text-danger">*</span></label>
-                            <textarea name="tools" rows="3" class="form-control form-control-modal"
-                                placeholder="Contoh: VS Code, Figma, MySQL" required>{{ $lowongan->tools }}</textarea>
-                            <div class="invalid-feedback" id="err_edit_tools"></div>
-                        </div>
-
-                        {{-- Deskripsi --}}
-                        <div class="col-12">
-                            <i class="bi bi-text-left me-1"></i>
-                            <label class="form-label fw-semibold">Deskripsi <span class="text-danger">*</span></label>
-                            <textarea name="deskripsi" rows="3" class="form-control form-control-modal"
-                                placeholder="Deskripsi singkat tentang lowongan" required>{{ $lowongan->deskripsi }}</textarea>
-                            <div class="invalid-feedback" id="err_edit_deskripsi"></div>
-                        </div>
                     </div>
                 </div>
 
@@ -124,268 +104,66 @@
                         <i class="bi bi-check-lg me-1"></i> Perbarui
                     </button>
                 </div>
-
             </form>
         </div>
     </div>
 </div>
 
 <style>
-    .modal-lowongan {
-        border-radius: 16px;
-        border: none;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    .modal-nilai { border-radius: 16px; border: none; box-shadow: 0 20px 60px rgba(0,0,0,.15); }
+    .modal-title-wrap { display: flex; align-items: center; gap: 12px; }
+    .modal-icon-badge { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+    .bg-primary-soft { background: #e3f2fd; }
+    .form-control-modal { border: 1.5px solid #e8e8e8; border-radius: 10px; padding: .55rem .9rem; }
+    .form-control-modal:focus { border-color: #1976d2; box-shadow: 0 0 0 3px rgba(25,118,210,.12); }
+    .btn-modal-cancel { background: #f5f5f5; color: #555; border: none; padding: .5rem 1.3rem; border-radius: 8px; }
+    .btn-modal-submit { color: #fff; border: none; padding: .5rem 1.5rem; border-radius: 8px; font-weight: 600; }
+    .btn-primary-modal { background: #1976d2 !important; }
+    .nilai-preview-card {
+        background: linear-gradient(135deg,#f8fbff,#e3f2fd);
+        border: 1.5px solid #bbdefb; border-radius: 12px; padding: 1rem 1.2rem;
     }
-
-    .modal-header {
-        padding: 1.5rem 1.5rem 1rem;
+    .preview-badge {
+        padding: .25rem .75rem; border-radius: 8px; background: #fff;
+        border: 2px solid #1976d2; font-size: 1rem; font-weight: 700; color: #1565c0; flex-shrink: 0;
     }
-
-    .modal-title-wrap {
-        display: flex;
-        align-items: center;
-        gap: 0.85rem;
-    }
-
-    .modal-icon-badge {
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.2rem;
-    }
-
-    .edit-company-card {
-        background: #fafafa;
-        border: 1.5px solid #f0f0f0;
-        border-radius: 12px;
-        padding: 0.9rem 1.1rem;
-        text-align: left;
-    }
-
-    .bg-primary-soft {
-        background: #e3f2fd;
-    }
-
-    .form-control-modal {
-        border: 1.5px solid #e8e8e8;
-        border-radius: 10px;
-        padding: 0.55rem 0.9rem;
-        font-size: 0.9rem;
-        transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .form-control-modal:focus {
-        border-color: #1976d2;
-        box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.12);
-    }
-
-    .form-control-modal.is-invalid {
-        border-color: #e53935;
-    }
-
-    .input-group .input-group-text {
-        border-radius: 10px 0 0 10px;
-        border: 1.5px solid #e8e8e8;
-        border-right: none;
-    }
-
-    .input-group .form-control-modal {
-        border-radius: 0 10px 10px 0;
-    }
-
-    .edit-logo-img {
-        width: 44px;
-        height: 44px;
-        object-fit: contain;
-        border-radius: 10px;
-        border: 1px solid #eee;
-    }
-
-    .x-small {
-        font-size: 0.7rem;
-    }
-
-    .btn-modal-cancel {
-        background: #f5f5f5;
-        color: #555;
-        border: none;
-        padding: 0.5rem 1.3rem;
-        border-radius: 8px;
-        font-weight: 500;
-    }
-
-    .btn-modal-cancel:hover {
-        background: #e0e0e0;
-    }
-
-    .btn-modal-submit {
-        background: #4CAF50;
-        color: #fff;
-        border: none;
-        padding: 0.5rem 1.5rem;
-        border-radius: 8px;
-        font-weight: 600;
-    }
-
-    .btn-primary-modal {
-        background: #1976d2 !important;
-    }
-
-    .btn-primary-modal:hover {
-        background: #1565c0 !important;
-        color: #fff;
-    }
+    .preview-label { font-size: .7rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: .05em; }
+    .preview-angka { font-size: 1.1rem; color: #1a1a1a; }
+    .preview-huruf { font-size: 1.1rem; color: #1a1a1a; }
 </style>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+(function () {
+    const nilaiAngkaInput  = document.getElementById('editNilaiAngka');
+    const nilaiHurufSelect = document.getElementById('editNilaiHuruf');
+    const previewBadge     = document.getElementById('editPreviewBadge');
+    const previewAngka     = document.getElementById('editPreviewAngka');
+    const previewHuruf     = document.getElementById('editPreviewHuruf');
 
-        function showError(name, message) {
-            const el = document.querySelector('#formEdit [name="' + name + '"]');
-            const errEl = document.getElementById('err_edit_' + name);
+    function angkaToHuruf(n) {
+        if (n >= 3.75) return 'A';
+        if (n >= 3.25) return 'B+';
+        if (n >= 2.75) return 'B';
+        if (n >= 2.25) return 'C+';
+        if (n >= 2.00) return 'C';
+        if (n >= 1.00) return 'D';
+        return 'E';
+    }
 
-            if (el) el.classList.add('is-invalid');
-            if (errEl) errEl.textContent = message;
-        }
+    function updatePreview() {
+        const angka = nilaiAngkaInput.value;
+        const huruf = nilaiHurufSelect.value;
+        previewAngka.textContent = angka !== '' ? parseFloat(angka).toFixed(2) : '-';
+        previewHuruf.textContent = huruf || '-';
+        previewBadge.textContent = huruf || (angka !== '' ? angkaToHuruf(parseFloat(angka)) : '-');
+    }
 
-        function clearError(el) {
-            el.classList.remove('is-invalid');
-            const errEl = document.getElementById('err_edit_' + el.name);
-            if (errEl) errEl.textContent = '';
-        }
-
-        function clearAllErrors() {
-            document.querySelectorAll('#formEdit .form-control-modal, #formEdit select')
-                .forEach(function(el) {
-                    el.classList.remove('is-invalid');
-                });
-            document.querySelectorAll('#formEdit [id^="err_edit_"]')
-                .forEach(function(el) {
-                    el.textContent = '';
-                });
-        }
-
-        document.querySelectorAll('#formEdit .form-control-modal, #formEdit select')
-            .forEach(function(el) {
-                el.addEventListener('input', function() {
-                    clearError(el);
-                });
-                el.addEventListener('change', function() {
-                    clearError(el);
-                });
-            });
-
-        function validateForm() {
-            let valid = true;
-            clearAllErrors();
-
-            const posisi = document.querySelector('[name="posisi"]');
-            if (!posisi.value.trim()) {
-                showError('posisi', 'Posisi wajib diisi.');
-                valid = false;
-            }
-
-            const periode = document.querySelector('[name="periode"]');
-            if (!periode.value || periode.value <= 0) {
-                showError('periode', 'Periode wajib diisi.');
-                valid = false;
-            }
-
-            const ipk = document.querySelector('[name="ipk_min"]');
-            if (!ipk.value || ipk.value < 0 || ipk.value > 4) {
-                showError('ipk_min', 'IPK harus antara 0 - 4.');
-                valid = false;
-            }
-
-            const insentif = document.querySelector('[name="insentif"]');
-            if (!insentif.value) {
-                showError('insentif', 'Insentif wajib dipilih.');
-                valid = false;
-            }
-
-            const skill = document.querySelector('[name="skill"]');
-            if (!skill.value.trim()) {
-                showError('skill', 'Skill wajib diisi.');
-                valid = false;
-            }
-
-            const tools = document.querySelector('[name="tools"]');
-            if (!tools.value.trim()) {
-                showError('tools', 'Tools wajib diisi.');
-                valid = false;
-            }
-
-            const deskripsi = document.querySelector('[name="deskripsi"]');
-            if (!deskripsi.value.trim()) {
-                showError('deskripsi', 'Deskripsi wajib diisi.');
-                valid = false;
-            }
-
-            return valid;
-        }
-
-        const form = document.getElementById('formEdit');
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                if (!validateForm()) {
-                    const firstInvalid = form.querySelector('.is-invalid');
-                    if (firstInvalid) {
-                        firstInvalid.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'center'
-                        });
-                        firstInvalid.focus();
-                    }
-                    return;
-                }
-
-                const submitBtn = form.querySelector('[type="submit"]');
-
-                submitBtn.disabled = true;
-                submitBtn.innerHTML =
-                    '<span class="spinner-border spinner-border-sm me-1"></span> Menyimpan...';
-
-                fetch(form.action, {
-                        method: 'POST',
-                        body: new FormData(form),
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-
-                        if (data.status) {
-                            const modal = bootstrap.Modal.getInstance(
-                                document.getElementById('modalEdit')
-                            );
-
-                            if (modal) modal.hide();
-                            $('#tabelLowongan').DataTable().ajax.reload(null, false);
-                        } else {
-                            if (data.msgField) {
-                                Object.entries(data.msgField)
-                                    .forEach(([field, messages]) => {
-                                        showError(field, messages[0]);
-                                    });
-                            }
-                        }
-                    })
-                    .catch(() => {
-                        alert('Terjadi kesalahan server.');
-                    })
-                    .finally(() => {
-
-                        submitBtn.disabled = false;
-                        submitBtn.innerHTML =
-                            '<i class="bi bi-check-lg me-1"></i> Perbarui';
-                    });
-            });
-        }
+    nilaiAngkaInput.addEventListener('input', function () {
+        const n = parseFloat(this.value);
+        if (this.value !== '') nilaiHurufSelect.value = angkaToHuruf(n);
+        updatePreview();
     });
+
+    nilaiHurufSelect.addEventListener('change', updatePreview);
+})();
 </script>
