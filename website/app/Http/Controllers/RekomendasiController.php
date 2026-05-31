@@ -17,17 +17,9 @@ class RekomendasiController extends Controller
      */
     public function index()
     {
-        $skills = SkillModel::pluck('nama_skill')->toArray();
-        $tools = ToolsModel::pluck('nama_tools')->toArray();
-        $minat = MinatBidangModel::pluck('nama_minat_bidang')->toArray();
-
         return view('rekomendasi.index', [
             'activeMenu' => 'rekomendasi',
             'title' => 'Rekomendasi - JTIntern',
-            'skills' => $skills,
-            'tools' => $tools,
-            'minat' => $minat,
-            'savedSkills' => [],
         ]);
     }
 
