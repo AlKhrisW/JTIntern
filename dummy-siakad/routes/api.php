@@ -15,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/api/mahasiswa/{nim}', [MahasiswaController::class, 'cariByNim']);
+Route::get('/mahasiswa/{nim}', [MahasiswaController::class, 'cariByNim']);
