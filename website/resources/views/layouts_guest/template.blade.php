@@ -30,6 +30,9 @@
 
         {{-- SweetAlert2 CSS --}}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+        {{-- Livewire Style --}}
+        @livewireStyles
         
         {{-- Custom CSS --}}
         <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
@@ -52,6 +55,9 @@
         {{-- =============================================
         JavaScript
         ============================================= --}}
+
+        {{-- Livewire Scripts --}}
+        @livewireScripts
 
         {{-- jQuery --}}
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"

@@ -27,4 +27,9 @@ class MataKuliahModel extends Model
     {
         return $this->belongsTo(ProgramStudiModel::class, 'prodi_id', 'prodi_id');
     }
+
+    public function nilai()
+    {
+        return $this->hasMany(NilaiModel::class, 'id_matkul', 'id_matkul');
+    }
 }

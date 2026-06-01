@@ -27,4 +27,9 @@ class MahasiswaModel extends Model
     {
         return $this->belongsTo(ProgramStudiModel::class, 'prodi_id', 'prodi_id');
     }
+
+    public function nilai()
+    {
+        return $this->hasMany(NilaiModel::class, 'nim', 'nim');
+    }
 }

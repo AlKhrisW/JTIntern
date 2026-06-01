@@ -20,4 +20,14 @@ class ProgramStudiModel extends Model
         'prodi_id',
         'nama_prodi',
     ];
+
+    public function mahasiswa()
+    {
+        return $this->hasMany(MahasiswaModel::class, 'prodi_id', 'prodi_id');
+    }
+
+    public function mataKuliah()
+    {
+        return $this->hasMany(MataKuliahModel::class, 'prodi_id', 'prodi_id');
+    }
 }
