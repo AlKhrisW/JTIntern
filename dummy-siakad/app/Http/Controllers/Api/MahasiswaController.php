@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MahasiswaResource;
 use App\Services\MahasiswaService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class MahasiswaController extends Controller
 {
@@ -15,11 +17,20 @@ class MahasiswaController extends Controller
         $this->mahasiswaService = $mahasiswaService;
     }
 
-    public function cariByNim($nim)
+    public function cariByNim(Request $request, $nim)
     {
-        $nim->validate([
-            'nim' => ['required', 'string'],
-        ]);
+        $validator = Validator::make(
+            ['nim' => $nim],
+            ['nim' => ['required', 'string', 'digits_between:6,10']]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'NIM tidak valid',
+                'data' => null,
+            ], 422);
+        }
 
         $mahasiswa = $this->mahasiswaService->getMahasiswa($nim);
 

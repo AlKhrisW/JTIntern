@@ -23,7 +23,7 @@ class MahasiswaService
 
         return [
             'nim' => $mahasiswa->nim,
-            'nama' => $mahasiswa->nama,
+            'nama' => $mahasiswa->nama_mahasiswa,
             'email' => $mahasiswa->email,
             'program_studi' => $mahasiswa->programStudi?->nama_prodi,
             'ipk' => $this->hitungIPK($mahasiswa),
