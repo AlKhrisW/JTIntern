@@ -1,0 +1,1 @@
+# untuk pembersihan data dan filter data yang masuk

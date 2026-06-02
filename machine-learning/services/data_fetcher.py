@@ -1,0 +1,1 @@
+# mengambil data perusahaan dan lowongan dari website jtiportal
