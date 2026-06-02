@@ -30,6 +30,10 @@ class MahasiswaModel extends Model
 
     public function nilai()
     {
-        return $this->hasMany(NilaiModel::class, 'nim', 'nim');
+        return $this->hasMany(
+            NilaiModel::class,
+            'id_mahasiswa',
+            'nim'
+        );
     }
 }
