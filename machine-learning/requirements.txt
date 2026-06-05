@@ -1,1 +1,6 @@
-library eksternal python
+fastapi
+uvicorn
+pandas
+numpy
+requests
+python-dotenv
