@@ -90,7 +90,7 @@
                             </span>
                         </div>
 
-                        <a href="{{ route('lowongan.show', $item['lowongan_id'] ?? 0) }}" class="btn-detail">
+                        <a href="{{ route('lowongan.detail', $item['lowongan_id'] ?? 0) }}" class="btn-detail">
                             Lihat Detail →
                         </a>
 

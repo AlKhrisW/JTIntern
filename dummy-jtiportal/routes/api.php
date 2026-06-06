@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LowonganController;
+use App\Http\Controllers\Api\DetailController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,3 +16,5 @@ use App\Http\Controllers\Api\LowonganController;
 */
 
 Route::get('/lowongan', [LowonganController::class, 'index']);
+
+Route::get('/detail/{id}', [DetailController::class, 'detail']);
