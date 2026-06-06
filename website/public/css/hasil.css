@@ -1,0 +1,227 @@
+.hasil-wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 4rem;
+}
+
+.btn-kembali {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: inherit;
+    text-decoration: none;
+    margin-bottom: 1.25rem;
+    opacity: 0.65;
+    transition: opacity 0.15s;
+}
+
+.btn-kembali:hover {
+    opacity: 1;
+    text-decoration: none;
+}
+
+.hasil-heading {
+    margin-bottom: 0.5rem;
+}
+
+.hasil-heading h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1a7a2e;
+    margin-bottom: 0.25rem;
+}
+
+.hasil-heading p {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0;
+}
+
+.alert-session {
+    background: #fff8e1;
+    border: 1px solid #f9ca24;
+    border-radius: 8px;
+    padding: 0.55rem 0.9rem;
+    font-size: 0.8rem;
+    color: #7a5c00;
+    margin: 0.75rem 0 1rem;
+}
+
+.jumlah-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.kartu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+}
+
+@media (max-width: 640px) {
+    .kartu-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.kartu {
+    position: relative;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-radius: 14px;
+    padding: 1.25rem 1.25rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.kartu:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+.kartu.kartu-top {
+    background: #f0fdf4;
+    border-color: rgba(34, 197, 94, 0.25);
+}
+
+.badge-cocok {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.28rem 0.65rem;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.badge-hijau {
+    background: #22c55e;
+    color: #fff;
+}
+
+.badge-kuning {
+    background: #facc15;
+    color: #5a3e00;
+}
+
+.badge-abu {
+    background: #e5e7eb;
+    color: #4b5563;
+}
+
+.kartu-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: #e8f5e9;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #1a7a2e;
+    flex-shrink: 0;
+}
+
+.kartu-perusahaan {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #888;
+    margin: 0;
+}
+
+.kartu-posisi {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+    padding-right: 4.5rem;
+    line-height: 1.3;
+}
+
+.kartu-deskripsi {
+    font-size: 0.82rem;
+    color: #666;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.kartu-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 0.35rem;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.78rem;
+    color: #555;
+}
+
+.btn-detail {
+    display: block;
+    margin-top: 0.85rem;
+    padding: 0.6rem 1rem;
+    background: #22c55e;
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 9px;
+    transition: background 0.15s;
+}
+
+.btn-detail:hover {
+    background: #16a34a;
+    text-decoration: none;
+    color: #fff;
+}
+
+.kosong-state {
+    text-align: center;
+    padding: 3.5rem 1rem;
+}
+
+.kosong-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.kosong-state h5 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.kosong-state p {
+    color: #777;
+    margin-bottom: 1rem;
+}
+
+.btn-cari-ulang {
+    display: inline-block;
+    padding: 0.5rem 1.25rem;
+    background: #22c55e;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 9px;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: background 0.15s;
+}
+
+.btn-cari-ulang:hover {
+    background: #16a34a;
+    text-decoration: none;
+    color: #fff;
+}

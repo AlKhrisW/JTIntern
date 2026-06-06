@@ -23,36 +23,30 @@ class RekomendasiController extends Controller
         ]);
     }
 
+    public function hasil()
+    {
+        $hasil = session('hasil_rekomendasi');
+ 
+        if (! $hasil) {
+            return redirect()
+                ->route('rekomendasi.index')
+                ->with('error', 'Sesi hasil rekomendasi tidak ditemukan atau sudah kedaluwarsa. Silakan cari ulang.');
+        }
+ 
+        return view('rekomendasi.hasil', [
+            'title'         => 'Hasil Rekomendasi - JTIntern',
+            'mahasiswa'     => $hasil['mahasiswa'],
+            'rekomendasi'   => $hasil['rekomendasi'],
+            'generated_at'  => $hasil['generated_at'],
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        // Validasi input
-        $validator = Validator::make($request->all(), [
-            'nama'              => 'required|string|max:100',
-            'email'             => 'required|email|max:100',
-            'ipk'               => 'required|numeric|between:0,4',
-            'jenis_perusahaan'  => 'required|string|max:100',
-            'skills'            => 'required|string',           // atau 'array' jika pakai array
-            'tools'             => 'required|string',
-            'minat_bidang'      => 'required|string',
-        ]);
-
-        if ($validator->fails()) {
-        return redirect()->back()
-                         ->withErrors($validator)
-                         ->withInput();
-        }
-        ProfilMahasiswaModel::create([
-            'nama'            => $request->nama,
-            'email'           => $request->email,
-            'ipk'             => $request->ipk,
-            'jenis_perusahaan'=> $request->jenis_perusahaan,
-            'skill'           => $request->skills,
-            'tools'           => $request->tools,
-            'minat_bidang'    => $request->minat_bidang,
-        ]);
+        //
     }
 
     /**
