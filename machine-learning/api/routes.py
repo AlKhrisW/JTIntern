@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
+from typing import List
 import pandas as pd
 
 from services.data_fetcher import get_lowongan_aktif
@@ -14,13 +15,14 @@ class MahasiswaData(BaseModel):
     email: str
     program_studi: str
     ipk: float
-    keahlian: str
+    keahlian: List[str]
+    tools: List[str]
 
 class PreferensiData(BaseModel):
     jenis_magang: str
-    minat_bidang: str
+    minat_bidang: List[str]
     jenis_instansi: str
-    lokasi: str
+    lokasi: List[str]
 
 class InputPayload(BaseModel):
     mahasiswa: MahasiswaData
@@ -52,7 +54,15 @@ async def proses_rekomendasi(payload: InputPayload):
     hasil_ranking_df = hitung_skor_edas(df_tersaring, payload)
     
     # 4. Format Hasil
-    kolom_hasil = ['lowongan_id', 'nama_perusahaan', 'posisi', 'skor_edas']
+    kolom_hasil = [
+        'lowongan_id', 
+        'nama_perusahaan', 
+        'posisi', 
+        'lokasi_perusahaan', 
+        'insentif', 
+        'skor_edas'
+    ]
+    
     hasil_akhir = hasil_ranking_df[kolom_hasil].to_dict(orient='records')
     
     return {

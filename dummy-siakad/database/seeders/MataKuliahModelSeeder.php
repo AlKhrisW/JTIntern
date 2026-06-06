@@ -13,167 +13,185 @@ class MataKuliahModelSeeder extends Seeder
         $now = Carbon::now();
 
         $mataKuliah = [
-            // MK231009 - Praktikum Dasar Pemrograman
+            // MK230001 - Praktikum Dasar Pemrograman
             [
-                'id_matkul'   => 'MK231009',
+                'id_matkul'   => 'MK230001',
                 'prodi_id'    => 'JTI002',
                 'nama_matkul' => 'Praktikum Dasar Pemrograman',
-                'keahlian'    => 'Dasar Algoritma, Flowchart, Pseudocode, Variabel, Tipe Data, Operator, Percabangan, Perulangan, Function, Array, OOP, Problem Solving, C++, Java, Python, JavaScript, Git, GitHub',
+                'keahlian'    => 'Java, Python',
+                'tools'       => 'Visual Studio Code, NetBeans, Git, GitHub',
                 'created_at'  => $now,
                 'updated_at'  => $now,
             ],
-            // MK232005 - Praktikum Algoritma dan Struktur Data
+            // MK230002 - Praktikum Algoritma dan Struktur Data
             [
-                'id_matkul'   => 'MK232005',
+                'id_matkul'   => 'MK230002',
                 'prodi_id'    => 'JTI002',
                 'nama_matkul' => 'Praktikum Algoritma dan Struktur Data',
-                'keahlian'    => 'Algoritma Sorting, Algoritma Searching, Stack, Queue, Linked List, Tree, Graph, Rekursi, Kompleksitas Algoritma, Dynamic Programming, Greedy Algorithm, Java, Python, C++, Problem Solving, Visual Studio Code, IntelliJ IDEA, Python IDLE, LeetCode, HackerRank, VisuAlgo, Draw.io',
+                'keahlian'    => 'Java, Python',
+                'tools'       => 'Visual Studio Code, IntelliJ IDEA',
                 'created_at'  => $now,
                 'updated_at'  => $now,
             ],
-            // MK232009 - Sistem Operasi
+            // MK230003 - Sistem Operasi
             [
-                'id_matkul'   => 'MK232009',
+                'id_matkul'   => 'MK230003',
                 'prodi_id'    => 'JTI002',
                 'nama_matkul' => 'Sistem Operasi',
-                'keahlian'    => 'Linux, Bash / Shell, Manajemen Proses, Manajemen Memori, File System, Scheduling, Virtual Machine, Linux Server, Ubuntu, Debian, Command Line Interface, Virtualisasi, Docker, VirtualBox, VMware, Ubuntu, Debian, Docker Desktop, Terminal / Bash, PuTTY, Windows Subsystem for Linux (WSL)',
+                'keahlian'    => 'Bash',
+                'tools'       => 'VirtualBox, VMware, Docker Desktop, Ubuntu Terminal, PuTTY, WSL',
                 'created_at'  => $now,
                 'updated_at'  => $now,
             ],
-            // MK232007 - Praktikum Basis Data
+            // MK230004 - Praktikum Basis Data
             [
-                'id_matkul'   => 'MK232007',
+                'id_matkul'   => 'MK230004',
                 'prodi_id'    => 'JTI002',
                 'nama_matkul' => 'Praktikum Basis Data',
-                'keahlian'    => 'SQL, MySQL, ERD, Normalisasi Database, DDL, DML, Query, Join, Subquery, Index, Stored Procedure, View, Trigger, Database Design, phpMyAdmin, MySQL Workbench, phpMyAdmin, XAMPP, Laragon, DBeaver, Draw.io / dbdiagram.io, SQL Fiddle',
+                'keahlian'    => 'SQL',
+                'tools'       => 'XAMPP, Laragon, MySQL Workbench, phpMyAdmin, DBeaver',
                 'created_at'  => $now,
                 'updated_at'  => $now,
             ],
-            // MK233002 - Praktikum Jaringan Komputer
+            // MK230005 - Praktikum Jaringan Komputer
             [
-                'id_matkul'   => 'MK233002',
+                'id_matkul'   => 'MK230005',
                 'prodi_id'    => 'JTI002',
                 'nama_matkul' => 'Praktikum Jaringan Komputer',
-                'keahlian'    => 'TCP/IP, Subnetting, Routing, Switching, Cisco / Mikrotik, Cisco Packet Tracer, Network Topology Design, Wireshark, Network Administration, IP Configuration, Firewall, VLAN, DNS, DHCP, Network Security, Cisco Packet Tracer, GNS3 / PNetLab, Wireshark, Nmap, MikroTik WinBox, VirtualBox, PuTTY, Advanced IP Scanner',
+                'keahlian'    => '-',
+                'tools'       => 'Cisco Packet Tracer, GNS3, Wireshark, Nmap, WinBox, PuTTY',
                 'created_at'  => $now,
                 'updated_at'  => $now,
             ],
-            // MK233008 - Pemrograman Web
+            // MK230006 - Pemrograman Web
             [
-                'id_matkul'   => 'MK233008',
+                'id_matkul'   => 'MK230006',
                 'prodi_id'    => 'JTI002',
                 'nama_matkul' => 'Pemrograman Web',
-                'keahlian'    => 'HTML & CSS, JavaScript, PHP, Bootstrap, Tailwind CSS, jQuery, Responsive Design, REST API, Git & GitHub, Visual Studio Code, DOM Manipulation, Web Development, Figma, UI/UX Design, Visual Studio Code, XAMPP / Laragon, Git & GitHub, Figma, Chrome DevTools, Postman, Live Server Extension, Bootstrap CDN',
+                'keahlian'    => 'JavaScript, PHP',
+                'tools'       => 'HTML, CSS, Visual Studio Code, XAMPP, Bootstrap, Tailwind CSS, Postman',
                 'created_at'  => $now,
                 'updated_at'  => $now,
             ],
-            // MK233007 - Praktikum Basis Data Lanjut
+            // MK230007 - Praktikum Basis Data Lanjut
             [
-                'id_matkul'   => 'MK233007',
+                'id_matkul'   => 'MK230007',
                 'prodi_id'    => 'JTI002',
                 'nama_matkul' => 'Praktikum Basis Data Lanjut',
-                'keahlian'    => 'PostgreSQL, SQL Server, Stored Procedure Lanjut, Trigger Lanjut, Database Tuning, Replikasi Database, NoSQL, MongoDB, Redis, Transaction Management, Backup & Recovery, Query Optimization, DBeaver, pgAdmin, SQL Server Management Studio (SSMS), MongoDB Compass, Redis CLI, TablePlus, Robo 3T',
+                'keahlian'    => 'SQL, PL/pgSQL',
+                'tools'       => 'PostgreSQL, SQL Server, MongoDB, Redis, pgAdmin, DBeaver',
                 'created_at'  => $now,
                 'updated_at'  => $now,
             ],
-            // MK233003 - Rekayasa Perangkat Lunak
+            // MK230008 - Rekayasa Perangkat Lunak
             [
-                'id_matkul'   => 'MK233003',
+                'id_matkul'   => 'MK230008',
                 'prodi_id'    => 'JTI002',
                 'nama_matkul' => 'Rekayasa Perangkat Lunak',
-                'keahlian'    => 'Software Development Life Cycle (SDLC), UML Modeling, Use Case Diagram, Sequence Diagram, ERD, Analisis Kebutuhan, Software Testing, Dokumentasi Teknis, Git & GitHub, Agile / Scrum, Trello / Jira / Notion, Postman',
+                'keahlian'    => '-',
+                'tools'       => 'Enterprise Architect, draw.io, Trello, Jira, Notion, Git',
                 'created_at'  => $now,
                 'updated_at'  => $now,
             ],
-            // MK233005 - Praktikum Pemrograman Berbasis Objek
+            // MK230009 - Praktikum Pemrograman Berbasis Objek
             [
-                'id_matkul'   => 'MK233005',
+                'id_matkul'   => 'MK230009',
                 'prodi_id'    => 'JTI002',
                 'nama_matkul' => 'Praktikum Pemrograman Berbasis Objek',
-                'keahlian'    => 'OOP, Encapsulation, Inheritance, Polymorphism, Abstraction, Design Pattern, Java, Python, PHP, C++, C#, UML Modeling, Git & GitHub, Problem Solving',
+                'keahlian'    => 'Java, Python, PHP, C++',
+                'tools'       => 'NetBeans, IntelliJ IDEA, Visual Studio Code',
                 'created_at'  => $now,
                 'updated_at'  => $now,
             ],
-            // MK234005 - Data Warehouse
+            // MK230010 - Data Warehouse
             [
-                'id_matkul'   => 'MK234005',
+                'id_matkul'   => 'MK230010',
                 'prodi_id'    => 'JTI002',
                 'nama_matkul' => 'Data Warehouse',
-                'keahlian'    => 'ETL, Data Modeling, Star Schema, Snowflake Schema, OLAP, Pentaho, SQL Server, PostgreSQL, MySQL, Power BI, Looker Studio, Data Integration, Reporting, Business Intelligence, Data Pipeline',
+                'keahlian'    => 'SQL',
+                'tools'       => 'Pentaho Data Integration, Power BI, Looker Studio, SQL Server, PostgreSQL',
                 'created_at'  => $now,
                 'updated_at'  => $now,
             ],
-            // MK234008 - Pemrograman Web Lanjut
+            // MK230011 - Pemrograman Web Lanjut
             [
-                'id_matkul'   => 'MK234008',
+                'id_matkul'   => 'MK230011',
                 'prodi_id'    => 'JTI002',
                 'nama_matkul' => 'Pemrograman Web Lanjut',
-                'keahlian'    => 'Laravel, React.js, Next.js, Vue.js, Node.js / Express, REST API, Inertia.js, Tailwind CSS, MySQL, PostgreSQL, Git & GitHub, Docker, Postman, Authentication, Authorization, API Integration',
+                'keahlian'    => 'PHP, JavaScript',
+                'tools'       => 'Visual Studio Code, Laravel, React.js, Next.js, Node.js, Postman, Docker',
                 'created_at'  => $now,
                 'updated_at'  => $now,
             ],
-            // MK234007 - Analisis dan Perancangan Sistem Informas
+            // MK230012 - Analisis dan Perancangan Sistem Informasi
             [
-                'id_matkul'   => 'MK234007',
+                'id_matkul'   => 'MK230012',
                 'prodi_id'    => 'JTI002',
-                'nama_matkul' => 'Analisis dan Perancangan Sistem Informas',
-                'keahlian'    => 'Analisis Sistem, Perancangan Sistem, UML Modeling, ERD, DFD, Use Case Diagram, BPMN, Analisis Proses Bisnis, Dokumentasi Teknis, Draw.io / Lucidchart, Feasibility Study, System Design',
+                'nama_matkul' => 'Analisis dan Perancangan Sistem Informasi',
+                'keahlian'    => '-',
+                'tools'       => 'draw.io, Lucidchart, Microsoft Visio',
                 'created_at'  => $now,
                 'updated_at'  => $now,
             ],
-            // MK234006 - Data Mining
+            // MK230013 - Data Mining
             [
-                'id_matkul'   => 'MK234006',
+                'id_matkul'   => 'MK230013',
                 'prodi_id'    => 'JTI002',
                 'nama_matkul' => 'Data Mining',
-                'keahlian'    => 'Machine Learning, Klasifikasi, Clustering, Regresi, Association Rule, Scikit-learn, Python, Pandas, NumPy, Matplotlib / Seaborn, Jupyter Notebook, Preprocessing Data, Feature Engineering, Decision Tree, Random Forest, K-Means',
+                'keahlian'    => 'Python, R',
+                'tools'       => 'Jupyter Notebook, Pandas, NumPy, Scikit-learn, Matplotlib',
                 'created_at'  => $now,
                 'updated_at'  => $now,
             ],
-            // MK235006 - Penjaminan Mutu Perangkat Lunak
+            // MK230014 - Penjaminan Mutu Perangkat Lunak
             [
-                'id_matkul'   => 'MK235006',
+                'id_matkul'   => 'MK230014',
                 'prodi_id'    => 'JTI002',
                 'nama_matkul' => 'Penjaminan Mutu Perangkat Lunak',
-                'keahlian'    => 'Software Testing, Manual Testing, Automation Testing, Test Case, Bug Reporting, Playwright, Selenium, Postman, API Testing, Regression Testing, Black Box Testing, White Box Testing, Quality Assurance, Dokumentasi Testing',
+                'keahlian'    => 'Java, Python, JavaScript',
+                'tools'       => 'Selenium, Playwright, Postman, JMeter',
                 'created_at'  => $now,
                 'updated_at'  => $now,
             ],
-            // MK235007 - Pemrograman Mobile
+            // MK230015 - Pemrograman Mobile
             [
-                'id_matkul'   => 'MK235007',
+                'id_matkul'   => 'MK230015',
                 'prodi_id'    => 'JTI002',
                 'nama_matkul' => 'Pemrograman Mobile',
-                'keahlian'    => 'Flutter, Dart, Android Studio, Firebase, REST API, SQLite, React Native, Mobile UI Design, Figma, Git & GitHub, State Management, Notifikasi Push, Multi-platform Development',
+                'keahlian'    => 'Dart, JavaScript',
+                'tools'       => 'Android Studio, Visual Studio Code, Flutter, React Native, Firebase',
                 'created_at'  => $now,
                 'updated_at'  => $now,
             ],
-            // MK235002 - Audit Sistem Informasi
+            // MK230016 - Audit Sistem Informasi
             [
-                'id_matkul'   => 'MK235002',
+                'id_matkul'   => 'MK230016',
                 'prodi_id'    => 'JTI002',
                 'nama_matkul' => 'Audit Sistem Informasi',
-                'keahlian'    => 'IT Governance, Audit IT, COBIT Framework, Analisis Risiko, Keamanan Informasi, Dokumentasi Audit, ISO 27001, Compliance, Manajemen Kebijakan IT, Risk Assessment, Kontrol Internal',
+                'keahlian'    => '-',
+                'tools'       => 'COBIT Framework templates, ISO 27001 Toolkit, Microsoft Excel',
                 'created_at'  => $now,
                 'updated_at'  => $now,
             ],
-            // MK234002 - Statistika
+            // MK230017 - Statistika
             [
-                'id_matkul'   => 'MK234002',
+                'id_matkul'   => 'MK230017',
                 'prodi_id'    => 'JTI002',
                 'nama_matkul' => 'Statistika',
-                'keahlian'    => 'Statistika Deskriptif, Distribusi Data, Uji Hipotesis, Regresi Linier, Korelasi, Python, R, Pandas, NumPy, Matplotlib / Seaborn, Excel, Visualisasi Data, Analisis Data, Probability',
-                'created_at'   => $now,
-                'updated_at'   => $now,
+                'keahlian'    => 'Python, R',
+                'tools'       => 'Microsoft Excel, RStudio, Jupyter Notebook, SPSS',
+                'created_at'  => $now,
+                'updated_at'  => $now,
             ],
-            // MK232002 - Analisis Proses Bisnis
+            // MK230018 - Analisis Proses Bisnis
             [
-                'id_matkul'   => 'MK232002',
+                'id_matkul'   => 'MK230018',
                 'prodi_id'    => 'JTI002',
                 'nama_matkul' => 'Analisis Proses Bisnis',
-                'keahlian'    => 'Business Process Analysis, BPMN, Flowchart Bisnis, Identifikasi Kebutuhan, Analisis Kebutuhan, Draw.io / Lucidchart, Dokumentasi Proses, Microsoft Office, Stakeholder Analysis, Value Chain Analysis, ERD',
-                'created_at'   => $now,
-                'updated_at'   => $now,
+                'keahlian'    => '-',
+                'tools'       => 'draw.io, Lucidchart, Microsoft Visio, Microsoft Office',
+                'created_at'  => $now,
+                'updated_at'  => $now,
             ],
         ];
 

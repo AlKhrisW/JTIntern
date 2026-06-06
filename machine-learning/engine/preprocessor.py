@@ -8,8 +8,8 @@ def saring_lowongan_berdasarkan_kriteria(df_mentah: pd.DataFrame, payload) -> pd
     pref = payload.preferensi
 
     # --- A. Normalisasi Input Sederhana ---
-    minat_array = [m.strip().lower() for m in pref.minat_bidang.split(',')] if pref.minat_bidang else []
-    lokasi_array = [l.strip().lower() for l in pref.lokasi.split(',')] if pref.lokasi else []
+    minat_array = [m.strip().lower() for m in pref.minat_bidang] if pref.minat_bidang else []
+    lokasi_array = [l.strip().lower() for l in pref.lokasi] if pref.lokasi else []
     instansi_input = pref.jenis_instansi.strip().lower() if pref.jenis_instansi else ""
     jenis_magang_input = pref.jenis_magang.strip().lower() if pref.jenis_magang else ""
 
@@ -24,15 +24,15 @@ def saring_lowongan_berdasarkan_kriteria(df_mentah: pd.DataFrame, payload) -> pd
         df = df[df['posisi'].str.contains(pola_minat, case=False, na=False)]
 
     # 3. Lokasi
-    if lokasi_array and "pilih semua" not in lokasi_array:
+    if lokasi_array:
         df = df[df['lokasi_perusahaan'].str.lower().isin(lokasi_array)]
 
     # 4. Jenis Instansi
-    if instansi_input and instansi_input != "pilih semua":
+    if instansi_input and instansi_input != "semua":
         df = df[df['jenis_perusahaan'].str.lower() == instansi_input]
 
     # 5. Paid/Unpaid
-    if jenis_magang_input and jenis_magang_input != "pilih semua":
+    if jenis_magang_input and jenis_magang_input != "semua":
         df['insentif_angka'] = pd.to_numeric(df['insentif'], errors='coerce').fillna(0)
         if jenis_magang_input == "paid":
             df = df[df['insentif_angka'] > 0]

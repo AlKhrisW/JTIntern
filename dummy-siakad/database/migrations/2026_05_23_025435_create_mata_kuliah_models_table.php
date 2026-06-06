@@ -15,7 +15,8 @@ return new class extends Migration
             $table->string('id_matkul')->primary();
             $table->string('prodi_id');
             $table->string('nama_matkul');
-            $table->text('keahlian');
+            $table->string('keahlian');
+            $table->string('tools');
             $table->timestamps();
 
             $table->foreign('prodi_id')->references('prodi_id')->on('program_studi_models')->onDelete('cascade');

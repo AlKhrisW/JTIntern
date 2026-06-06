@@ -12,8 +12,8 @@ def hitung_skor_edas(df_tersaring: pd.DataFrame, payload) -> pd.DataFrame:
     # =========================================================================
     
     # 1. Ekstrak himpunan array dari payload mahasiswa
-    keahlian_mhs_set = set([k.strip().lower() for k in payload.mahasiswa.keahlian.split(',')]) if payload.mahasiswa.keahlian else set()
-    tools_mhs_set = set([t.strip().lower() for t in payload.mahasiswa.tools.split(',')]) if getattr(payload.mahasiswa, 'tools', None) else set()
+    keahlian_mhs_set = set([k.strip().lower() for k in payload.mahasiswa.keahlian]) if payload.mahasiswa.keahlian else set()
+    tools_mhs_set = set([t.strip().lower() for t in payload.mahasiswa.tools]) if getattr(payload.mahasiswa, 'tools', None) else set()
 
     # Fungsi pembantu untuk menghitung irisan skill
     def hitung_match_skill(baris):
@@ -36,10 +36,10 @@ def hitung_skor_edas(df_tersaring: pd.DataFrame, payload) -> pd.DataFrame:
 
     # Hierarki Instansi (Ubah teks menjadi angka untuk C5)
     skor_instansi = {
-        'bumn': 3.0,
-        'industri': 2.0,
-        'startup': 1.0,
-        'pemerintahan': 1.0
+        'BUMN': 3.0,
+        'swasta nasional': 2.0,
+        'swasta': 2.0,
+        'instansi pendidikan': 1.0
     }
     df['C5_Instansi'] = df['jenis_perusahaan'].astype(str).str.lower().map(skor_instansi).fillna(0.0)
 

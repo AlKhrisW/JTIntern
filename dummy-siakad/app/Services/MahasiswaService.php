@@ -19,7 +19,8 @@ class MahasiswaService
             return null;
         }
 
-        $keahlian = $this->getKeahlianKombinasi($mahasiswa);
+        $keahlian = $this->getKombinasiKolom($mahasiswa, 'keahlian');
+        $tools = $this->getKombinasiKolom($mahasiswa, 'tools');
 
         return [
             'nim' => $mahasiswa->nim,
@@ -27,7 +28,8 @@ class MahasiswaService
             'email' => $mahasiswa->email,
             'program_studi' => $mahasiswa->programStudi?->nama_prodi,
             'ipk' => $this->hitungIPK($mahasiswa),
-            'keahlian' => implode(', ', $keahlian),
+            'keahlian' => $keahlian,
+            'tools' => $tools,
         ];
     }
 
@@ -45,38 +47,33 @@ class MahasiswaService
         return round($totalNilai / $jumlahMatkul, 2);
     }
 
-    private function getKeahlianKombinasi($mahasiswa): array
+    private function getKombinasiKolom($mahasiswa, string $namaKolom): array
     {
-        $keahlianList = [];
+        $dataList = [];
 
         foreach ($mahasiswa->nilai as $nilai) {
-
             if (!in_array($nilai->nilai_huruf, ['A', 'B+', 'B'])) {
                 continue;
             }
 
-            if (!$nilai->mataKuliah) {
+            if (!$nilai->mataKuliah || empty($nilai->mataKuliah->$namaKolom)) {
                 continue;
             }
 
-            $skills = array_map(
+            $items = array_map(
                 'trim',
-                explode(',', $nilai->mataKuliah->keahlian)
+                explode(',', $nilai->mataKuliah->$namaKolom)
             );
 
-            foreach ($skills as $skill) {
-
-                if (
-                    !empty($skill)
-                    && !in_array($skill, $keahlianList)
-                ) {
-                    $keahlianList[] = $skill;
+            foreach ($items as $item) {
+                if (!empty($item) && $item !== '-' && !in_array($item, $dataList)) {
+                    $dataList[] = $item;
                 }
             }
         }
 
-        sort($keahlianList);
+        sort($dataList);
 
-        return $keahlianList;
+        return $dataList;
     }
 }

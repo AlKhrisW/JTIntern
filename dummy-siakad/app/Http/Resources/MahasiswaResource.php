@@ -16,6 +16,7 @@ class MahasiswaResource extends JsonResource
             'program_studi' => $this['program_studi'],
             'ipk' => $this['ipk'],
             'keahlian' => $this['keahlian'],
+            'tools' => $this['tools'],
         ];
     }
 }

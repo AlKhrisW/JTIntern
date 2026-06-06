@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #E5E5E5;
+    background-color: white;
 }
 
 footer {
@@ -17,7 +17,7 @@ footer {
     width: 900px;
     height: 430px;
     border-radius: 30px;
-    background-color: white;
+    background-color: #E7F5D2;
     padding: 0;
     overflow: hidden;
 }
@@ -101,7 +101,7 @@ footer {
     font-size: 1.1rem;
     border: 1px solid #475569;
     border-radius: 15px;
-    background-color: white;
+    background-color: #E7F5D2;
     outline: none;
     transition: all 0.3s ease;
 }
@@ -141,13 +141,12 @@ footer {
     transition: all 0.3s ease;
 }
 
-/* ─── Tombol ──────────────────────────────────────────────────────── */
-
+/* tombol step 1 */
 .form .btn-cari {
     position: absolute;
     bottom: 30px;
     right: 30px;
-    width: 25%;
+    width: 40%;
     height: 45px;
     background-color: #3CA200;
     color: white;
@@ -158,6 +157,7 @@ footer {
     transition: all 0.3s ease;
 }
 
+/* tombol step 2 */
 .form .btn-konfirmasi {
     position: absolute;
     bottom: 30px;
@@ -188,12 +188,13 @@ footer {
     transition: all 0.3s ease;
 }
 
-/* Submit di step 3 — dalam flow form biasa, tidak absolute */
+/* tombol step 3 */
 .form .btn-submit {
     display: block;
-    width: 100%;
+    width: 50%;
     height: 45px;
     margin-top: 14px;
+    margin-left: auto;
     background-color: #3CA200;
     color: white;
     font-size: 1rem;
@@ -220,8 +221,7 @@ footer {
     cursor: not-allowed;
 }
 
-/* ─── Data Konfirmasi step 2 ──────────────────────────────────────── */
-
+/* step 2 */
 .data-konfirmasi {
     background: #f0f7e6;
     border: 1px solid #3CA200;
@@ -237,12 +237,9 @@ footer {
     color: #333;
 }
 
-/* ─── Form group step 3 ───────────────────────────────────────────── */
-
-/* Step 3 menggunakan flow normal (bukan absolute positioning),
-   sehingga form bisa scroll jika konten panjang */
+/* step 3 */
 .form-box .form form {
-    margin-top: 50px; /* ruang untuk h5 absolute */
+    margin-top: 50px;
     max-height: 340px;
     overflow-y: auto;
     padding-right: 4px;
@@ -279,8 +276,7 @@ footer {
     border-color: #3CA200;
 }
 
-/* ─── Multi-select dropdown ───────────────────────────────────────── */
-
+/* Multi-select */
 .multiselect-wrapper {
     position: relative;
     width: 100%;
@@ -457,7 +453,6 @@ footer {
     align-items: center;
 }
 
-/* Label teks nilai terpilih / placeholder */
 .single-select-label {
     flex: 1;
     font-size: 13px;
@@ -468,7 +463,6 @@ footer {
     text-overflow: ellipsis;
 }
 
-/* Jika belum ada pilihan, warna placeholder */
 .single-select-box:not(.active) .single-select-label:empty::before,
 .single-select-label[data-placeholder] {
     color: #aaa;

@@ -22,14 +22,15 @@ new class extends Component {
     public $daftarJenisMagang = [
         'paid' => 'Berbayar (Paid)',
         'unpaid' => 'Tidak Berbayar (Unpaid)',
+        'semua' => 'Semua Jenis Magang',
     ];
 
     public $daftarJenisInstansi = [
-        'startup' => 'Startup',
-        'korporat' => 'Korporat',
-        'bumn' => 'BUMN',
-        'pemerintahan' => 'Pemerintahan',
-        'pendidikan' => 'Pendidikan',
+        'swasta nasional' => 'Swasta Nasional',
+        'swasta' => 'Swasta Asing',
+        'BUMN' => 'BUMN',
+        'instansi pendidikan' => 'Instansi Pendidikan',
+        'semua' => 'Semua Jenis Instansi',
     ];
 
     public $daftarMinatBidang = ['Web Development', 'Mobile Development', 'Data Science', 'UI/UX Design', 'Machine Learning', 'Cyber Security', 'DevOps', 'Business Intelligence', 'Digital Marketing', 'Network Engineering'];
@@ -38,7 +39,7 @@ new class extends Component {
 
     protected $rules = [
         'nim' => 'required|digits_between:6,10',
-        'jenis_magang' => 'required|in:paid,unpaid',
+        'jenis_magang' => 'required|string',
         'minat_bidang' => 'required|array|min:1',
         'jenis_instansi' => 'required|string',
         'lokasi' => 'required|array|min:1',
@@ -93,16 +94,25 @@ new class extends Component {
                 'timestamp' => now()->toIso8601String(),
             ];
 
-            $response = Http::timeout(60)->post('http://127.0.0.1:5000/rekomendasi', $payload);
+            $response = Http::timeout(60)->post('http://127.0.0.1:5000/api/hitung-rekomendasi', $payload);
 
             if ($response->successful()) {
                 $result = $response->json();
-                return redirect()
-                    ->route('rekomendasi.hasil', ['id' => $result['rekomendasi_id'] ?? null])
-                    ->with('success', 'Rekomendasi berhasil dibuat!');
+
+                // Simpan ke session flash (sekali pakai — terhapus setelah redirect pertama)
+                session()->flash('hasil_rekomendasi', [
+                    'mahasiswa' => $result['mahasiswa'],
+                    'rekomendasi' => $result['rekomendasi'],
+                    'generated_at' => now()->toDateTimeString(),
+                ]);
+
+                return redirect()->route('rekomendasi.hasil');
             }
 
-            session()->flash('error', 'Gagal memproses rekomendasi dari server.');
+            $errorBody = $response->json('detail') ?? 'Gagal memproses rekomendasi dari server Python.';
+            session()->flash('error', $errorBody);
+        } catch (\Illuminate\Http\Client\ConnectionException $e) {
+            session()->flash('error', 'Tidak dapat terhubung ke engine rekomendasi. Pastikan server Python aktif.');
         } catch (\Exception $e) {
             session()->flash('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
@@ -119,7 +129,6 @@ new class extends Component {
 
 <div class="form">
 
-    {{-- ═══════════════ STEP 1 ═════════════════════════════════════════════ --}}
     @if ($step == 1)
         <h5>Cari Mahasiswa</h5>
 
@@ -138,7 +147,6 @@ new class extends Component {
         </button>
     @endif
 
-    {{-- ═══════════════ STEP 2 ═════════════════════════════════════════════ --}}
     @if ($step == 2 && $mahasiswa)
         <h5>Konfirmasi Data Mahasiswa</h5>
         <div class="data-konfirmasi">
@@ -156,31 +164,6 @@ new class extends Component {
 
         <form wire:submit.prevent="submitPreferensi">
             <div class="form-group">
-                <label>Jenis Magang <span class="text-danger">*</span></label>
-
-                <div class="multiselect-wrapper" x-data="{ open: false, search: '' }" @click.outside="open = false">
-
-                    <div class="multiselect-box single-select-box" :class="{ active: open }" @click="open = !open">
-                        <span class="single-select-label">
-                            {{ $jenis_magang ? $daftarJenisMagang[$jenis_magang] : 'Pilih Jenis Magang' }}
-                        </span>
-                    </div>
-
-                    <div class="multiselect-dropdown" :class="{ open: open }">
-                        <ul class="dropdown-list">
-                            @foreach ($daftarJenisMagang as $value => $label)
-                                <li class="dropdown-item-custom {{ $jenis_magang === $value ? 'selected' : '' }}"
-                                    @click.stop="$wire.set('jenis_magang', '{{ $value }}'); open = false; search = ''">
-                                    <span class="item-checkbox">{{ $jenis_magang === $value ? '✓' : '' }}</span>
-                                    <span>{{ $label }}</span>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
                 <label>Minat Bidang <span class="text-danger">*</span></label>
 
                 <div class="multiselect-wrapper" x-data="{ open: false, search: '' }" @click.outside="open = false">
@@ -188,22 +171,21 @@ new class extends Component {
                     <div class="multiselect-box" :class="{ active: open }"
                         @click="open = true; $nextTick(() => $refs.searchMinat.focus())">
 
-                        <div class="pills-area">
-                            @foreach ($minat_bidang as $item)
-                                <span class="pill">
-                                    {{ $item }}
-                                    <button type="button" class="pill-remove"
-                                        @click.stop="$wire.set('minat_bidang',
-                                                $wire.minat_bidang.filter(v => v !== '{{ $item }}'))">
-                                        ×
-                                    </button>
-                                </span>
-                            @endforeach
-                        </div>
-
-                        <input type="text" class="multiselect-input"
-                            placeholder="{{ count($minat_bidang) ? '' : 'Cari bidang...' }}" x-ref="searchMinat"
+                        <input type="text" class="multiselect-input" placeholder="Cari bidang..." x-ref="searchMinat"
                             x-model="search" @click.stop="open = true" autocomplete="off">
+                    </div>
+
+                    <div class="pills-area mt-2">
+                        @foreach ($minat_bidang as $item)
+                            <span class="pill">
+                                {{ $item }}
+                                <button type="button" class="pill-remove"
+                                    @click.stop="$wire.set('minat_bidang',
+                                            $wire.minat_bidang.filter(v => v !== '{{ $item }}'))">
+                                    ×
+                                </button>
+                            </span>
+                        @endforeach
                     </div>
 
                     <div class="multiselect-dropdown" :class="{ open: open }">
@@ -230,32 +212,6 @@ new class extends Component {
             </div>
 
             <div class="form-group">
-                <label>Jenis Instansi <span class="text-danger">*</span></label>
-
-                <div class="multiselect-wrapper" x-data="{ open: false, search: '' }" @click.outside="open = false">
-
-                    <div class="multiselect-box single-select-box" :class="{ active: open }" @click="open = !open">
-                        <span class="single-select-label">
-                            {{ $jenis_instansi ? $daftarJenisInstansi[$jenis_instansi] : 'Pilih Jenis Instansi' }}
-                        </span>
-                    </div>
-
-                    <div class="multiselect-dropdown" :class="{ open: open }">
-                        <ul class="dropdown-list">
-                            @foreach ($daftarJenisInstansi as $value => $label)
-                                <li class="dropdown-item-custom {{ $jenis_instansi === $value ? 'selected' : '' }}"
-                                    @click.stop="$wire.set('jenis_instansi', '{{ $value }}'); open = false">
-                                    <span class="item-checkbox">{{ $jenis_instansi === $value ? '✓' : '' }}</span>
-                                    <span>{{ $label }}</span>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            {{-- ── Lokasi / Provinsi (multi-select Alpine) ─────────────────── --}}
-            <div class="form-group">
                 <label>Lokasi (Provinsi) <span class="text-danger">*</span></label>
 
                 <div class="multiselect-wrapper" x-data="{ open: false, search: '' }" @click.outside="open = false">
@@ -263,22 +219,21 @@ new class extends Component {
                     <div class="multiselect-box" :class="{ active: open }"
                         @click="open = true; $nextTick(() => $refs.searchLokasi.focus())">
 
-                        <div class="pills-area">
-                            @foreach ($lokasi as $prov)
-                                <span class="pill">
-                                    {{ $prov }}
-                                    <button type="button" class="pill-remove"
-                                        @click.stop="$wire.set('lokasi',
-                                                $wire.lokasi.filter(v => v !== '{{ $prov }}'))">
-                                        ×
-                                    </button>
-                                </span>
-                            @endforeach
-                        </div>
+                        <input type="text" class="multiselect-input" placeholder="Cari provinsi..."
+                            x-ref="searchLokasi" x-model="search" @click.stop="open = true" autocomplete="off">
+                    </div>
 
-                        <input type="text" class="multiselect-input"
-                            placeholder="{{ count($lokasi) ? '' : 'Cari provinsi...' }}" x-ref="searchLokasi"
-                            x-model="search" @click.stop="open = true" autocomplete="off">
+                    <div class="pills-area mt-2">
+                        @foreach ($lokasi as $prov)
+                            <span class="pill">
+                                {{ $prov }}
+                                <button type="button" class="pill-remove"
+                                    @click.stop="$wire.set('lokasi',
+                                            $wire.lokasi.filter(v => v !== '{{ $prov }}'))">
+                                    ×
+                                </button>
+                            </span>
+                        @endforeach
                     </div>
 
                     <div class="multiselect-dropdown" :class="{ open: open }">
@@ -300,6 +255,56 @@ new class extends Component {
                             x-show="!@js($daftarProvinsi).some(v => v.toLowerCase().includes(search.toLowerCase()))">
                             Tidak ada hasil.
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Jenis Magang <span class="text-danger">*</span></label>
+
+                <div class="multiselect-wrapper" x-data="{ open: false, search: '' }" @click.outside="open = false">
+
+                    <div class="multiselect-box single-select-box" :class="{ active: open }" @click="open = !open">
+                        <span class="single-select-label">
+                            {{ $jenis_magang ? $daftarJenisMagang[$jenis_magang] : 'Pilih Jenis Magang' }}
+                        </span>
+                    </div>
+
+                    <div class="multiselect-dropdown" :class="{ open: open }">
+                        <ul class="dropdown-list">
+                            @foreach ($daftarJenisMagang as $value => $label)
+                                <li class="dropdown-item-custom {{ $jenis_magang === $value ? 'selected' : '' }}"
+                                    @click.stop="$wire.set('jenis_magang', '{{ $value }}'); open = false; search = ''">
+                                    <span class="item-checkbox">{{ $jenis_magang === $value ? '✓' : '' }}</span>
+                                    <span>{{ $label }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Jenis Instansi <span class="text-danger">*</span></label>
+
+                <div class="multiselect-wrapper" x-data="{ open: false, search: '' }" @click.outside="open = false">
+
+                    <div class="multiselect-box single-select-box" :class="{ active: open }" @click="open = !open">
+                        <span class="single-select-label">
+                            {{ $jenis_instansi ? $daftarJenisInstansi[$jenis_instansi] : 'Pilih Jenis Instansi' }}
+                        </span>
+                    </div>
+
+                    <div class="multiselect-dropdown" :class="{ open: open }">
+                        <ul class="dropdown-list">
+                            @foreach ($daftarJenisInstansi as $value => $label)
+                                <li class="dropdown-item-custom {{ $jenis_instansi === $value ? 'selected' : '' }}"
+                                    @click.stop="$wire.set('jenis_instansi', '{{ $value }}'); open = false">
+                                    <span class="item-checkbox">{{ $jenis_instansi === $value ? '✓' : '' }}</span>
+                                    <span>{{ $label }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
             </div>
