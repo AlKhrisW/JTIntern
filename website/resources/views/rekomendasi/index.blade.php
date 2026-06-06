@@ -23,10 +23,3 @@
         </div>
     </div>
 @endsection
-
-@push('js')
-    <script>
-        const SAVED_SKILLS = @json($savedSkills ?? []);
-    </script>
-    <script src="{{ asset('js/rekomendasi.js') }}"></script>
-@endpush
