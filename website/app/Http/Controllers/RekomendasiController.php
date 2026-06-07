@@ -2,86 +2,119 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProfilMahasiswaModel;
-use App\Models\MinatBidangModel;
 use App\Models\RekomendasiModel;
-use App\Models\SkillModel;
-use App\Models\ToolsModel;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class RekomendasiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    private function getHasil(): ?array
+    {
+        return session('hasil_rekomendasi');
+    }
+
     public function index()
     {
         return view('rekomendasi.index', [
             'activeMenu' => 'rekomendasi',
-            'title' => 'Rekomendasi - JTIntern',
+            'title'      => 'Rekomendasi - JTIntern',
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function hasil()
     {
-        // Validasi input
-        $validator = Validator::make($request->all(), [
-            'nama'              => 'required|string|max:100',
-            'email'             => 'required|email|max:100',
-            'ipk'               => 'required|numeric|between:0,4',
-            'jenis_perusahaan'  => 'required|string|max:100',
-            'skills'            => 'required|string',           // atau 'array' jika pakai array
-            'tools'             => 'required|string',
-            'minat_bidang'      => 'required|string',
-        ]);
+        $hasil = $this->getHasil();
 
-        if ($validator->fails()) {
-        return redirect()->back()
-                         ->withErrors($validator)
-                         ->withInput();
+        if (! $hasil) {
+            return redirect()
+                ->route('rekomendasi')
+                ->with('error', 'Sesi hasil rekomendasi tidak ditemukan atau sudah kedaluwarsa. Silakan cari ulang.');
         }
-        ProfilMahasiswaModel::create([
-            'nama'            => $request->nama,
-            'email'           => $request->email,
-            'ipk'             => $request->ipk,
-            'jenis_perusahaan'=> $request->jenis_perusahaan,
-            'skill'           => $request->skills,
-            'tools'           => $request->tools,
-            'minat_bidang'    => $request->minat_bidang,
+
+        return view('rekomendasi.hasil', [
+            'activeMenu'   => 'rekomendasi',
+            'title'        => 'Hasil Rekomendasi - JTIntern',
+            'mahasiswa'    => $hasil['mahasiswa'],
+            'rekomendasi'  => $hasil['rekomendasi'],
+            'generated_at' => $hasil['generated_at'],
         ]);
     }
 
     /**
-     * Display the specified resource.
+     * Halaman detail satu lowongan dari hasil rekomendasi.
      */
-    public function show(RekomendasiModel $rekomendasiModel)
+    public function show($lowongan_id)
+    {
+        $hasil = $this->getHasil();
+
+        if (! $hasil) {
+            return redirect()
+                ->route('rekomendasi')
+                ->with('error', 'Sesi hasil rekomendasi tidak ditemukan atau sudah kedaluwarsa. Silakan cari ulang.');
+        }
+
+        // Ambil detail lowongan dari API internal
+        try {
+            $response = Http::timeout(10)->get('http://127.0.0.1:8002/api/detail/' . $lowongan_id);
+
+            if (! $response->successful()) {
+                return redirect()
+                    ->route('rekomendasi.hasil')
+                    ->with('error', 'Gagal mengambil data lowongan. Silakan coba lagi.');
+            }
+
+            $json = $response->json();
+
+            if (empty($json['success']) || empty($json['data'])) {
+                return redirect()
+                    ->route('rekomendasi.hasil')
+                    ->with('error', 'Data lowongan tidak ditemukan.');
+            }
+
+            $data = $json['data'];
+
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('rekomendasi.hasil')
+                ->with('error', 'Koneksi ke server gagal: ' . $e->getMessage());
+        }
+
+        $rekomendasiItem = collect($hasil['rekomendasi'])
+            ->firstWhere('lowongan_id', $lowongan_id);
+
+        $skorEdas = $rekomendasiItem ? (float) ($rekomendasiItem['skor_edas'] ?? 0) : 0;
+        $persen   = min(100, round($skorEdas * 100));
+
+        return view('rekomendasi.detail', [
+            'activeMenu' => 'rekomendasi',
+            'title'      => ($data['posisi'] ?? 'Detail Lowongan') . ' - JTIntern',
+            'lowongan'   => $data,
+            'persen'     => $persen,
+        ]);
+    }
+
+    public function reset()
+    {
+        session()->forget('hasil_rekomendasi');
+ 
+        return redirect()->route('rekomendasi');
+    }
+
+    public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(RekomendasiModel $rekomendasiModel)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, RekomendasiModel $rekomendasiModel)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(RekomendasiModel $rekomendasiModel)
     {
         //

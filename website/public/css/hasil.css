@@ -1,0 +1,316 @@
+/* ── Design Tokens ── */
+:root {
+    --green-primary: #22c55e;
+    --green-dark: #16a34a;
+    --green-soft: #dcfce7;
+    --green-border: #bbf7d0;
+    --gold: #f59e0b;
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --bg-page: #f9fafb;
+    --bg-card: #ffffff;
+    --border: #e5e7eb;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, .08), 0 4px 16px rgba(0, 0, 0, .06);
+}
+
+/* ── Page Wrapper ── */
+.container {
+    max-width: 960px !important;
+    margin: 0 auto !important;
+    margin-top: 0 !important;
+    padding: 0 20px !important;
+    padding-top: 0;
+}
+
+.hasil-wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+}
+
+.btn-kembali {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 0 20px;
+    color: var(--green-dark);
+    font-size: .875rem;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: .01em;
+    opacity: 1;
+    transition: gap .2s;
+    margin-top: 100px;
+}
+
+.btn-kembali:hover {
+    gap: 10px;
+    color: var(--green-dark);
+    text-decoration: none;
+    opacity: 1;
+}
+
+/* ── Heading Section ── */
+.hasil-heading {
+    margin-bottom: 12px;
+}
+
+.hasil-heading h2 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    letter-spacing: -.02em;
+}
+
+.hasil-heading p {
+    font-size: .9rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* ── Alerts & Labels ── */
+.alert-session {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: var(--radius-md);
+    padding: 10px 16px;
+    font-size: .8rem;
+    color: #92400e;
+    margin: 12px 0 16px;
+    font-weight: 500;
+}
+
+.jumlah-label {
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-size: .75rem;
+    letter-spacing: .06em;
+    margin-bottom: 16px;
+}
+
+/* ── Card Grid ── */
+.kartu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+@media (max-width: 640px) {
+    .kartu-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ── Card Styling ── */
+.kartu {
+    position: relative;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    padding: 24px 24px 20px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow .2s, transform .2s;
+    overflow: hidden;
+}
+
+.kartu:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, .1);
+    transform: translateY(-2px);
+}
+
+.kartu.kartu-top {
+    background: var(--bg-card);
+    border-color: var(--green-border);
+}
+
+.kartu.kartu-top::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--green-primary), var(--green-dark));
+}
+
+/* ── Badges ── */
+.badge-cocok {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 5px 12px;
+    border-radius: 30px;
+    font-size: .75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
+    white-space: nowrap;
+}
+
+.badge-hijau {
+    background: var(--green-primary);
+    color: #fff;
+}
+
+.badge-kuning {
+    background: var(--gold);
+    color: #fff;
+}
+
+.badge-abu {
+    background: #9ca3af;
+    color: #fff;
+}
+
+/* ── Card Content ── */
+.kartu-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--green-soft);
+    border: 1.5px solid var(--green-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .85rem;
+    font-weight: 800;
+    color: var(--green-dark);
+    flex-shrink: 0;
+    margin-bottom: 2px;
+}
+
+.kartu-perusahaan {
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.kartu-posisi {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0;
+    padding-right: 5rem;
+    line-height: 1.3;
+    letter-spacing: -.01em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.kartu-deskripsi {
+    font-size: .82rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.kartu-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    margin-top: auto;
+    padding-top: 8px;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: .76rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ── Buttons ── */
+.btn-detail {
+    display: block;
+    width: 100%;
+    padding: 11px;
+    background: var(--green-primary);
+    color: #fff;
+    font-weight: 700;
+    font-size: .8rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    transition: background .2s, transform .15s, box-shadow .2s;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, .25);
+    margin-top: 12px;
+    flex-shrink: 0;
+}
+
+.btn-detail:hover {
+    background: var(--green-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(34, 197, 94, .35);
+    color: #fff;
+    text-decoration: none;
+}
+
+/* ── Empty State ── */
+.kosong-state {
+    text-align: center;
+    padding: 64px 20px;
+}
+
+.kosong-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+}
+
+.kosong-state h5 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.kosong-state p {
+    color: var(--text-secondary);
+    font-size: .9rem;
+    margin-bottom: 20px;
+}
+
+.btn-cari-ulang {
+    display: inline-block;
+    padding: 11px 24px;
+    background: var(--green-primary);
+    color: #fff;
+    font-weight: 700;
+    font-size: .875rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background .2s, transform .15s, box-shadow .2s;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, .25);
+}
+
+.btn-cari-ulang:hover {
+    background: var(--green-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(34, 197, 94, .35);
+    color: #fff;
+    text-decoration: none;
+}

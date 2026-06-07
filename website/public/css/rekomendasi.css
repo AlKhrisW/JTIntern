@@ -1,9 +1,29 @@
+/* ── Design tokens (konsisten dengan detail.css & hasil.css) ── */
+:root {
+    --green-primary: #22c55e;
+    --green-dark: #16a34a;
+    --green-soft: #dcfce7;
+    --green-border: #bbf7d0;
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --bg-page: #f9fafb;
+    --bg-card: #ffffff;
+    --border: #e5e7eb;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, .08), 0 4px 16px rgba(0, 0, 0, .06);
+}
+
+/* ────────────────────────────────────────────────
+   Page wrapper
+──────────────────────────────────────────────── */
 .main-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #E5E5E5;
+    background: var(--bg-page);
 }
 
 footer {
@@ -12,184 +32,329 @@ footer {
     width: 100%;
 }
 
+/* ────────────────────────────────────────────────
+   Outer card container
+──────────────────────────────────────────────── */
 .container {
     position: relative;
-    width: 900px;
-    height: 430px;
-    border-radius: 30px;
-    background-color: white;
+    width: 860px;
+    height: 460px;
+    border-radius: var(--radius-lg);
+    background: var(--bg-card);
     padding: 0;
     overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, .12);
 }
 
-/* box kiri */
-
+/* ────────────────────────────────────────────────
+   Panel kiri
+──────────────────────────────────────────────── */
 .petunjuk {
     position: absolute;
     width: 100%;
     height: 100%;
+    pointer-events: none;
 }
 
 .petunjuk::before {
     content: '';
     position: absolute;
     left: -145%;
-    width: 200%;
+    width: 196%;
     height: 100%;
-    background-color: #3CA200;
+    background: linear-gradient(145deg, #16a34a, #22c55e);
     border-radius: 100px;
     z-index: 2;
 }
 
 .panel {
     position: absolute;
-    padding: 30px;
+    padding: 40px 36px;
     left: 0;
-    width: 55%;
+    width: 52%;
     height: 100%;
-    color: white;
-    align-items: center;
-    z-index: 2;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 3;
+    pointer-events: none;
 }
 
 .panel h5 {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.panel p {
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    margin-bottom: 12px;
+    color: #fff;
     text-align: left;
 }
 
+.panel p {
+    font-size: .875rem;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, .85);
+    text-align: left;
+    margin: 0;
+}
 
-/* box kanan */
-
+/* ────────────────────────────────────────────────
+   Form box kanan
+──────────────────────────────────────────────── */
 .form-box {
     position: absolute;
     right: 0;
-    width: 45%;
+    width: 48%;
     height: 100%;
     display: flex;
     align-items: center;
-    text-align: center;
-    padding: 30px;
+    padding: 36px 36px 36px 28px;
     z-index: 1;
+    background: var(--bg-card);
 }
 
 .form {
     width: 100%;
 }
 
+/* Judul form kanan */
 .form h5 {
-    position: absolute;
-    top: 30px;
-    right: 0;
-    left: 0;
-    text-align: center;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -.01em;
+    margin-bottom: 20px;
+    text-align: left;
+    position: static !important;
 }
 
-/* floating input form */
+/* ────────────────────────────────────────────────
+   Step 1 — floating label input
+──────────────────────────────────────────────── */
 .form-area {
     position: relative;
-    margin: 30px 0;
+    margin: 0 0 20px;
 }
 
 .form-input {
     width: 100%;
-    height: 45px;
+    height: 48px;
     padding: 0 16px;
-    font-size: 1.1rem;
-    border: 1px solid #475569;
-    border-radius: 15px;
-    background-color: white;
+    font-size: .95rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--bg-page);
     outline: none;
-    transition: all 0.3s ease;
-}
-
-.form-label {
-    position: absolute;
-    left: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.1rem;
-    color: #475569;
-    padding: 0 8px;
-    transition: all 0.3s ease;
-    pointer-events: none;
-    z-index: 1;
+    color: var(--text-primary);
+    transition: border-color .2s, box-shadow .2s;
 }
 
 .form-input:focus,
 .form-input:valid,
 .form-input:hover {
-    border-color: #3CA200;
+    border-color: var(--green-primary);
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, .12);
+    background: #fff;
+}
+
+.form-label {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: .9rem;
+    color: var(--text-muted);
+    padding: 0 6px;
+    transition: all .2s ease;
+    pointer-events: none;
+    background: transparent;
+    z-index: 1;
 }
 
 .form-input:focus+.form-label,
 .form-input:valid+.form-label,
 .form-input:hover+.form-label {
     top: 0;
-    transform: translateY(-95%);
-    font-size: 0.9rem;
-    color: #3CA200;
-    margin-left: 8px;
-    padding: 0 8px;
-    background: white;
-    border: 1px solid #3CA200;
-    border-bottom: none;
-    border-radius: 10px 10px 0 0;
-    transition: all 0.3s ease;
-}
-
-.form .btn-cari {
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
-    width: 25%;
-    height: 45px;
-    background-color: #3CA200;
-    color: white;
-    font-size: 1.1rem;
+    transform: translateY(-50%);
+    font-size: .72rem;
+    font-weight: 700;
+    color: var(--green-dark);
+    background: #fff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 0;
     border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: all 0.3s ease;
 }
 
+/* Error text */
+.text-danger {
+    font-size: .78rem;
+    color: #dc2626;
+    display: block;
+    margin-top: -12px;
+    margin-bottom: 12px;
+}
 
-.form .btn-konfirmasi {
-    position: absolute;
-    bottom: 30px;
-    right: 30px;
-    width: 30%;
-    height: 45px;
-    background-color: #3CA200;
-    color: white;
-    font-size: 1.1rem;
+/* ────────────────────────────────────────────────
+   Step 2 — konfirmasi data mahasiswa
+──────────────────────────────────────────────── */
+.data-konfirmasi {
+    background: var(--bg-page);
+    border: 1.5px solid var(--green-border);
+    border-radius: var(--radius-md);
+    padding: 16px 18px;
+    margin: 0 0 20px;
+}
+
+.data-konfirmasi p {
+    margin: 5px 0;
+    font-size: .875rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+    display: flex;
+    gap: 6px;
+}
+
+.data-konfirmasi p strong {
+    color: var(--green-dark);
+    font-weight: 700;
+    min-width: 52px;
+    flex-shrink: 0;
+}
+
+/* ────────────────────────────────────────────────
+   Tombol — semua step (posisi static, tidak absolute)
+──────────────────────────────────────────────── */
+
+/* Primary */
+.form .btn-cari,
+.form .btn-konfirmasi,
+.form .btn-submit {
+    display: block;
+    width: 100%;
+    height: 46px;
+    background: var(--green-primary);
+    color: #fff;
+    font-size: .875rem;
+    font-weight: 700;
+    letter-spacing: .03em;
     border: none;
-    border-radius: 15px;
+    border-radius: var(--radius-md);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background .2s, transform .15s, box-shadow .2s;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, .28);
+    position: static;
+    margin-top: 8px;
 }
 
+.form .btn-cari:hover,
+.form .btn-konfirmasi:hover,
+.form .btn-submit:hover {
+    background: var(--green-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(34, 197, 94, .38);
+}
 
+.form .btn-cari:disabled,
+.form .btn-konfirmasi:disabled,
+.form .btn-submit:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Secondary */
 .form .btn-kembali {
-    position: absolute;
-    bottom: 30px;
-    left: 30px;
-    width: 40%;
-    height: 45px;
-    background-color: #475569;
-    color: white;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 15px;
+    display: block;
+    width: 100%;
+    height: 42px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: .82rem;
+    font-weight: 600;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-md);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: border-color .2s, color .2s, background .2s;
+    position: static;
+    margin-top: 8px;
 }
 
+.form .btn-kembali:hover {
+    border-color: var(--text-secondary);
+    color: var(--text-primary);
+    background: var(--bg-page);
+}
 
-/* ===== Multi select dropdown ===== */
+/* ────────────────────────────────────────────────
+   Step 3 — form preferensi (scrollable)
+──────────────────────────────────────────────── */
+.form-box .form form {
+    margin-top: 8px;
+    max-height: 360px;
+    overflow-y: auto;
+    padding-right: 6px;
+    text-align: left;
+    scrollbar-width: thin;
+    scrollbar-color: var(--green-border) transparent;
+}
+
+.form-box .form form::-webkit-scrollbar {
+    width: 4px;
+}
+
+.form-box .form form::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.form-box .form form::-webkit-scrollbar-thumb {
+    background: var(--green-border);
+    border-radius: 4px;
+}
+
+.form-group {
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+.form-group label .text-danger {
+    display: inline;
+    margin: 0;
+}
+
+.form-control {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    font-size: .875rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-md);
+    background: #fff;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    appearance: none;
+    color: var(--text-primary);
+}
+
+.form-control:focus {
+    border-color: var(--green-primary);
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, .12);
+}
+
+/* ────────────────────────────────────────────────
+   Multi-select
+──────────────────────────────────────────────── */
 .multiselect-wrapper {
     position: relative;
     width: 100%;
@@ -199,92 +364,121 @@ footer {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    height: 45px;
+    min-height: 40px;
     gap: 6px;
-    padding: 8px 12px;
+    padding: 6px 10px;
     background: #fff;
-    border: 1px solid white;
-    border-radius: 15px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-md);
     cursor: text;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: border-color .2s, box-shadow .2s;
 }
 
 .multiselect-box.active {
-    border-color: #3CA200;
+    border-color: var(--green-primary);
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, .12);
 }
 
 .pills-area {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 5px;
     align-items: center;
+    margin-top: 6px;
 }
 
 .pill {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    background: #3CA200;
-    color: #fff;
+    gap: 4px;
+    background: var(--green-soft);
+    color: var(--green-dark);
+    border: 1px solid var(--green-border);
     border-radius: 20px;
-    padding: 4px 10px;
-    font-size: 13px;
-    font-weight: 500;
+    padding: 3px 10px;
+    font-size: .72rem;
+    font-weight: 700;
     white-space: nowrap;
-    animation: pillIn 0.15s ease;
+    animation: pillIn .15s ease;
+}
+
+@keyframes pillIn {
+    from {
+        opacity: 0;
+        transform: scale(.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .pill-remove {
     background: none;
     border: none;
-    color: #fff;
+    color: var(--green-dark);
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1;
     padding: 0;
-    opacity: 0.75;
-    transition: opacity 0.15s;
+    opacity: .6;
+    transition: opacity .15s;
 }
 
-.pill-remove:hover { 
-    opacity: 1; 
+.pill-remove:hover {
+    opacity: 1;
 }
 
 .multiselect-input {
     flex: 1;
-    min-width: 180px;
+    min-width: 80px;
     border: none;
     outline: none;
     background: transparent;
-    font-size: 14px;
-    color: #333;
+    font-size: .82rem;
+    color: var(--text-primary);
     padding: 2px 0;
 }
 
-.multiselect-input::placeholder { 
-    color: #aaa; 
+.multiselect-input::placeholder {
+    color: var(--text-muted);
 }
 
 /* Dropdown */
 .multiselect-dropdown {
     display: none;
     position: absolute;
-    top: calc(100% + 5px);
+    top: calc(100% + 4px);
     left: 0;
     right: 0;
     background: #fff;
-    border: 1.5px solid #3CA200;
-    border-radius: 10px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    border: 1.5px solid var(--green-border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .1);
     z-index: 999;
-    max-height: 240px;
+    max-height: 180px;
     overflow-y: auto;
-    padding: 6px 0;
+    padding: 4px 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--green-border) transparent;
 }
 
-.multiselect-dropdown.open { 
+.multiselect-dropdown.open {
     display: block;
-    animation: dropdownIn 0.15s ease;
+    animation: dropdownIn .12s ease;
+}
+
+@keyframes dropdownIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .dropdown-list {
@@ -297,52 +491,82 @@ footer {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 9px 14px;
+    padding: 8px 12px;
     cursor: pointer;
-    font-size: 14px;
-    color: #333;
-    transition: background 0.1s;
+    font-size: .82rem;
+    color: var(--text-primary);
+    transition: background .1s;
     user-select: none;
 }
-.dropdown-item-custom:hover { 
-    background: #f0f7e6; 
+
+.dropdown-item-custom:hover {
+    background: var(--green-soft);
 }
 
-/* Tampilan item yang sudah dipilih */
 .dropdown-item-custom.selected {
-    background: #e8f5e9;
-    color: #2e7d32;
-    font-weight: 600;
-}
-
-/* Kotak centang kustom */
-.item-checkbox {
-    width: 17px;
-    height: 17px;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-size: 11px;
-    transition: all 0.15s;
-}
-
-/* Centang hijau saat dipilih */
-.dropdown-item-custom.selected .item-checkbox {
-    background: #3CA200;
-    border-color: #3CA200;
-    color: #fff;
+    background: var(--green-soft);
+    color: var(--green-dark);
+    font-weight: 700;
 }
 
 .dropdown-item-custom.hidden {
     display: none;
 }
 
+.item-checkbox {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 10px;
+    transition: all .15s;
+}
+
+.dropdown-item-custom.selected .item-checkbox {
+    background: var(--green-primary);
+    border-color: var(--green-primary);
+    color: #fff;
+}
+
 .dropdown-empty {
-    padding: 12px 14px;
-    font-size: 13px;
-    color: #888;
+    padding: 10px 14px;
+    font-size: .8rem;
+    color: var(--text-muted);
     text-align: center;
+}
+
+/* Single select */
+.single-select-box {
+    flex-wrap: nowrap;
+    cursor: pointer;
+    user-select: none;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 12px;
+}
+
+.single-select-box::after {
+    content: '▾';
+    font-size: .75rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.single-select-label {
+    flex: 1;
+    font-size: .82rem;
+    color: var(--text-primary);
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.single-select-label:empty::before,
+.single-select-label[data-placeholder] {
+    color: var(--text-muted);
 }
