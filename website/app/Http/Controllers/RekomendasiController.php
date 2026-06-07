@@ -8,74 +8,77 @@ use Illuminate\Http\Request;
 
 class RekomendasiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    private function getHasil(): ?array
+    {
+        return session('hasil_rekomendasi');
+    }
+
     public function index()
     {
         return view('rekomendasi.index', [
             'activeMenu' => 'rekomendasi',
-            'title' => 'Rekomendasi - JTIntern',
+            'title'      => 'Rekomendasi - JTIntern',
         ]);
     }
 
     public function hasil()
     {
-        $hasil = session('hasil_rekomendasi');
+        $hasil = $this->getHasil();
 
         if (! $hasil) {
             return redirect()
-                ->route('rekomendasi.index')
+                ->route('rekomendasi')
                 ->with('error', 'Sesi hasil rekomendasi tidak ditemukan atau sudah kedaluwarsa. Silakan cari ulang.');
         }
 
         return view('rekomendasi.hasil', [
-            'title'         => 'Hasil Rekomendasi - JTIntern',
-            'mahasiswa'     => $hasil['mahasiswa'],
-            'rekomendasi'   => $hasil['rekomendasi'],
-            'generated_at'  => $hasil['generated_at'],
+            'activeMenu'   => 'rekomendasi',
+            'title'        => 'Hasil Rekomendasi - JTIntern',
+            'mahasiswa'    => $hasil['mahasiswa'],
+            'rekomendasi'  => $hasil['rekomendasi'],
+            'generated_at' => $hasil['generated_at'],
         ]);
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * Halaman detail satu lowongan dari hasil rekomendasi.
      */
     public function show($lowongan_id)
     {
-        $hasil = session('hasil_rekomendasi');
+        $hasil = $this->getHasil();
 
         if (! $hasil) {
             return redirect()
-                ->route('rekomendasi.index')
+                ->route('rekomendasi')
                 ->with('error', 'Sesi hasil rekomendasi tidak ditemukan atau sudah kedaluwarsa. Silakan cari ulang.');
         }
 
-        // Fetch lowongan detail from the JTI Portal API
+        // Ambil detail lowongan dari API internal
         try {
-            $response = Http::timeout(10)->get('http://127.0.0.1:8001/api/detail/' . $lowongan_id);
+            $response = Http::timeout(10)->get('http://127.0.0.1:8002/api/detail/' . $lowongan_id);
 
-            if ($response->failed()) {
+            if (! $response->successful()) {
                 return redirect()
                     ->route('rekomendasi.hasil')
                     ->with('error', 'Gagal mengambil data lowongan. Silakan coba lagi.');
             }
 
-            $data = $response->json();
+            $json = $response->json();
+
+            if (empty($json['success']) || empty($json['data'])) {
+                return redirect()
+                    ->route('rekomendasi.hasil')
+                    ->with('error', 'Data lowongan tidak ditemukan.');
+            }
+
+            $data = $json['data'];
+
         } catch (\Exception $e) {
             return redirect()
                 ->route('rekomendasi.hasil')
                 ->with('error', 'Koneksi ke server gagal: ' . $e->getMessage());
         }
 
-        // Find the matching recommendation entry to get the skor_edas
         $rekomendasiItem = collect($hasil['rekomendasi'])
             ->firstWhere('lowongan_id', $lowongan_id);
 
@@ -83,31 +86,35 @@ class RekomendasiController extends Controller
         $persen   = min(100, round($skorEdas * 100));
 
         return view('rekomendasi.detail', [
-            'title'    => ($data['posisi'] ?? 'Detail Lowongan') . ' - JTIntern',
-            'lowongan' => $data,
-            'persen'   => $persen,
+            'activeMenu' => 'rekomendasi',
+            'title'      => ($data['posisi'] ?? 'Detail Lowongan') . ' - JTIntern',
+            'lowongan'   => $data,
+            'persen'     => $persen,
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    public function reset()
+    {
+        session()->forget('hasil_rekomendasi');
+ 
+        return redirect()->route('rekomendasi');
+    }
+
+    public function store(Request $request)
+    {
+        //
+    }
+
     public function edit(RekomendasiModel $rekomendasiModel)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, RekomendasiModel $rekomendasiModel)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(RekomendasiModel $rekomendasiModel)
     {
         //

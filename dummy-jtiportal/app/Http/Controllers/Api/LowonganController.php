@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Api\LowonganResource;
+use App\Http\Resources\LowonganResource;
 use App\Services\LowonganService;
 use Illuminate\Http\JsonResponse;
 

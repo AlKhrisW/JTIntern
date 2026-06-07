@@ -24,4 +24,6 @@ Route::group(['prefix' => 'rekomendasi'], function () {
     Route::get('/', [RekomendasiController::class, 'index'])->name('rekomendasi');
     Route::get('/hasil', [RekomendasiController::class, 'hasil'])->name('rekomendasi.hasil');
     Route::get('/detail/{lowongan_id}', [RekomendasiController::class, 'show'])->name('rekomendasi.detail');
+    Route::get('/reset', [RekomendasiController::class, 'reset'])->name('rekomendasi.reset');
+
 });

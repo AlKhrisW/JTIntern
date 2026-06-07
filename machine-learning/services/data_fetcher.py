@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def get_lowongan_aktif():
-    api_url = os.getenv("API_URL_PERUSAHAAN", "http://127.0.0.1:8001/api/lowongan-aktif")
+    api_url = os.getenv("API_URL_PERUSAHAAN", "http://127.0.0.1:8002/api/lowongan")
     
     try:
         response = requests.get(api_url, timeout=10)

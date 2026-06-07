@@ -33,9 +33,41 @@ new class extends Component {
         'semua' => 'Semua Jenis Instansi',
     ];
 
-    public $daftarMinatBidang = ['Web Development', 'Mobile Development', 'Data Science', 'UI/UX Design', 'Machine Learning', 'Cyber Security', 'DevOps', 'Business Intelligence', 'Digital Marketing', 'Network Engineering'];
+    public $daftarMinatBidang = [
+        'AI Engineer',
+        'Backend Developer',
+        'Blockchain Engineer',
+        'Business Analyst',
+        'Content Creator',
+        'Cybersecurity Analyst',
+        'Data Analyst',
+        'Data Engineer',
+        'DevOps Engineer',
+        'Engineering Staff',
+        'Frontend Developer',
+        'Fullstack Developer',
+        'Game Developer',
+        'IoT Engineer',
+        'IT Governance & Compliance',
+        'IT Support Specialist',
+        'Mobile Developer',
+        'Network Engineer',
+        'Operasional Hotel',
+        'Quality Assurance (QA)',
+        'Social Media Analyst',
+        'Software Engineer',
+        'System Administrator',
+        'System Analyst',
+        'UI/UX Designer',
+        'Web Developer'
+    ];
 
-    public $daftarProvinsi = ['Jawa Timur', 'Jawa Barat', 'DKI Jakarta', 'Jawa Tengah', 'DI Yogyakarta', 'Bali', 'Sumatera Utara', 'Sumatera Selatan', 'Sulawesi Selatan', 'Kalimantan Selatan', 'Riau', 'Lampung'];
+    public $daftarProvinsi = [
+        'Bali',
+        'DKI Jakarta',
+        'Jawa Barat',
+        'Jawa Timur'
+    ];
 
     protected $rules = [
         'nim' => 'required|digits_between:6,10',
@@ -99,10 +131,9 @@ new class extends Component {
             if ($response->successful()) {
                 $result = $response->json();
 
-                // Simpan ke session flash (sekali pakai — terhapus setelah redirect pertama)
-                session()->flash('hasil_rekomendasi', [
-                    'mahasiswa' => $result['mahasiswa'],
-                    'rekomendasi' => $result['rekomendasi'],
+                session()->put('hasil_rekomendasi', [
+                    'mahasiswa'    => $result['mahasiswa'],
+                    'rekomendasi'  => $result['rekomendasi'],
                     'generated_at' => now()->toDateTimeString(),
                 ]);
 

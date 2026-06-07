@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container">
-        <a href="{{ route('rekomendasi.index') }}" class="btn-kembali">
+        <a href="{{ route('rekomendasi.reset') }}" class="btn-kembali">
             ← Kembali ke Form
         </a>
 
@@ -30,7 +30,7 @@
                 <div class="kosong-icon">🔍</div>
                 <h5>Tidak Ada Lowongan yang Sesuai</h5>
                 <p>Coba ubah preferensi lokasi, jenis instansi, atau minat bidang.</p>
-                <a href="{{ route('rekomendasi.index') }}" class="btn-cari-ulang">Ubah Preferensi</a>
+                <a href="{{ route('rekomendasi.reset') }}" class="btn-cari-ulang">Ubah Preferensi</a>
             </div>
         @else
             <p class="jumlah-label">Menampilkan {{ count($rekomendasi) }} Lowongan</p>
@@ -90,7 +90,7 @@
                             </span>
                         </div>
 
-                        <a href="{{ route('lowongan.detail', $item['lowongan_id'] ?? 0) }}" class="btn-detail">
+                        <a href="{{ route('rekomendasi.detail', $item['lowongan_id'] ?? 0) }}" class="btn-detail">
                             Lihat Detail →
                         </a>
 
