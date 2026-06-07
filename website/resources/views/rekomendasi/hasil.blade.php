@@ -22,7 +22,7 @@
         </div>
 
         <div class="alert-session">
-            ⚠ Halaman ini hanya dapat diakses sekali. Muat ulang halaman akan menghapus hasil.
+            ⚠ Halaman ini hanya dapat diakses sekali. Meninggalkan halaman akan menghapus hasil.
         </div>
 
         @if (empty($rekomendasi))
