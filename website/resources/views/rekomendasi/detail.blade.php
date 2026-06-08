@@ -37,8 +37,7 @@
                 $skill = $kualifikasi['skill'] ?? null;
 
                 $periode = $detail['periode'] ?? null;
-                $insentif = is_numeric($detail['insentif'] ?? null) ? (float) $detail['insentif'] : 0;
-                $paid = $insentif > 0;
+                $insentif = $detail['insentif'] ?? null;
 
                 // Badge cocok
                 $persen = $persen ?? 0;
@@ -202,12 +201,11 @@
                                 <div class="info-icon">💰</div>
                                 <div>
                                     <div class="info-text-label">Kompensasi</div>
-                                    {{-- insentif dari detail.insentif bukan lowongan.insentif --}}
-                                    <div class="info-text-value {{ $paid ? 'paid' : 'unpaid' }}">
-                                        @if ($paid)
-                                            Paid Internship
+                                    <div class="info-text-value {{ $insentif ? 'Paid' : 'Unpaid' }}">
+                                        @if ($insentif === 'Paid')
+                                            Berbayar 
                                         @else
-                                            Unpaid Internship
+                                            Tidak Berbayar
                                         @endif
                                     </div>
                                 </div>
