@@ -366,11 +366,11 @@
     line-height: 1.4;
 }
 
-.info-text-value.paid {
+.info-text-value.Paid {
     color: var(--green-dark);
 }
 
-.info-text-value.unpaid {
+.info-text-value.Unpaid {
     color: #dc2626;
 }
 

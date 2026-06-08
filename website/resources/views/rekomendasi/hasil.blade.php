@@ -41,8 +41,7 @@
                     @php
                         $skor = (float) ($item['skor_edas'] ?? 0);
                         $persen = min(100, round($skor * 100));
-                        $insentif = is_numeric($item['insentif'] ?? null) ? (float) $item['insentif'] : 0;
-                        $paid = $insentif > 0;
+                        $insentif = $item['insentif'] ?? null;
                         $periode = $item['periode'] ?? null;
                         $lokasi = $item['lokasi_perusahaan'] ?? '-';
 
@@ -86,7 +85,7 @@
                                 </span>
                             @endif
                             <span class="meta-item">
-                                <span class="meta-icon">💰</span> {{ $paid ? 'Paid' : 'Unpaid' }}
+                                <span class="meta-icon">💰</span> {{ $insentif === 'Paid' ? 'Berbayar' : 'Tidak Berbayar' }}
                             </span>
                         </div>
 

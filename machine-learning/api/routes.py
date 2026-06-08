@@ -71,6 +71,8 @@ async def proses_rekomendasi(payload: InputPayload):
         "posisi",
         "lokasi_perusahaan",
         "jenis_perusahaan",
+        "insentif",
+        "periode",
         "skor_edas",
     ]
 
