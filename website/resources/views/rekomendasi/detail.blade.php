@@ -37,7 +37,12 @@
                 $skill = $kualifikasi['skill'] ?? null;
 
                 $periode = $detail['periode'] ?? null;
+<<<<<<< HEAD
                 $insentif = $detail['insentif'] ?? null;
+=======
+                $insentif = is_numeric($detail['insentif'] ?? null) ? (float) $detail['insentif'] : 0;
+                $paid = $insentif > 0;
+>>>>>>> 09228ee4ec6ed22e77c09f7fbdd55ad56265eea6
 
                 // Badge cocok
                 $persen = $persen ?? 0;

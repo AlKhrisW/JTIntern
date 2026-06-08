@@ -41,7 +41,12 @@
                     @php
                         $skor = (float) ($item['skor_edas'] ?? 0);
                         $persen = min(100, round($skor * 100));
+<<<<<<< HEAD
                         $insentif = $item['insentif'] ?? null;
+=======
+                        $insentif = is_numeric($item['insentif'] ?? null) ? (float) $item['insentif'] : 0;
+                        $paid = $insentif > 0;
+>>>>>>> 09228ee4ec6ed22e77c09f7fbdd55ad56265eea6
                         $periode = $item['periode'] ?? null;
                         $lokasi = $item['lokasi_perusahaan'] ?? '-';
 
