@@ -1,4 +1,4 @@
-@extends('layouts_template')
+@extends('layouts_admin.template')
 
 @section('content')
     <div class="lowongan-page">
