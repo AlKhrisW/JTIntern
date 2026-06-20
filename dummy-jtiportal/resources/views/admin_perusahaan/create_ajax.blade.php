@@ -16,7 +16,7 @@
             </div>
 
             <form id="formTambah"
-                  action="{{ route('admin.perusahaan.store_ajax') }}"
+                  action="{{ route('perusahaan.store_ajax') }}"
                   method="POST"
                   enctype="multipart/form-data">
                 @csrf

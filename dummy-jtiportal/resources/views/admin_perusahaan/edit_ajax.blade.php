@@ -16,7 +16,7 @@
             </div>
 
             <form id="formEdit"
-                  action="{{ route('admin.perusahaan.update_ajax', $perusahaan->perusahaan_id) }}"
+                  action="{{ route('perusahaan.update_ajax', $perusahaan->perusahaan_id) }}"
                   method="POST"
                   enctype="multipart/form-data">
                 @csrf

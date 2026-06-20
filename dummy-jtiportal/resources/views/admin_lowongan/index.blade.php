@@ -1,4 +1,4 @@
-@extends('layouts_admin.template')
+@extends('layouts_template')
 
 @section('content')
     <div class="lowongan-page">
@@ -443,7 +443,7 @@
             // --- Tombol Tambah ---
             document.getElementById('btnTambah')
                 .addEventListener('click', function() {
-                    loadModal(`{{ route('admin.lowongan.create_ajax') }}`);
+                    loadModal(`{{ route('lowongan.create_ajax') }}`);
                 });
 
             // --- Tombol Show ---

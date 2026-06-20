@@ -44,7 +44,7 @@
 
                 {{-- Hapus @method('DELETE'), gunakan POST saja --}}
                 <form id="formDelete"
-                    action="{{ route('admin.lowongan.destroy_ajax', $lowongan->lowongan_id) }}"
+                    action="{{ route('lowongan.destroy_ajax', $lowongan->lowongan_id) }}"
                     method="POST">
                     @csrf
 

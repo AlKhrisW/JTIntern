@@ -9,8 +9,8 @@
         </a>
     </div>
     <ul class="mb-auto">
-        {{-- <li class="nav-item">
-            <a href="{{ route('admin.dashboard') }}" class="nav-link {{ ($activeMenu == 'dashboard')? 'active' : '' }} ">
+        <li class="nav-item">
+            <a href="{{ route('dashboard') }}" class="nav-link {{ ($activeMenu == 'dashboard')? 'active' : '' }} ">
                 <span class="icon">
                     <i class="bi bi-speedometer2"></i>
                 </span>
@@ -18,9 +18,9 @@
                     Dashboard
                 </span>
             </a>
-        </li> --}}
+        </li>
         <li class="nav-item">
-            <a href="{{ route('admin.perusahaan.index') }}" class="nav-link {{ ($activeMenu == 'perusahaan')? 'active' : '' }} ">
+            <a href="{{ route('perusahaan.index') }}" class="nav-link {{ ($activeMenu == 'perusahaan')? 'active' : '' }} ">
                 <span class="icon">
                     <i class="bi bi-briefcase"></i>
                 </span>
@@ -30,7 +30,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('admin.lowongan.index') }}" class="nav-link {{ ($activeMenu == 'lowongan')? 'active' : '' }} ">
+            <a href="{{ route('lowongan.index') }}" class="nav-link {{ ($activeMenu == 'lowongan')? 'active' : '' }} ">
                 <span class="icon">
                     <i class="bi bi-file-earmark-text"></i>
                 </span>
@@ -42,7 +42,7 @@
     </ul>
     {{-- <ul>
         <li class="nav-item">
-            <a href="{{ route('admin.profil.index') }}" class="nav-link {{ ($activeMenu == 'profil')? 'active' : '' }} ">
+            <a href="{{ route('profil.index') }}" class="nav-link {{ ($activeMenu == 'profil')? 'active' : '' }} ">
                 <span class="icon">
                     <i class="bi bi-people"></i>
                 </span>

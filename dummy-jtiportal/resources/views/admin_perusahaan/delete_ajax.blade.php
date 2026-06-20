@@ -44,7 +44,7 @@
 
                 {{-- Hapus @method('DELETE'), gunakan POST saja --}}
                 <form id="formDelete"
-                      action="{{ route('admin.perusahaan.destroy_ajax', $perusahaan->perusahaan_id) }}"
+                      action="{{ route('perusahaan.destroy_ajax', $perusahaan->perusahaan_id) }}"
                       method="POST">
                     @csrf
 

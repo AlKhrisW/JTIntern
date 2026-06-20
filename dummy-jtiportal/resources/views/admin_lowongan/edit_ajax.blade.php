@@ -14,7 +14,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form id="formEdit" action="{{ route('admin.lowongan.update_ajax', $lowongan->lowongan_id) }}"
+            <form id="formEdit" action="{{ route('lowongan.update_ajax', $lowongan->lowongan_id) }}"
                 method="POST">
 
                 @csrf

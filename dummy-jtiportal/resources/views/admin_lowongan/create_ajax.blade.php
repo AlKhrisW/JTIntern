@@ -15,7 +15,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form id="formTambah" action="{{ route('admin.lowongan.store_ajax') }}" method="POST">
+            <form id="formTambah" action="{{ route('lowongan.store_ajax') }}" method="POST">
                 @csrf
                 <input type="hidden" name="status" value="Aktif">
 

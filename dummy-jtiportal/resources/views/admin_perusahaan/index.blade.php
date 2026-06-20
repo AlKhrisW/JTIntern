@@ -1,4 +1,4 @@
-@extends('layouts_admin.template')
+@extends('layouts_template')
 
 @section('content')
 <div class="perusahaan-page">
@@ -321,7 +321,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- Tombol Tambah ---
     document.getElementById('btnTambah').addEventListener('click', function () {
-        loadModal('{{ route('admin.perusahaan.create_ajax') }}');
+        loadModal('{{ route('perusahaan.create_ajax') }}');
     });
 
     // --- Tombol Detail / Show ---
