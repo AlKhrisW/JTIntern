@@ -27,7 +27,7 @@
                     <strong>teknologi pencocokan cerdas kami.</strong>
                 </p>
                 <div class="hero-actions">
-                    <a href="#" class="my-btn-primary">
+                    <a href="{{ route('rekomendasi') }}" class="my-btn-primary">
                         <i class="fas fa-search"></i>
                         Cari Rekomendasi Magang
                     </a>
