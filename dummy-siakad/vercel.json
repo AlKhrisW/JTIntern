@@ -18,7 +18,6 @@
     ],
     "env": {
         "APP_ENV": "production",
-        "APP_DEBUG": "false",
         "CACHE_DRIVER": "array",
         "SESSION_DRIVER": "cookie",
         "QUEUE_DRIVER": "sync",
