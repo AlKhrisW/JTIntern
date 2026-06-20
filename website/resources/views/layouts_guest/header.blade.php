@@ -20,7 +20,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link mx-lg-2 {{ $activeMenu == 'rekomendasi' ? 'active' : '' }}"
-                            href="{{ route('rekomendasi') }}">Rekomendasi</a>
+                            href="{{ route('rekomendasi.reset') }}">Rekomendasi</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link mx-lg-2 {{ $activeMenu == 'tentang' ? 'active' : '' }}"
