@@ -52,7 +52,7 @@ new class extends Component {
         $this->errorMessage = '';
 
         try {
-            $response = Http::timeout(15)->get('jti-siakad.vercel.app/api/mahasiswa/' . $this->nim);
+            $response = Http::timeout(15)->get('https://jti-siakad.vercel.app/api/mahasiswa/' . $this->nim);
             if ($response->successful() && ($data = $response->json())) {
                 $this->mahasiswa = $data['data'] ?? $data;
                 $this->step = 2;
@@ -94,7 +94,7 @@ new class extends Component {
                 'timestamp' => now()->toIso8601String(),
             ];
 
-            $response = Http::timeout(60)->post('jti-rekomendasi.vercel.app/api/hitung-rekomendasi', $payload);
+            $response = Http::timeout(60)->post('https://jti-rekomendasi.vercel.app/api/hitung-rekomendasi', $payload);
 
             if ($response->successful()) {
                 $result = $response->json();

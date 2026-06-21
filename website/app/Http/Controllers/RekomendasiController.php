@@ -55,7 +55,7 @@ class RekomendasiController extends Controller
 
         // Ambil detail lowongan dari API internal
         try {
-            $response = Http::timeout(10)->get('jti-portal.vercel.app/api/detail/' . $lowongan_id);
+            $response = Http::timeout(10)->get('https://jti-portal.vercel.app/api/detail/' . $lowongan_id);
 
             if (! $response->successful()) {
                 return redirect()
